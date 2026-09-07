@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maison Luxury | Collection</title>
+  <title>Maison Luxury | Exclusive Apparel</title>
   <style>
     :root {
       --bg: #0f0f11;
@@ -15,14 +15,63 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding: 20px 15px 100px 15px; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 100px; }
 
-    header { text-align: center; margin-bottom: 30px; }
-    header h1 { font-size: 1.8rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); }
-    header p { font-size: 0.9rem; color: var(--text-muted); margin-top: 5px; }
+    /* HEADER & NAVIGAZIONE HAMBURGER */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      z-index: 90;
+    }
+    .logo { font-size: 1.2rem; letter-spacing: 2px; font-weight: bold; color: var(--accent); text-transform: uppercase; }
 
-    .catalog { display: flex; flex-direction: column; gap: 30px; max-width: 500px; margin: 0 auto; }
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 100;
+    }
+    .hamburger span { width: 25px; height: 3px; background-color: var(--accent); border-radius: 2px; transition: 0.3s; }
 
+    /* MENU LATERALE OVERLAY */
+    .nav-menu {
+      position: fixed;
+      top: 0; right: -100%;
+      width: 70%; height: 100vh;
+      background: var(--card-bg);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 80px 30px;
+      gap: 25px;
+      transition: 0.4s ease;
+      z-index: 95;
+    }
+    .nav-menu.active { right: 0; }
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .nav-link.active-link { color: var(--accent); }
+
+    /* GESTIONE SEZIONI/PAGINE */
+    .page-section { display: none; padding: 20px 15px; max-width: 500px; margin: 0 auto; }
+    .page-section.active { display: block; }
+
+    /* CATALOGO PRODOTTI */
+    .catalog { display: flex; flex-direction: column; gap: 30px; }
     .product-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -30,234 +79,180 @@
       padding: 15px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
-
-    .main-img-container {
-      width: 100%;
-      height: 380px;
-      border-radius: 8px;
-      overflow: hidden;
-      background: #000;
-      margin-bottom: 12px;
-    }
-    .main-img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.2s ease; }
-
-    .thumbs-grid {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-      overflow-x: auto;
-      padding-bottom: 5px;
-    }
-    .thumb {
-      width: 60px;
-      height: 60px;
-      border-radius: 6px;
-      object-fit: cover;
-      border: 2px solid transparent;
-      cursor: pointer;
-      opacity: 0.6;
-      transition: 0.2s;
-    }
+    .main-img-container { width: 100%; height: 380px; border-radius: 8px; overflow: hidden; background: #000; margin-bottom: 12px; }
+    .main-img { width: 100%; height: 100%; object-fit: cover; }
+    .thumbs-grid { display: flex; gap: 10px; margin-bottom: 15px; overflow-x: auto; padding-bottom: 5px; }
+    .thumb { width: 60px; height: 60px; border-radius: 6px; object-fit: cover; border: 2px solid transparent; cursor: pointer; opacity: 0.6; }
     .thumb.active { border-color: var(--accent); opacity: 1; }
-
     .product-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 5px; }
     .product-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; line-height: 1.4; }
     .price { font-size: 1.3rem; color: var(--accent); font-weight: bold; margin-bottom: 15px; }
-
     .option-group { margin-bottom: 15px; }
     .option-group label { display: block; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px; }
-    select {
-      width: 100%;
-      padding: 12px;
-      background: #222228;
-      color: #fff;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 0.95rem;
-      outline: none;
-    }
+    select { width: 100%; padding: 12px; background: #222228; color: #fff; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none; }
+    .btn-buy { width: 100%; padding: 14px; background: var(--accent); color: #000; font-weight: bold; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; text-transform: uppercase; }
 
-    .btn-buy {
-      width: 100%;
-      padding: 14px;
-      background: var(--accent);
-      color: #000;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .btn-buy:active { opacity: 0.8; }
-
-    /* CARRELLO BARRA IN BASSO */
-    .cart-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #18181c;
-      border-top: 1px solid var(--border);
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 -5px 20px rgba(0,0,0,0.8);
-      z-index: 100;
-    }
-    .cart-info { font-size: 0.95rem; font-weight: 600; }
-    .cart-btn-open {
-      background: var(--accent);
-      color: #000;
-      padding: 10px 18px;
-      border-radius: 6px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    /* MODALE CARRELLO */
-    .cart-modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      z-index: 200;
-      justify-content: center;
-      align-items: flex-end;
-    }
-    .cart-content {
+    /* STILI PAGINE HOME & CHI SIAMO */
+    .hero-title { font-size: 2rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; text-align: center; }
+    .home-card, .about-card {
       background: var(--card-bg);
-      width: 100%;
-      max-width: 500px;
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
-      padding: 20px;
-      max-height: 80vh;
-      display: flex;
-      flex-direction: column;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 25px 20px;
+      text-align: center;
+      line-height: 1.6;
     }
-    .cart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 10px;
-    }
-    .cart-items { flex: 1; overflow-y: auto; margin-bottom: 15px; }
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #222;
-    }
-    .cart-item-title { font-size: 0.9rem; font-weight: 600; }
-    .cart-item-sub { font-size: 0.75rem; color: var(--text-muted); }
-    .btn-remove { background: #ff4d4d; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
-    
-    .checkout-btn {
-      width: 100%;
-      padding: 14px;
-      background: #333;
-      color: #888;
-      border: 1px solid #444;
-      border-radius: 8px;
+    .home-card p, .about-card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; }
+    .btn-explore {
+      display: inline-block;
+      padding: 12px 25px;
+      background: var(--accent);
+      color: #000;
       font-weight: bold;
-      font-size: 1rem;
-      cursor: not-allowed;
+      border-radius: 6px;
+      text-decoration: none;
       text-transform: uppercase;
+      font-size: 0.9rem;
     }
+
+    /* BARRA E MODALE CARRELLO */
+    .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #18181c; border-top: 1px solid var(--border); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 80; }
+    .cart-btn-open { background: var(--accent); color: #000; padding: 10px 18px; border-radius: 6px; border: none; font-weight: bold; }
+    .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 200; justify-content: center; align-items: flex-end; }
+    .cart-content { background: var(--card-bg); width: 100%; max-width: 500px; border-top-left-radius: 16px; border-top-right-radius: 16px; padding: 20px; max-height: 80vh; display: flex; flex-direction: column; }
+    .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+    .cart-items { flex: 1; overflow-y: auto; margin-bottom: 15px; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #222; }
+    .btn-remove { background: #ff4d4d; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; }
+    .checkout-btn { width: 100%; padding: 14px; background: #333; color: #888; border: 1px solid #444; border-radius: 8px; font-weight: bold; cursor: not-allowed; text-transform: uppercase; }
   </style>
 </head>
 <body>
 
+  <!-- HEADER FISSO CON LOGO E MENU HAMBURGER -->
   <header>
-    <h1>MAISON LUXURY</h1>
-    <p>Exclusive Apparel Selection</p>
+    <div class="logo">MAISON LUXURY</div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </header>
 
-  <div class="catalog">
+  <!-- MENU DI NAVIGAZIONE A SCOMPARSA -->
+  <div class="nav-menu" id="navMenu">
+    <div class="nav-link active-link" onclick="switchPage('home')">Home</div>
+    <div class="nav-link" onclick="switchPage('prodotti')">Prodotti</div>
+    <div class="nav-link" onclick="switchPage('chi-siamo')">Chi Siamo</div>
+  </div>
 
-    <!-- PRODOTTO 1: GILET RALPH LAUREN -->
-    <div class="product-card" id="prod-gilet">
-      <div class="main-img-container">
-        <img id="img-gilet" class="main-img" src="IMG_5875.jpeg" alt="Gilet Ralph Lauren">
-      </div>
-      
-      <div class="thumbs-grid">
-        <img class="thumb active" src="IMG_5875.jpeg" onclick="changeVariant('gilet', 'IMG_5875.jpeg', 'Nero (Cod. 5875)', this)">
-        <img class="thumb" src="IMG_5877.jpeg" onclick="changeVariant('gilet', 'IMG_5877.jpeg', 'Blu (Cod. 5877)', this)">
-        <img class="thumb" src="IMG_5878.jpeg" onclick="changeVariant('gilet', 'IMG_5878.jpeg', 'Beige (Cod. 5878)', this)">
-      </div>
-
-      <div class="product-title">Gilet Ralph Lauren Classic</div>
-      <div class="product-desc">Gilet smanicato imbottito dal design iconico, rifinito nei minimi dettagli.</div>
-      <div class="price">40,00 €</div>
-
-      <div class="option-group">
-        <label>Colore / Variante</label>
-        <select id="color-gilet" disabled>
-          <option value="Nero (Cod. 5875)">Nero (Cod. 5875)</option>
-          <option value="Blu (Cod. 5877)">Blu (Cod. 5877)</option>
-          <option value="Beige (Cod. 5878)">Beige (Cod. 5878)</option>
-        </select>
-      </div>
-
-      <div class="option-group">
-        <label>Seleziona Taglia</label>
-        <select id="size-gilet">
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-          <option value="XXL">XXL</option>
-        </select>
-      </div>
-
-      <button class="btn-buy" onclick="addToCart('Gilet Ralph Lauren', 40.00, 'color-gilet', 'size-gilet')">Aggiungi al Carrello</button>
+  <!-- PAGINA 1: HOME -->
+  <div id="page-home" class="page-section active">
+    <h1 class="hero-title">MAISON LUXURY</h1>
+    <div class="home-card">
+      <p>
+        Benvenuti nell'universo <strong>Maison Luxury</strong>. Semplice estetica, ricerca maniacale del dettaglio e capi selezionati per chi non cerca l'omologazione, ma l'esclusività pura. 
+      </p>
+      <p>
+        Ogni pezzo del nostro catalogo è disponibile in tiratura limitata. Esplora la collezione e rinnova il tuo stile con capi iconici dal carattere inconfondibile.
+      </p>
+      <button class="btn-explore" onclick="switchPage('prodotti')">Scopri i Prodotti</button>
     </div>
+  </div>
 
+  <!-- PAGINA 2: PRODOTTI -->
+  <div id="page-prodotti" class="page-section">
+    <div class="catalog">
 
-    <!-- PRODOTTO 2: GIUBBOTTO STUSSY -->
-    <div class="product-card" id="prod-stussy">
-      <div class="main-img-container">
-        <img id="img-stussy" class="main-img" src="IMG_5880.jpeg" alt="Giubbotto Stussy">
+      <!-- PRODOTTO 1: GILET RALPH LAUREN -->
+      <div class="product-card" id="prod-gilet">
+        <div class="main-img-container">
+          <img id="img-gilet" class="main-img" src="IMG_5875.jpeg" alt="Gilet Ralph Lauren">
+        </div>
+        
+        <div class="thumbs-grid">
+          <img class="thumb active" src="IMG_5875.jpeg" onclick="changeVariant('gilet', 'IMG_5875.jpeg', 'Nero (Cod. 5875)', this)">
+          <img class="thumb" src="IMG_5877.jpeg" onclick="changeVariant('gilet', 'IMG_5877.jpeg', 'Blu (Cod. 5877)', this)">
+          <img class="thumb" src="IMG_5878.jpeg" onclick="changeVariant('gilet', 'IMG_5878.jpeg', 'Beige (Cod. 5878)', this)">
+        </div>
+
+        <div class="product-title">Gilet Ralph Lauren Classic</div>
+        <div class="product-desc">Gilet smanicato imbottito dal design iconico, rifinito nei minimi dettagli.</div>
+        <div class="price">40,00 €</div>
+
+        <div class="option-group">
+          <label>Colore / Variante</label>
+          <select id="color-gilet" disabled>
+            <option value="Nero (Cod. 5875)">Nero (Cod. 5875)</option>
+            <option value="Blu (Cod. 5877)">Blu (Cod. 5877)</option>
+            <option value="Beige (Cod. 5878)">Beige (Cod. 5878)</option>
+          </select>
+        </div>
+
+        <div class="option-group">
+          <label>Seleziona Taglia</label>
+          <select id="size-gilet">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+          </select>
+        </div>
+
+        <button class="btn-buy" onclick="addToCart('Gilet Ralph Lauren', 40.00, 'color-gilet', 'size-gilet')">Aggiungi al Carrello</button>
       </div>
-      
-      <div class="thumbs-grid">
-        <img class="thumb active" src="IMG_5880.jpeg" onclick="changeVariant('stussy', 'IMG_5880.jpeg', 'Nero / Interno Grigio (Cod. 5880)', this)">
-        <img class="thumb" src="IMG_5882.jpeg" onclick="changeVariant('stussy', 'IMG_5882.jpeg', 'Nero / Interno Rosa (Cod. 5882)', this)">
+
+      <!-- PRODOTTO 2: GIUBBOTTO STUSSY -->
+      <div class="product-card" id="prod-stussy">
+        <div class="main-img-container">
+          <img id="img-stussy" class="main-img" src="IMG_5880.jpeg" alt="Giubbotto Stussy">
+        </div>
+        
+        <div class="thumbs-grid">
+          <img class="thumb active" src="IMG_5880.jpeg" onclick="changeVariant('stussy', 'IMG_5880.jpeg', 'Nero / Interno Grigio (Cod. 5880)', this)">
+          <img class="thumb" src="IMG_5882.jpeg" onclick="changeVariant('stussy', 'IMG_5882.jpeg', 'Nero / Interno Rosa (Cod. 5882)', this)">
+        </div>
+
+        <div class="product-title">Giubbotto Stussy Streetwear</div>
+        <div class="product-desc">Giubbotto dal taglio streetwear contemporaneo con interno a contrasto.</div>
+        <div class="price">60,00 €</div>
+
+        <div class="option-group">
+          <label>Colore / Variante</label>
+          <select id="color-stussy" disabled>
+            <option value="Nero / Interno Grigio (Cod. 5880)">Nero / Interno Grigio (Cod. 5880)</option>
+            <option value="Nero / Interno Rosa (Cod. 5882)">Nero / Interno Rosa (Cod. 5882)</option>
+          </select>
+        </div>
+
+        <div class="option-group">
+          <label>Seleziona Taglia</label>
+          <select id="size-stussy">
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+          </select>
+        </div>
+
+        <button class="btn-buy" onclick="addToCart('Giubbotto Stussy', 60.00, 'color-stussy', 'size-stussy')">Aggiungi al Carrello</button>
       </div>
 
-      <div class="product-title">Giubbotto Stussy Streetwear</div>
-      <div class="product-desc">Giubbotto dal taglio streetwear contemporaneo con interno a contrasto.</div>
-      <div class="price">60,00 €</div>
-
-      <div class="option-group">
-        <label>Colore / Variante</label>
-        <select id="color-stussy" disabled>
-          <option value="Nero / Interno Grigio (Cod. 5880)">Nero / Interno Grigio (Cod. 5880)</option>
-          <option value="Nero / Interno Rosa (Cod. 5882)">Nero / Interno Rosa (Cod. 5882)</option>
-        </select>
-      </div>
-
-      <div class="option-group">
-        <label>Seleziona Taglia</label>
-        <select id="size-stussy">
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-          <option value="XXL">XXL</option>
-        </select>
-      </div>
-
-      <button class="btn-buy" onclick="addToCart('Giubbotto Stussy', 60.00, 'color-stussy', 'size-stussy')">Aggiungi al Carrello</button>
     </div>
+  </div>
 
+  <!-- PAGINA 3: CHI SIAMO -->
+  <div id="page-chi-siamo" class="page-section">
+    <h1 class="hero-title">CHI SIAMO</h1>
+    <div class="about-card">
+      <p>
+        Nati nel cuore della cultura urban contemporanea, <strong>Maison Luxury</strong> seleziona e cura i migliori capi di abbigliamento per chi vuole distinguersi con eleganza e stile streetwear unico.
+      </p>
+      <p>
+        La nostra missione è offrire un'esperienza d'acquisto riservata, garantendo la massima qualità dei materiali e un'assistenza personalizzata per ogni singolo cliente.
+      </p>
+    </div>
   </div>
 
   <!-- BARRA CARRELLO IN BASSO -->
@@ -281,8 +276,28 @@
   </div>
 
   <script>
-    let cart = [];
+    // CAMBIO PAGINA MENU HAMBURGER
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('active');
+    }
 
+    function switchPage(pageId) {
+      // Nasconde tutte le sezioni
+      document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+      // Rimuove lo stato attivo dai link
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active-link'));
+
+      // Mostra la pagina selezionata
+      document.getElementById('page-' + pageId).classList.add('active');
+
+      // Chiude il menu hamburger
+      document.getElementById('navMenu').classList.remove('active');
+
+      // Scrolla in alto
+      window.scrollTo(0, 0);
+    }
+
+    // CAMBIO VARIANTE PRODOTTO
     function changeVariant(prodId, imgSrc, variantName, element) {
       document.getElementById('img-' + prodId).src = imgSrc;
       document.getElementById('color-' + prodId).value = variantName;
@@ -291,6 +306,9 @@
       for (let t of thumbs) { t.classList.remove('active'); }
       element.classList.add('active');
     }
+
+    // GESTIONE CARRELLO
+    let cart = [];
 
     function addToCart(title, price, colorId, sizeId) {
       let color = document.getElementById(colorId).value;
@@ -318,8 +336,8 @@
         cartItemsContainer.innerHTML = cart.map((item, index) => `
           <div class="cart-item">
             <div>
-              <div class="cart-item-title">${item.title} - ${item.price.toFixed(2)}€</div>
-              <div class="cart-item-sub">Var: ${item.color} | Tg: ${item.size}</div>
+              <div style="font-size:0.9rem; font-weight:600;">${item.title} - ${item.price.toFixed(2)}€</div>
+              <div style="font-size:0.75rem; color: var(--text-muted);">Var: ${item.color} | Tg: ${item.size}</div>
             </div>
             <button class="btn-remove" onclick="removeFromCart(${index})">Rimuovi</button>
           </div>
