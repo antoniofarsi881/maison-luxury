@@ -6,29 +6,77 @@
   <title>Maison Luxury | Exclusive Apparel</title>
   <style>
     :root {
-      --bg: #0f0f11;
-      --card-bg: #18181c;
-      --accent: #d4af37;
+      --bg: #08080a;
+      --card-bg: rgba(22, 22, 26, 0.85);
+      --accent: #c5a059; /* Nuova tonalità oro dal logo */
       --text: #f3f3f3;
       --text-muted: #a0a0a0;
       --border: #2a2a30;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding-bottom: 100px; }
+    
+    /* SFONDO CON STELLE E SCRITTE IN DIAGONALE */
+    body { 
+      background-color: var(--bg); 
+      color: var(--text); 
+      padding-bottom: 100px; 
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Effetto Stelle (Punti bianchi sbrilluccicosi) */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 230px 190px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 310px 250px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 370px 80px, #ffffff, rgba(0,0,0,0));
+      background-repeat: repeat;
+      background-size: 400px 400px;
+      opacity: 0.6;
+      z-index: -2;
+      animation: starsGlow 3s infinite alternate;
+    }
+
+    @keyframes starsGlow {
+      0% { opacity: 0.4; }
+      100% { opacity: 0.8; }
+    }
+
+    /* Scritte MAISON LUXURY in diagonale ripetute */
+    body::after {
+      content: "";
+      position: fixed;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='150'><text x='20' y='80' fill='%23c5a059' opacity='0.07' font-size='14' font-weight='bold' font-family='sans-serif' transform='rotate(-30 100 100)'>MAISON LUXURY</text></svg>");
+      background-repeat: repeat;
+      z-index: -1;
+      pointer-events: none;
+    }
 
     header {
       position: sticky;
       top: 0;
-      background: var(--bg);
+      background: rgba(8, 8, 10, 0.95);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
+      padding: 10px 20px;
       z-index: 90;
     }
-    .logo { font-size: 1.2rem; letter-spacing: 2px; font-weight: bold; color: var(--accent); text-transform: uppercase; }
+    
+    /* Logo immagine al posto del testo */
+    .logo-img { height: 45px; object-fit: contain; }
 
     .hamburger {
       display: flex;
@@ -51,6 +99,7 @@
       gap: 25px;
       transition: 0.4s ease;
       z-index: 95;
+      backdrop-filter: blur(15px);
     }
     .nav-menu.active { right: 0; }
     .nav-link {
@@ -73,7 +122,8 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
     }
     .main-img-container { width: 100%; height: 380px; border-radius: 8px; overflow: hidden; background: #000; margin-bottom: 12px; }
     .main-img { width: 100%; height: 100%; object-fit: cover; }
@@ -85,10 +135,9 @@
     .price { font-size: 1.3rem; color: var(--accent); font-weight: bold; margin-bottom: 15px; }
     .option-group { margin-bottom: 15px; }
     .option-group label { display: block; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px; }
-    select { width: 100%; padding: 12px; background: #222228; color: #fff; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none; }
+    select { width: 100%; padding: 12px; background: #1a1a20; color: #fff; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none; }
     .btn-buy { width: 100%; padding: 14px; background: var(--accent); color: #000; font-weight: bold; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; text-transform: uppercase; }
 
-    .hero-title { font-size: 2rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; text-align: center; }
     .home-card, .about-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -96,8 +145,8 @@
       padding: 25px 20px;
       text-align: center;
       line-height: 1.6;
+      backdrop-filter: blur(5px);
     }
-    .home-card p, .about-card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; }
     .btn-explore {
       display: inline-block;
       padding: 12px 25px;
@@ -105,26 +154,27 @@
       color: #000;
       font-weight: bold;
       border-radius: 6px;
-      text-decoration: none;
+      border: none;
       text-transform: uppercase;
       font-size: 0.9rem;
+      cursor: pointer;
     }
 
-    .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #18181c; border-top: 1px solid var(--border); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 80; }
-    .cart-btn-open { background: var(--accent); color: #000; padding: 10px 18px; border-radius: 6px; border: none; font-weight: bold; }
+    .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(24, 24, 28, 0.95); border-top: 1px solid var(--border); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 80; backdrop-filter: blur(10px); }
+    .cart-btn-open { background: var(--accent); color: #000; padding: 10px 18px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; }
     .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 200; justify-content: center; align-items: flex-end; }
     .cart-content { background: var(--card-bg); width: 100%; max-width: 500px; border-top-left-radius: 16px; border-top-right-radius: 16px; padding: 20px; max-height: 80vh; display: flex; flex-direction: column; }
     .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
     .cart-items { flex: 1; overflow-y: auto; margin-bottom: 15px; }
     .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #222; }
-    .btn-remove { background: #ff4d4d; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; }
+    .btn-remove { background: #ff4d4d; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
     .checkout-btn { width: 100%; padding: 14px; background: #333; color: #888; border: 1px solid #444; border-radius: 8px; font-weight: bold; cursor: not-allowed; text-transform: uppercase; }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo">MAISON LUXURY</div>
+    <img src="IMG_5917.jpeg" alt="Maison Luxury Logo" class="logo-img">
     <div class="hamburger" onclick="toggleMenu()">
       <span></span>
       <span></span>
@@ -138,19 +188,14 @@
     <div class="nav-link" onclick="switchPage('chi-siamo')">Chi Siamo</div>
   </div>
 
+  <!-- PAGINA HOME -->
   <div id="page-home" class="page-section active">
-    <h1 class="hero-title">MAISON LUXURY</h1>
     <div class="home-card">
-      <p>
-        Benvenuti nell'universo <strong>Maison Luxury</strong>. Semplice estetica, ricerca maniacale del dettaglio e capi selezionati per chi non cerca l'omologazione, ma l'esclusività pura. 
-      </p>
-      <p>
-        Ogni pezzo del nostro catalogo è disponibile in tiratura limitata. Esplora la collezione e rinnova il tuo stile con capi iconici dal carattere inconfondibile.
-      </p>
       <button class="btn-explore" onclick="switchPage('prodotti')">Scopri i Prodotti</button>
     </div>
   </div>
 
+  <!-- PAGINA PRODOTTI -->
   <div id="page-prodotti" class="page-section">
     <div class="catalog">
 
@@ -268,23 +313,23 @@
     </div>
   </div>
 
+  <!-- PAGINA CHI SIAMO -->
   <div id="page-chi-siamo" class="page-section">
-    <h1 class="hero-title">CHI SIAMO</h1>
     <div class="about-card">
-      <p>
-        Nati nel cuore della cultura urban contemporanea, <strong>Maison Luxury</strong> seleziona e cura i migliori capi di abbigliamento per chi vuole distinguersi con eleganza e stile streetwear unico.
-      </p>
-      <p>
-        La nostra missione è offrire un'esperienza d'acquisto riservata, garantendo la massima qualità dei materiali e un'assistenza personalizzata per ogni singolo cliente.
+      <p style="color: var(--accent); font-weight: bold; margin-bottom: 10px;">MAISON LUXURY</p>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Nati nel cuore della cultura urban contemporanea, selezioniamo e curiamo i migliori capi di abbigliamento per chi vuole distinguersi con eleganza e stile streetwear unico.
       </p>
     </div>
   </div>
 
+  <!-- BARRA CARRELLO -->
   <div class="cart-bar">
     <div class="cart-info">Carrello: <span id="cart-count">0</span> art. (<span id="cart-total">0.00</span> €)</div>
     <button class="cart-btn-open" onclick="toggleCart()">Vedi Carrello</button>
   </div>
 
+  <!-- MODALE CARRELLO -->
   <div class="cart-modal" id="cartModal">
     <div class="cart-content">
       <div class="cart-header">
