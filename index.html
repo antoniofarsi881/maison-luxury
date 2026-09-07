@@ -17,7 +17,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background-color: var(--bg); color: var(--text); padding-bottom: 100px; }
 
-    /* HEADER & NAVIGAZIONE HAMBURGER */
     header {
       position: sticky;
       top: 0;
@@ -40,7 +39,6 @@
     }
     .hamburger span { width: 25px; height: 3px; background-color: var(--accent); border-radius: 2px; transition: 0.3s; }
 
-    /* MENU LATERALE OVERLAY */
     .nav-menu {
       position: fixed;
       top: 0; right: -100%;
@@ -66,11 +64,9 @@
     }
     .nav-link.active-link { color: var(--accent); }
 
-    /* GESTIONE SEZIONI/PAGINE */
     .page-section { display: none; padding: 20px 15px; max-width: 500px; margin: 0 auto; }
     .page-section.active { display: block; }
 
-    /* CATALOGO PRODOTTI */
     .catalog { display: flex; flex-direction: column; gap: 30px; }
     .product-card {
       background: var(--card-bg);
@@ -92,7 +88,6 @@
     select { width: 100%; padding: 12px; background: #222228; color: #fff; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none; }
     .btn-buy { width: 100%; padding: 14px; background: var(--accent); color: #000; font-weight: bold; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; text-transform: uppercase; }
 
-    /* STILI PAGINE HOME & CHI SIAMO */
     .hero-title { font-size: 2rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; text-align: center; }
     .home-card, .about-card {
       background: var(--card-bg);
@@ -115,7 +110,6 @@
       font-size: 0.9rem;
     }
 
-    /* BARRA E MODALE CARRELLO */
     .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #18181c; border-top: 1px solid var(--border); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 80; }
     .cart-btn-open { background: var(--accent); color: #000; padding: 10px 18px; border-radius: 6px; border: none; font-weight: bold; }
     .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 200; justify-content: center; align-items: flex-end; }
@@ -129,7 +123,6 @@
 </head>
 <body>
 
-  <!-- HEADER FISSO CON LOGO E MENU HAMBURGER -->
   <header>
     <div class="logo">MAISON LUXURY</div>
     <div class="hamburger" onclick="toggleMenu()">
@@ -139,14 +132,12 @@
     </div>
   </header>
 
-  <!-- MENU DI NAVIGAZIONE A SCOMPARSA -->
   <div class="nav-menu" id="navMenu">
     <div class="nav-link active-link" onclick="switchPage('home')">Home</div>
     <div class="nav-link" onclick="switchPage('prodotti')">Prodotti</div>
     <div class="nav-link" onclick="switchPage('chi-siamo')">Chi Siamo</div>
   </div>
 
-  <!-- PAGINA 1: HOME -->
   <div id="page-home" class="page-section active">
     <h1 class="hero-title">MAISON LUXURY</h1>
     <div class="home-card">
@@ -160,7 +151,6 @@
     </div>
   </div>
 
-  <!-- PAGINA 2: PRODOTTI -->
   <div id="page-prodotti" class="page-section">
     <div class="catalog">
 
@@ -239,10 +229,45 @@
         <button class="btn-buy" onclick="addToCart('Giubbotto Stussy', 60.00, 'color-stussy', 'size-stussy')">Aggiungi al Carrello</button>
       </div>
 
+      <!-- PRODOTTO 3: FELPA CHROME HEARTS X BAPE -->
+      <div class="product-card" id="prod-chrome-bape">
+        <div class="main-img-container">
+          <img id="img-chrome-bape" class="main-img" src="IMG_5903.jpeg" alt="Felpa Chrome Hearts x Bape">
+        </div>
+        
+        <div class="thumbs-grid">
+          <img class="thumb active" src="IMG_5903.jpeg" onclick="changeVariant('chrome-bape', 'IMG_5903.jpeg', 'Nero', this)">
+          <img class="thumb" src="IMG_5904.jpeg" onclick="changeVariant('chrome-bape', 'IMG_5904.jpeg', 'Bianco', this)">
+        </div>
+
+        <div class="product-title">Felpa Chrome Hearts x Bape</div>
+        <div class="product-desc">Felpa con cappuccio esclusiva in collaborazione, taglio rilassato con stampa iconica.</div>
+        <div class="price">35,00 €</div>
+
+        <div class="option-group">
+          <label>Colore / Variante</label>
+          <select id="color-chrome-bape" disabled>
+            <option value="Nero">Nero</option>
+            <option value="Bianco">Bianco</option>
+          </select>
+        </div>
+
+        <div class="option-group">
+          <label>Seleziona Taglia</label>
+          <select id="size-chrome-bape">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+
+        <button class="btn-buy" onclick="addToCart('Felpa Chrome Hearts x Bape', 35.00, 'color-chrome-bape', 'size-chrome-bape')">Aggiungi al Carrello</button>
+      </div>
+
     </div>
   </div>
 
-  <!-- PAGINA 3: CHI SIAMO -->
   <div id="page-chi-siamo" class="page-section">
     <h1 class="hero-title">CHI SIAMO</h1>
     <div class="about-card">
@@ -255,13 +280,11 @@
     </div>
   </div>
 
-  <!-- BARRA CARRELLO IN BASSO -->
   <div class="cart-bar">
     <div class="cart-info">Carrello: <span id="cart-count">0</span> art. (<span id="cart-total">0.00</span> €)</div>
     <button class="cart-btn-open" onclick="toggleCart()">Vedi Carrello</button>
   </div>
 
-  <!-- MODALE CARRELLO -->
   <div class="cart-modal" id="cartModal">
     <div class="cart-content">
       <div class="cart-header">
@@ -276,28 +299,20 @@
   </div>
 
   <script>
-    // CAMBIO PAGINA MENU HAMBURGER
     function toggleMenu() {
       document.getElementById('navMenu').classList.toggle('active');
     }
 
     function switchPage(pageId) {
-      // Nasconde tutte le sezioni
       document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
-      // Rimuove lo stato attivo dai link
       document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active-link'));
 
-      // Mostra la pagina selezionata
       document.getElementById('page-' + pageId).classList.add('active');
-
-      // Chiude il menu hamburger
       document.getElementById('navMenu').classList.remove('active');
 
-      // Scrolla in alto
       window.scrollTo(0, 0);
     }
 
-    // CAMBIO VARIANTE PRODOTTO
     function changeVariant(prodId, imgSrc, variantName, element) {
       document.getElementById('img-' + prodId).src = imgSrc;
       document.getElementById('color-' + prodId).value = variantName;
@@ -307,7 +322,6 @@
       element.classList.add('active');
     }
 
-    // GESTIONE CARRELLO
     let cart = [];
 
     function addToCart(title, price, colorId, sizeId) {
