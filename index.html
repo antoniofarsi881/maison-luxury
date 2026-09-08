@@ -24,7 +24,7 @@
       overflow-x: hidden;
     }
 
-    /* 1. SFONDO CON TANTE STELLE LUMINOSE (Punti bianchi sbrilluccicosi molto frequenti) */
+    /* SFONDO CON TANTE STELLE LUMINOSE */
     body::before {
       content: "";
       position: fixed;
@@ -54,7 +54,7 @@
       100% { opacity: 1; }
     }
 
-    /* 2. TRAMA MOLTO PIÙ FREQUENTE DI SCRITTE MAISON LUXURY IN DIAGONALE */
+    /* TRAMA SCRITTE MAISON LUXURY IN DIAGONALE */
     body::after {
       content: "";
       position: fixed;
@@ -79,7 +79,6 @@
       z-index: 90;
     }
     
-    /* LOGO MOLTO PIÙ GRANDE E LARGO */
     .logo-img { 
       height: 85px; 
       max-width: 320px;
@@ -122,13 +121,15 @@
     }
     .nav-link.active-link { color: var(--accent); }
 
-    .page-section { display: none; padding: 30px 20px; max-width: 650px; margin: 0 auto; }
+    .page-section { display: none; padding: 30px 15px; max-width: 1000px; margin: 0 auto; }
     .page-section.active { display: block; }
 
-    /* CONTENUTI SENZA ALCUNA CORNICE / SCATOLA */
+    /* CONTENUTI HOME E CHI SIAMO */
     .hero-container, .about-container {
       text-align: center;
       padding: 10px 0;
+      max-width: 650px;
+      margin: 0 auto;
     }
 
     .hero-subtitle, .about-subtitle {
@@ -175,27 +176,53 @@
       box-shadow: 0 0 25px rgba(197, 160, 89, 0.3);
     }
 
-    /* CATALOGO PRODOTTI */
-    .catalog { display: flex; flex-direction: column; gap: 35px; }
+    /* CATALOGO PRODOTTI A GRIGLIA (2 PER RIGA) */
+    .catalog { 
+      display: grid; 
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 15px; 
+    }
+
+    @media (max-width: 500px) {
+      .catalog {
+        gap: 10px;
+      }
+    }
+
     .product-card {
       background: rgba(15, 15, 20, 0.75);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 18px;
+      padding: 12px;
       backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    .main-img-container { width: 100%; height: 380px; border-radius: 8px; overflow: hidden; background: #000; margin-bottom: 12px; }
+    
+    .main-img-container { 
+      width: 100%; 
+      height: 220px; 
+      border-radius: 8px; 
+      overflow: hidden; 
+      background: #000; 
+      margin-bottom: 10px; 
+    }
     .main-img { width: 100%; height: 100%; object-fit: cover; }
-    .thumbs-grid { display: flex; gap: 10px; margin-bottom: 15px; overflow-x: auto; padding-bottom: 5px; }
-    .thumb { width: 60px; height: 60px; border-radius: 6px; object-fit: cover; border: 2px solid transparent; cursor: pointer; opacity: 0.5; }
+    
+    .thumbs-grid { display: flex; gap: 6px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 4px; }
+    .thumb { width: 42px; height: 42px; border-radius: 4px; object-fit: cover; border: 2px solid transparent; cursor: pointer; opacity: 0.5; flex-shrink: 0; }
     .thumb.active { border-color: var(--accent); opacity: 1; }
-    .product-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 6px; }
-    .product-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; line-height: 1.5; }
-    .price { font-size: 1.35rem; color: var(--accent); font-weight: bold; margin-bottom: 15px; }
-    .option-group { margin-bottom: 15px; }
-    .option-group label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 6px; }
-    select { width: 100%; padding: 12px; background: #121216; color: #fff; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; outline: none; }
-    .btn-buy { width: 100%; padding: 14px; background: var(--accent); color: #000; font-weight: bold; border: none; border-radius: 6px; font-size: 0.95rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+    
+    .product-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 4px; line-height: 1.2; }
+    .product-desc { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.3; min-height: 32px; }
+    .price { font-size: 1.15rem; color: var(--accent); font-weight: bold; margin-bottom: 10px; }
+    
+    .option-group { margin-bottom: 10px; }
+    .option-group label { display: block; font-size: 0.70rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 4px; }
+    select { width: 100%; padding: 8px; background: #121216; color: #fff; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; outline: none; }
+    
+    .btn-buy { width: 100%; padding: 12px 5px; background: var(--accent); color: #000; font-weight: bold; border: none; border-radius: 6px; font-size: 0.82rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; margin-top: auto; }
 
     /* BARRA CARRELLO */
     .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(8, 8, 12, 0.96); border-top: 1px solid var(--border); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 80; backdrop-filter: blur(10px); }
@@ -226,7 +253,7 @@
     <div class="nav-link" onclick="switchPage('chi-siamo')">Chi Siamo</div>
   </div>
 
-  <!-- PAGINA HOME (COMPLETAMENTE SENZA CORNICI + TESTO LUNGO E SERIO) -->
+  <!-- PAGINA HOME -->
   <div id="page-home" class="page-section active">
     <div class="hero-container">
       <div class="hero-subtitle">Maison Luxury • Official Selection</div>
@@ -254,7 +281,7 @@
     </div>
   </div>
 
-  <!-- PAGINA PRODOTTI -->
+  <!-- PAGINA PRODOTTI (GRIGLIA 2 SOTTO 2) -->
   <div id="page-prodotti" class="page-section">
     <div class="catalog">
 
@@ -271,11 +298,11 @@
         </div>
 
         <div class="product-title">Gilet RL Classic</div>
-        <div class="product-desc">Gilet smanicato imbottito dal design iconico, rifinito nei minimi dettagli.</div>
+        <div class="product-desc">Gilet smanicato imbottito dal design iconico.</div>
         <div class="price">40,00 €</div>
 
         <div class="option-group">
-          <label>Colore / Variante</label>
+          <label>Colore</label>
           <select id="color-gilet" disabled>
             <option value="Nero">Nero</option>
             <option value="Blu">Blu</option>
@@ -284,7 +311,7 @@
         </div>
 
         <div class="option-group">
-          <label>Seleziona Taglia</label>
+          <label>Taglia</label>
           <select id="size-gilet">
             <option value="S">S</option>
             <option value="M">M</option>
@@ -294,7 +321,7 @@
           </select>
         </div>
 
-        <button class="btn-buy" onclick="addToCart('Gilet RL Classic', 40.00, 'color-gilet', 'size-gilet')">Aggiungi al Carrello</button>
+        <button class="btn-buy" onclick="addToCart('Gilet RL Classic', 40.00, 'color-gilet', 'size-gilet')">Aggiungi</button>
       </div>
 
       <!-- PRODOTTO 2: GIUBBOTTO STU STREETWEAR -->
@@ -304,24 +331,24 @@
         </div>
         
         <div class="thumbs-grid">
-          <img class="thumb active" src="IMG_5880.jpeg" onclick="changeVariant('stussy', 'IMG_5880.jpeg', 'Nero / Interno Grigio', this)">
-          <img class="thumb" src="IMG_5882.jpeg" onclick="changeVariant('stussy', 'IMG_5882.jpeg', 'Nero / Interno Rosa', this)">
+          <img class="thumb active" src="IMG_5880.jpeg" onclick="changeVariant('stussy', 'IMG_5880.jpeg', 'Nero / Int. Grigio', this)">
+          <img class="thumb" src="IMG_5882.jpeg" onclick="changeVariant('stussy', 'IMG_5882.jpeg', 'Nero / Int. Rosa', this)">
         </div>
 
         <div class="product-title">Giubbotto Stu Streetwear</div>
-        <div class="product-desc">Giubbotto dal taglio streetwear contemporaneo con interno a contrasto.</div>
+        <div class="product-desc">Giubbotto streetwear con interno a contrasto.</div>
         <div class="price">60,00 €</div>
 
         <div class="option-group">
-          <label>Colore / Variante</label>
+          <label>Colore</label>
           <select id="color-stussy" disabled>
-            <option value="Nero / Interno Grigio">Nero / Interno Grigio</option>
-            <option value="Nero / Interno Rosa">Nero / Interno Rosa</option>
+            <option value="Nero / Int. Grigio">Nero / Int. Grigio</option>
+            <option value="Nero / Int. Rosa">Nero / Int. Rosa</option>
           </select>
         </div>
 
         <div class="option-group">
-          <label>Seleziona Taglia</label>
+          <label>Taglia</label>
           <select id="size-stussy">
             <option value="M">M</option>
             <option value="L">L</option>
@@ -330,7 +357,7 @@
           </select>
         </div>
 
-        <button class="btn-buy" onclick="addToCart('Giubbotto Stu Streetwear', 60.00, 'color-stussy', 'size-stussy')">Aggiungi al Carrello</button>
+        <button class="btn-buy" onclick="addToCart('Giubbotto Stu Streetwear', 60.00, 'color-stussy', 'size-stussy')">Aggiungi</button>
       </div>
 
       <!-- PRODOTTO 3: FELPA CH X BP -->
@@ -345,11 +372,11 @@
         </div>
 
         <div class="product-title">Felpa Ch x Bp</div>
-        <div class="product-desc">Felpa con cappuccio esclusiva in collaborazione, taglio rilassato con stampa iconica.</div>
+        <div class="product-desc">Felpa con cappuccio in collaborazione iconica.</div>
         <div class="price">30,00 €</div>
 
         <div class="option-group">
-          <label>Colore / Variante</label>
+          <label>Colore</label>
           <select id="color-chrome-bape" disabled>
             <option value="Nero">Nero</option>
             <option value="Bianco">Bianco</option>
@@ -357,7 +384,7 @@
         </div>
 
         <div class="option-group">
-          <label>Seleziona Taglia</label>
+          <label>Taglia</label>
           <select id="size-chrome-bape">
             <option value="S">S</option>
             <option value="M">M</option>
@@ -366,7 +393,7 @@
           </select>
         </div>
 
-        <button class="btn-buy" onclick="addToCart('Felpa Ch x Bp', 30.00, 'color-chrome-bape', 'size-chrome-bape')">Aggiungi al Carrello</button>
+        <button class="btn-buy" onclick="addToCart('Felpa Ch x Bp', 30.00, 'color-chrome-bape', 'size-chrome-bape')">Aggiungi</button>
       </div>
 
       <!-- PRODOTTO 4: FELPA CON STAMPA AM -->
@@ -381,11 +408,11 @@
         </div>
 
         <div class="product-title">Felpa con stampa AM</div>
-        <div class="product-desc">Felpa con grafica AM esclusiva, vestibilità moderna e materiali di alta qualità.</div>
+        <div class="product-desc">Felpa con grafica AM esclusiva.</div>
         <div class="price">30,00 €</div>
 
         <div class="option-group">
-          <label>Colore / Variante</label>
+          <label>Colore</label>
           <select id="color-stampa-am" disabled>
             <option value="Nero">Nero</option>
             <option value="Bianco">Bianco</option>
@@ -393,7 +420,7 @@
         </div>
 
         <div class="option-group">
-          <label>Seleziona Taglia</label>
+          <label>Taglia</label>
           <select id="size-stampa-am">
             <option value="S">S</option>
             <option value="M">M</option>
@@ -402,7 +429,7 @@
           </select>
         </div>
 
-        <button class="btn-buy" onclick="addToCart('Felpa con stampa AM', 30.00, 'color-stampa-am', 'size-stampa-am')">Aggiungi al Carrello</button>
+        <button class="btn-buy" onclick="addToCart('Felpa con stampa AM', 30.00, 'color-stampa-am', 'size-stampa-am')">Aggiungi</button>
       </div>
 
       <!-- PRODOTTO 5: FELPA CLASSICA AM -->
@@ -417,11 +444,11 @@
         </div>
 
         <div class="product-title">Felpa classica AM</div>
-        <div class="product-desc">Modello intramontabile e pulito con logo AM essenziale, ideale per ogni outfit.</div>
+        <div class="product-desc">Modello essenziale e pulito con logo AM.</div>
         <div class="price">30,00 €</div>
 
         <div class="option-group">
-          <label>Colore / Variante</label>
+          <label>Colore</label>
           <select id="color-classica-am" disabled>
             <option value="Nero">Nero</option>
             <option value="Bianco">Bianco</option>
@@ -429,7 +456,7 @@
         </div>
 
         <div class="option-group">
-          <label>Seleziona Taglia</label>
+          <label>Taglia</label>
           <select id="size-classica-am">
             <option value="S">S</option>
             <option value="M">M</option>
@@ -438,13 +465,123 @@
           </select>
         </div>
 
-        <button class="btn-buy" onclick="addToCart('Felpa classica AM', 30.00, 'color-classica-am', 'size-classica-am')">Aggiungi al Carrello</button>
+        <button class="btn-buy" onclick="addToCart('Felpa classica AM', 30.00, 'color-classica-am', 'size-classica-am')">Aggiungi</button>
+      </div>
+
+      <!-- NUOVO PRODOTTO 6: GIACCA ANTIVENTO NK -->
+      <div class="product-card" id="prod-antivento-nk">
+        <div class="main-img-container">
+          <img id="img-antivento-nk" class="main-img" src="IMG_5937.jpeg" alt="Giacca Antivento NK">
+        </div>
+        
+        <div class="thumbs-grid">
+          <img class="thumb active" src="IMG_5937.jpeg" onclick="changeVariantNk('Nero', 'IMG_5937.jpeg', this)">
+          <img class="thumb" src="IMG_5939.jpeg" onclick="changeVariantNk('Beige', 'IMG_5939.jpeg', this)">
+          <img class="thumb" src="IMG_5941.jpeg" onclick="changeVariantNk('Kaki', 'IMG_5941.jpeg', this)">
+        </div>
+
+        <div class="product-title">Giacca Antivento NK</div>
+        <div class="product-desc">Giacca tecnica antivento leggera e versatile.</div>
+        <div class="price">30,00 €</div>
+
+        <div class="option-group">
+          <label>Colore</label>
+          <select id="color-antivento-nk" disabled>
+            <option value="Nero">Nero</option>
+            <option value="Beige">Beige</option>
+            <option value="Kaki">Kaki</option>
+          </select>
+        </div>
+
+        <div class="option-group">
+          <label>Taglia</label>
+          <select id="size-antivento-nk">
+            <option value="S">S</option>
+          </select>
+        </div>
+
+        <button class="btn-buy" onclick="addToCart('Giacca Antivento NK', 30.00, 'color-antivento-nk', 'size-antivento-nk')">Aggiungi</button>
+      </div>
+
+      <!-- NUOVO PRODOTTO 7: LONGSLEEVE CH -->
+      <div class="product-card" id="prod-longsleeve-ch">
+        <div class="main-img-container">
+          <img id="img-longsleeve-ch" class="main-img" src="IMG_5948.jpeg" alt="Longsleeve CH">
+        </div>
+        
+        <div class="thumbs-grid">
+          <img class="thumb active" src="IMG_5948.jpeg" onclick="changeVariant('longsleeve-ch', 'IMG_5948.jpeg', 'Bianco e Nero', this)">
+        </div>
+
+        <div class="product-title">Longsleeve CH</div>
+        <div class="product-desc">Maglia a maniche lunghe dal taglio streetwear.</div>
+        <div class="price">25,00 €</div>
+
+        <div class="option-group">
+          <label>Colore</label>
+          <select id="color-longsleeve-ch" disabled>
+            <option value="Bianco e Nero">Bianco e Nero</option>
+          </select>
+        </div>
+
+        <div class="option-group">
+          <label>Taglia</label>
+          <select id="size-longsleeve-ch">
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+            <option value="3XL">3XL</option>
+          </select>
+        </div>
+
+        <button class="btn-buy" onclick="addToCart('Longsleeve CH', 25.00, 'color-longsleeve-ch', 'size-longsleeve-ch')">Aggiungi</button>
+      </div>
+
+      <!-- NUOVO PRODOTTO 8: FELPA CON ZIP RL -->
+      <div class="product-card" id="prod-zip-rl">
+        <div class="main-img-container">
+          <img id="img-zip-rl" class="main-img" src="IMG_5956.jpeg" alt="Felpa con Zip RL">
+        </div>
+        
+        <div class="thumbs-grid">
+          <img class="thumb active" src="IMG_5956.jpeg" onclick="changeVariant('zip-rl', 'IMG_5956.jpeg', 'Nero', this)">
+          <img class="thumb" src="IMG_5958.jpeg" onclick="changeVariant('zip-rl', 'IMG_5958.jpeg', 'Bianco', this)">
+          <img class="thumb" src="IMG_5952.jpeg" onclick="changeVariant('zip-rl', 'IMG_5952.jpeg', 'Grigio', this)">
+          <img class="thumb" src="IMG_5954.jpeg" onclick="changeVariant('zip-rl', 'IMG_5954.jpeg', 'Blu', this)">
+        </div>
+
+        <div class="product-title">Felpa con Zip RL</div>
+        <div class="product-desc">Felpa con zip integrale, morbida e rifinita.</div>
+        <div class="price">30,00 €</div>
+
+        <div class="option-group">
+          <label>Colore</label>
+          <select id="color-zip-rl" disabled>
+            <option value="Nero">Nero</option>
+            <option value="Bianco">Bianco</option>
+            <option value="Grigio">Grigio</option>
+            <option value="Blu">Blu</option>
+          </select>
+        </div>
+
+        <div class="option-group">
+          <label>Taglia</label>
+          <select id="size-zip-rl">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+
+        <button class="btn-buy" onclick="addToCart('Felpa con Zip RL', 30.00, 'color-zip-rl', 'size-zip-rl')">Aggiungi</button>
       </div>
 
     </div>
   </div>
 
-  <!-- PAGINA CHI SIAMO (COMPLETAMENTE SENZA CORNICI) -->
+  <!-- PAGINA CHI SIAMO -->
   <div id="page-chi-siamo" class="page-section">
     <div class="about-container">
       <div class="about-subtitle">Maison Luxury Philosophy</div>
@@ -506,6 +643,18 @@
       let thumbs = element.parentElement.getElementsByClassName('thumb');
       for (let t of thumbs) { t.classList.remove('active'); }
       element.classList.add('active');
+    }
+
+    /* Gestione speciale per la Giacca NK per limitare la variante Nero solo alla taglia S */
+    function changeVariantNk(color, imgSrc, element) {
+      changeVariant('antivento-nk', imgSrc, color, element);
+      let sizeSelect = document.getElementById('size-antivento-nk');
+      
+      if (color === 'Nero') {
+        sizeSelect.innerHTML = '<option value="S">S</option>';
+      } else {
+        sizeSelect.innerHTML = '<option value="S">S</option><option value="M">M</option><option value="L">L</option>';
+      }
     }
 
     let cart = [];
