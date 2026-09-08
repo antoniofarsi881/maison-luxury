@@ -121,14 +121,32 @@
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
+      z-index: 96;
+      padding: 5px;
     }
-    .hamburger span { width: 26px; height: 3px; background-color: var(--accent); border-radius: 2px; }
+    .hamburger span { width: 26px; height: 3px; background-color: var(--accent); border-radius: 2px; transition: 0.3s; }
 
+    /* OVERLAY SFONDO SCURO QUANDO IL MENU E APERTO */
+    .menu-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 94;
+    }
+    .menu-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* NAV MENU */
     .nav-menu {
       position: fixed;
       top: 0; right: -100%;
       width: 75%; height: 100vh;
-      background: rgba(8, 8, 12, 0.97);
+      background: rgba(8, 8, 12, 0.98);
       border-left: 1px solid var(--border);
       display: flex;
       flex-direction: column;
@@ -139,6 +157,15 @@
       backdrop-filter: blur(15px);
     }
     .nav-menu.active { right: 0; }
+    
+    .close-menu-btn {
+      position: absolute;
+      top: 25px; right: 25px;
+      color: var(--accent);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
     .nav-link {
       color: var(--text);
       text-decoration: none;
@@ -330,7 +357,11 @@
     </div>
   </header>
 
+  <!-- OVERLAY ED ELEMENTI MENU -->
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
   <div class="nav-menu" id="navMenu">
+    <div class="close-menu-btn" onclick="closeMenu()">&times;</div>
     <div class="nav-link active-link" onclick="switchPage('home')">Home</div>
     <div class="nav-link" onclick="switchPage('prodotti')">Prodotti</div>
     <div class="nav-link" onclick="switchPage('chi-siamo')">Chi Siamo</div>
@@ -444,7 +475,7 @@
   </div>
 
   <script>
-    // DATABASE PRODOTTI AGGIORNATO
+    // DATABASE PRODOTTI AGGIORNATO (DISTINZIONE AM E AM PAR)
     const products = [
       {
         id: 'gilet',
@@ -559,7 +590,7 @@
       {
         id: 'maglione-am-par',
         title: 'Maglione AM PAR',
-        brand: 'AM',
+        brand: 'AM PAR', // MARCA DIVERSA DA 'AM'
         price: 30.00,
         desc: 'Maglione rifinito a maglia morbida con combinazioni cromatiche esclusive.',
         variants: [
@@ -612,7 +643,24 @@
     let selectedVariant = null;
     let cart = [];
 
-    // FUNZIONE PER OTTENERE TUTTE LE TAGLIE ASSOCIATE AD UN PRODOTTO
+    // GESTIONE MENU APERTURA/CHIUSURA
+    function toggleMenu() {
+      const menu = document.getElementById('navMenu');
+      const overlay = document.getElementById('menuOverlay');
+      if (menu.classList.contains('active')) {
+        closeMenu();
+      } else {
+        menu.classList.add('active');
+        overlay.classList.add('active');
+      }
+    }
+
+    function closeMenu() {
+      document.getElementById('navMenu').classList.remove('active');
+      document.getElementById('menuOverlay').classList.remove('active');
+    }
+
+    // OTTONI TUTTE LE TAGLIE ASSOCIATE AD UN PRODOTTO
     function getAllSizesForProduct(product) {
       let sizes = new Set();
       if (product.sizes) {
@@ -626,7 +674,7 @@
       return Array.from(sizes);
     }
 
-    // GENERAZIONE AUTOMATICA DEI FILTRI NELL'INTERFACCIA
+    // GENERAZIONE FILTRI
     function populateFilterDropdowns() {
       const brandSelect = document.getElementById('brand-filter');
       const sizeSelect = document.getElementById('size-filter');
@@ -636,7 +684,12 @@
 
       products.forEach(p => {
         if (p.brand) {
-          p.brand.split(' x ').forEach(b => brands.add(b.trim()));
+          // Gestisce collaborazioni mantenendo intatte le marche composte
+          if(p.brand.includes(' x ')) {
+            p.brand.split(' x ').forEach(b => brands.add(b.trim()));
+          } else {
+            brands.add(p.brand.trim());
+          }
         }
         getAllSizesForProduct(p).forEach(s => sizes.add(s));
       });
@@ -649,7 +702,7 @@
         brandSelect.appendChild(opt);
       });
 
-      // Popola Taglie (Ordinamento standard taglie)
+      // Popola Taglie
       const sizeOrder = ['S', 'M', 'L', 'XL', 'XXL', '3XL'];
       Array.from(sizes).sort((a,b) => sizeOrder.indexOf(a) - sizeOrder.indexOf(b)).forEach(s => {
         const opt = document.createElement('option');
@@ -659,13 +712,19 @@
       });
     }
 
-    // APPLICAZIONE DINAMICA FILTRI
+    // APPLICAZIONE FILTRI
     function applyFilters() {
       const selectedBrand = document.getElementById('brand-filter').value;
       const selectedSize = document.getElementById('size-filter').value;
 
       const filtered = products.filter(p => {
-        const matchBrand = (selectedBrand === 'ALL') || (p.brand && p.brand.includes(selectedBrand));
+        let matchBrand = false;
+        if (selectedBrand === 'ALL') {
+          matchBrand = true;
+        } else if (p.brand === selectedBrand || p.brand.includes(selectedBrand)) {
+          matchBrand = true;
+        }
+
         const productSizes = getAllSizesForProduct(p);
         const matchSize = (selectedSize === 'ALL') || productSizes.includes(selectedSize);
 
@@ -695,16 +754,12 @@
       `).join('');
     }
 
-    function toggleMenu() {
-      document.getElementById('navMenu').classList.toggle('active');
-    }
-
     function switchPage(pageId) {
       document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
       document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active-link'));
 
       document.getElementById('page-' + pageId).classList.add('active');
-      document.getElementById('navMenu').classList.remove('active');
+      closeMenu();
 
       if (pageId === 'carrello') {
         renderCartPage();
@@ -713,7 +768,7 @@
       window.scrollTo(0, 0);
     }
 
-    // APRI PAGINA DETTAGLIO
+    // DETTAGLIO PRODOTTO
     function openProductDetail(productId) {
       currentProduct = products.find(p => p.id === productId);
       selectedVariant = currentProduct.variants[0];
@@ -766,7 +821,7 @@
       sizeSelect.innerHTML = availableSizes.map(s => `<option value="${s}">${s}</option>`).join('');
     }
 
-    // GESTIONE CARRELLO
+    // CARRELLO
     function addCurrentToCart() {
       const size = document.getElementById('detail-size-select').value;
       cart.push({
