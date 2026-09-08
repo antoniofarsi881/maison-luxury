@@ -7,7 +7,7 @@
   <style>
     :root {
       --bg: #040406;
-      --accent: #c5a059; /* Tonalità oro estratta dal logo */
+      --accent: #c5a059;
       --text: #ffffff;
       --text-muted: #c0c0c8;
       --border: #22222a;
@@ -18,13 +18,12 @@
     body { 
       background-color: var(--bg); 
       color: var(--text); 
-      padding-bottom: 110px; 
       position: relative;
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* SFONDO CON TANTE STELLE LUMINOSE */
+    /* SFONDO STELLE */
     body::before {
       content: "";
       position: fixed;
@@ -37,11 +36,7 @@
         radial-gradient(1.5px 1.5px at 110px 40px, #ffffff, rgba(0,0,0,0)),
         radial-gradient(2px 2px at 140px 130px, #ffffff, rgba(0,0,0,0)),
         radial-gradient(1px 1px at 170px 70px, #ffffff, rgba(0,0,0,0)),
-        radial-gradient(2.5px 2.5px at 200px 170px, #ffffff, rgba(0,0,0,0)),
-        radial-gradient(1.5px 1.5px at 230px 15px, #ffffff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 260px 110px, #ffffff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 290px 45px, #ffffff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 320px 150px, #ffffff, rgba(0,0,0,0));
+        radial-gradient(2.5px 2.5px at 200px 170px, #ffffff, rgba(0,0,0,0));
       background-repeat: repeat;
       background-size: 180px 180px;
       opacity: 0.85;
@@ -54,7 +49,7 @@
       100% { opacity: 1; }
     }
 
-    /* TRAMA SCRITTE MAISON LUXURY IN DIAGONALE */
+    /* TRAMA DIAGONALE MAISON LUXURY */
     body::after {
       content: "";
       position: fixed;
@@ -65,7 +60,7 @@
       pointer-events: none;
     }
 
-    /* TESTATA */
+    /* HEADER */
     header {
       position: sticky;
       top: 0;
@@ -75,15 +70,51 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
+      padding: 12px 18px;
       z-index: 90;
     }
     
     .logo-img { 
-      height: 85px; 
-      max-width: 320px;
+      height: 70px; 
+      max-width: 220px;
       object-fit: contain; 
       display: block;
+      cursor: pointer;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* NUOVO TASTO VEDI CARRELLO NELL'HEADER */
+    .cart-header-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(197, 160, 89, 0.15);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .cart-header-btn svg { width: 18px; height: 18px; fill: var(--accent); }
+    .cart-badge {
+      background: var(--accent);
+      color: #000;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .hamburger {
@@ -91,9 +122,8 @@
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
-      z-index: 100;
     }
-    .hamburger span { width: 28px; height: 3px; background-color: var(--accent); border-radius: 2px; }
+    .hamburger span { width: 26px; height: 3px; background-color: var(--accent); border-radius: 2px; }
 
     .nav-menu {
       position: fixed;
@@ -121,129 +151,161 @@
     }
     .nav-link.active-link { color: var(--accent); }
 
-    .page-section { display: none; padding: 30px 15px; max-width: 1000px; margin: 0 auto; }
+    .page-section { display: none; padding: 20px 15px 40px; max-width: 900px; margin: 0 auto; }
     .page-section.active { display: block; }
 
-    /* CONTENUTI HOME E CHI SIAMO */
+    /* BARRA NAVIGAZIONE CON FRECCIA INDIETRO */
+    .back-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .back-bar svg { width: 22px; height: 22px; fill: var(--accent); }
+
+    /* HOME E CHI SIAMO */
     .hero-container, .about-container {
       text-align: center;
       padding: 10px 0;
       max-width: 650px;
       margin: 0 auto;
     }
+    .hero-subtitle, .about-subtitle { color: var(--accent); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; margin-bottom: 18px; }
+    .hero-title, .about-title { font-size: 2.1rem; font-weight: 400; letter-spacing: 1px; margin-bottom: 25px; line-height: 1.3; color: #ffffff; }
+    .hero-text, .about-text { color: var(--text-muted); font-size: 1.05rem; line-height: 1.9; margin-bottom: 22px; font-weight: 300; text-align: justify; text-justify: inter-word; }
+    .btn-explore { display: inline-block; margin-top: 15px; padding: 16px 40px; background: var(--accent); color: #000; font-weight: 700; border-radius: 4px; border: none; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 0 25px rgba(197, 160, 89, 0.3); }
 
-    .hero-subtitle, .about-subtitle {
-      color: var(--accent);
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
+    /* VETRINA PRODOTTI A GRIGLIA PULITA (SOLO FOTO, TITOLO, PREZZO) */
+    .catalog { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    @media (max-width: 480px) { .catalog { gap: 10px; } }
 
-    .hero-title, .about-title {
-      font-size: 2.1rem;
-      font-weight: 400;
-      letter-spacing: 1px;
-      margin-bottom: 25px;
-      line-height: 1.3;
-      color: #ffffff;
-    }
-
-    .hero-text, .about-text {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      line-height: 1.9;
-      margin-bottom: 22px;
-      font-weight: 300;
-      text-align: justify;
-      text-justify: inter-word;
-    }
-
-    .btn-explore {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 16px 40px;
-      background: var(--accent);
-      color: #000;
-      font-weight: 700;
-      border-radius: 4px;
-      border: none;
-      text-transform: uppercase;
-      font-size: 0.95rem;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      box-shadow: 0 0 25px rgba(197, 160, 89, 0.3);
-    }
-
-    /* CATALOGO PRODOTTI A GRIGLIA (2 PER RIGA) */
-    .catalog { 
-      display: grid; 
-      grid-template-columns: repeat(2, 1fr); 
-      gap: 15px; 
-    }
-
-    @media (max-width: 500px) {
-      .catalog {
-        gap: 10px;
-      }
-    }
-
-    .product-card {
+    .product-card-simple {
       background: rgba(15, 15, 20, 0.75);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 12px;
       backdrop-filter: blur(8px);
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .product-card-simple:hover { transform: translateY(-3px); border-color: var(--accent); }
+    
+    .card-img-wrap {
+      width: 100%;
+      height: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* FIX ESSENZIALE PER EVITARE TAGLI ALLE IMMAGINI */
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; color: #fff; line-height: 1.3; }
+    .card-price { font-size: 1.1rem; color: var(--accent); font-weight: bold; }
+
+    /* PAGINA SINGOLO PRODOTTO (DETTAGLIO) */
+    .detail-container {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      gap: 20px;
     }
-    
-    .main-img-container { 
-      width: 100%; 
-      height: 220px; 
-      border-radius: 8px; 
-      overflow: hidden; 
-      background: #000; 
-      margin-bottom: 10px; 
+    @media (min-width: 650px) {
+      .detail-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
     }
-    .main-img { width: 100%; height: 100%; object-fit: cover; }
-    
-    .thumbs-grid { display: flex; gap: 6px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 4px; }
-    .thumb { width: 42px; height: 42px; border-radius: 4px; object-fit: cover; border: 2px solid transparent; cursor: pointer; opacity: 0.5; flex-shrink: 0; }
-    .thumb.active { border-color: var(--accent); opacity: 1; }
-    
-    .product-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 4px; line-height: 1.2; }
-    .product-desc { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.3; min-height: 32px; }
-    .price { font-size: 1.15rem; color: var(--accent); font-weight: bold; margin-bottom: 10px; }
-    
-    .option-group { margin-bottom: 10px; }
-    .option-group label { display: block; font-size: 0.70rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 4px; }
-    select { width: 100%; padding: 8px; background: #121216; color: #fff; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; outline: none; }
-    
-    .btn-buy { width: 100%; padding: 12px 5px; background: var(--accent); color: #000; font-weight: bold; border: none; border-radius: 6px; font-size: 0.82rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; margin-top: auto; }
 
-    /* BARRA CARRELLO */
-    .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(8, 8, 12, 0.96); border-top: 1px solid var(--border); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 80; backdrop-filter: blur(10px); }
-    .cart-btn-open { background: var(--accent); color: #000; padding: 10px 18px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; }
-    .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); z-index: 200; justify-content: center; align-items: flex-end; }
-    .cart-content { background: #0b0b0e; width: 100%; max-width: 500px; border-top-left-radius: 16px; border-top-right-radius: 16px; padding: 20px; max-height: 80vh; display: flex; flex-direction: column; border-top: 1px solid var(--accent); }
-    .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-    .cart-items { flex: 1; overflow-y: auto; margin-bottom: 15px; }
-    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #1a1a20; }
-    .btn-remove { background: #d93838; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
-    .checkout-btn { width: 100%; padding: 14px; background: #222; color: #777; border: 1px solid #333; border-radius: 6px; font-weight: bold; cursor: not-allowed; text-transform: uppercase; }
+    .detail-main-img {
+      width: 100%;
+      height: 350px;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+    }
+    .detail-main-img img { width: 100%; height: 100%; object-fit: contain; }
+
+    .thumbs-grid { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; }
+    .thumb { width: 50px; height: 50px; border-radius: 6px; object-fit: contain; background: #000; border: 2px solid transparent; cursor: pointer; opacity: 0.5; flex-shrink: 0; }
+    .thumb.active { border-color: var(--accent); opacity: 1; }
+
+    .detail-info h1 { font-size: 1.6rem; margin-bottom: 8px; font-weight: 600; }
+    .detail-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; line-height: 1.5; }
+    .detail-price { font-size: 1.5rem; color: var(--accent); font-weight: bold; margin-bottom: 20px; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 1px; }
+    select { width: 100%; padding: 12px; background: #121216; color: #fff; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; outline: none; }
+
+    /* BOTTONI AZIONE AFFIANCATI */
+    .btn-actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 25px;
+    }
+    .btn-add-cart {
+      background: rgba(197, 160, 89, 0.15);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 14px;
+      font-weight: bold;
+      border-radius: 6px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .btn-buy-now {
+      background: var(--accent);
+      border: none;
+      color: #000;
+      padding: 14px;
+      font-weight: bold;
+      border-radius: 6px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    /* PAGINA CARRELLO */
+    .cart-page-items { margin-bottom: 25px; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border); }
+    .btn-remove { background: #d93838; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
+    .cart-summary { background: rgba(15, 15, 20, 0.75); padding: 20px; border-radius: 10px; border: 1px solid var(--border); }
+    .summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1.1rem; }
+    .checkout-btn { width: 100%; padding: 16px; background: var(--accent); color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 0.95rem; margin-top: 15px; }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="IMG_5917.jpeg" alt="Maison Luxury Logo" class="logo-img">
-    <div class="hamburger" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
+    <img src="IMG_5917.jpeg" alt="Maison Luxury Logo" class="logo-img" onclick="switchPage('home')">
+    
+    <div class="header-actions">
+      <div class="cart-header-btn" onclick="switchPage('carrello')">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        <span>Vedi Carrello</span>
+        <div class="cart-badge" id="cart-count">0</div>
+      </div>
+
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </header>
 
@@ -264,15 +326,7 @@
       </p>
 
       <p class="hero-text">
-        Attraverso una cura maniacale per il dettaglio, una rigorosa selezione dei materiali ed una costante attenzione verso le collaborazioni più esclusive del panorama internazionale, Maison Luxury propone una vetrina unica nel suo genere. Ogni capo presente nel nostro catalogo è stato accuratamente verificato e scelto per garantire standard qualitativi senza compromessi.
-      </p>
-
-      <p class="hero-text">
-        Crediamo fermamente che lo stile moderno debba coniugare il comfort e l'autenticità della cultura streetwear con la raffinatezza ed il prestigio della moda di alta gamma. Le nostre edizioni limitate sono pensate per chi desidera distinguersi ogni giorno con decisione e carattere.
-      </p>
-
-      <p class="hero-text">
-        Esplora la nostra collezione disponibile, scegli le tue varianti preferite e vivi un'esperienza d'acquisto curata nei minimi dettagli.
+        Attraverso una cura maniacale per il dettaglio, una rigorosa selezione dei materiali ed una costante attenzione verso le collaborazioni più esclusive del panorama internazionale, Maison Luxury propone una vetrina unica nel suo genere.
       </p>
 
       <div style="text-align: center;">
@@ -281,303 +335,68 @@
     </div>
   </div>
 
-  <!-- PAGINA PRODOTTI (GRIGLIA 2 SOTTO 2) -->
+  <!-- PAGINA VETRINA PRODOTTI (PULITA) -->
   <div id="page-prodotti" class="page-section">
-    <div class="catalog">
+    <div class="catalog" id="catalog-grid">
+      <!-- Generato dinamicamente via JS per garantire massima pulizia -->
+    </div>
+  </div>
 
-      <!-- PRODOTTO 1: GILET RL CLASSIC -->
-      <div class="product-card" id="prod-gilet">
-        <div class="main-img-container">
-          <img id="img-gilet" class="main-img" src="IMG_5875.jpeg" alt="Gilet RL Classic">
+  <!-- PAGINA DETTAGLIO SINGOLO PRODOTTO -->
+  <div id="page-dettaglio" class="page-section">
+    <div class="back-bar" onclick="switchPage('prodotti')">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <span>Torna ai Prodotti</span>
+    </div>
+
+    <div class="detail-container">
+      <div>
+        <div class="detail-main-img">
+          <img id="detail-img" src="" alt="Prodotto">
         </div>
-        
-        <div class="thumbs-grid">
-          <img class="thumb active" src="IMG_5875.jpeg" onclick="changeVariant('gilet', 'IMG_5875.jpeg', 'Nero', this)">
-          <img class="thumb" src="IMG_5877.jpeg" onclick="changeVariant('gilet', 'IMG_5877.jpeg', 'Blu', this)">
-          <img class="thumb" src="IMG_5878.jpeg" onclick="changeVariant('gilet', 'IMG_5878.jpeg', 'Beige', this)">
-        </div>
-
-        <div class="product-title">Gilet RL Classic</div>
-        <div class="product-desc">Gilet smanicato imbottito dal design iconico.</div>
-        <div class="price">40,00 €</div>
-
-        <div class="option-group">
-          <label>Colore</label>
-          <select id="color-gilet" disabled>
-            <option value="Nero">Nero</option>
-            <option value="Blu">Blu</option>
-            <option value="Beige">Beige</option>
-          </select>
-        </div>
-
-        <div class="option-group">
-          <label>Taglia</label>
-          <select id="size-gilet">
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-            <option value="XXL">XXL</option>
-          </select>
-        </div>
-
-        <button class="btn-buy" onclick="addToCart('Gilet RL Classic', 40.00, 'color-gilet', 'size-gilet')">Aggiungi</button>
+        <div class="thumbs-grid" id="detail-thumbs"></div>
       </div>
 
-      <!-- PRODOTTO 2: GIUBBOTTO STU STREETWEAR -->
-      <div class="product-card" id="prod-stussy">
-        <div class="main-img-container">
-          <img id="img-stussy" class="main-img" src="IMG_5880.jpeg" alt="Giubbotto Stu Streetwear">
-        </div>
-        
-        <div class="thumbs-grid">
-          <img class="thumb active" src="IMG_5880.jpeg" onclick="changeVariant('stussy', 'IMG_5880.jpeg', 'Nero / Int. Grigio', this)">
-          <img class="thumb" src="IMG_5882.jpeg" onclick="changeVariant('stussy', 'IMG_5882.jpeg', 'Nero / Int. Rosa', this)">
-        </div>
+      <div class="detail-info">
+        <h1 id="detail-title"></h1>
+        <div class="detail-price" id="detail-price"></div>
+        <div class="detail-desc" id="detail-desc"></div>
 
-        <div class="product-title">Giubbotto Stu Streetwear</div>
-        <div class="product-desc">Giubbotto streetwear con interno a contrasto.</div>
-        <div class="price">60,00 €</div>
-
-        <div class="option-group">
-          <label>Colore</label>
-          <select id="color-stussy" disabled>
-            <option value="Nero / Int. Grigio">Nero / Int. Grigio</option>
-            <option value="Nero / Int. Rosa">Nero / Int. Rosa</option>
-          </select>
+        <div class="form-group">
+          <label>Colore / Variante</label>
+          <select id="detail-color-select" onchange="onColorSelectChange()"></select>
         </div>
 
-        <div class="option-group">
-          <label>Taglia</label>
-          <select id="size-stussy">
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-            <option value="XXL">XXL</option>
-          </select>
+        <div class="form-group">
+          <label>Seleziona Taglia</label>
+          <select id="detail-size-select"></select>
         </div>
 
-        <button class="btn-buy" onclick="addToCart('Giubbotto Stu Streetwear', 60.00, 'color-stussy', 'size-stussy')">Aggiungi</button>
+        <div class="btn-actions-grid">
+          <button class="btn-add-cart" onclick="addCurrentToCart()">Aggiungi al Carrello</button>
+          <button class="btn-buy-now" onclick="buyNowCurrent()">Acquista Ora</button>
+        </div>
       </div>
+    </div>
+  </div>
 
-      <!-- PRODOTTO 3: FELPA CH X BP -->
-      <div class="product-card" id="prod-chrome-bape">
-        <div class="main-img-container">
-          <img id="img-chrome-bape" class="main-img" src="IMG_5903.jpeg" alt="Felpa Ch x Bp">
-        </div>
-        
-        <div class="thumbs-grid">
-          <img class="thumb active" src="IMG_5903.jpeg" onclick="changeVariant('chrome-bape', 'IMG_5903.jpeg', 'Nero', this)">
-          <img class="thumb" src="IMG_5904.jpeg" onclick="changeVariant('chrome-bape', 'IMG_5904.jpeg', 'Bianco', this)">
-        </div>
+  <!-- PAGINA CARRELLO -->
+  <div id="page-carrello" class="page-section">
+    <div class="back-bar" onclick="switchPage('prodotti')">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <span>Continua lo Shopping</span>
+    </div>
 
-        <div class="product-title">Felpa Ch x Bp</div>
-        <div class="product-desc">Felpa con cappuccio in collaborazione iconica.</div>
-        <div class="price">30,00 €</div>
+    <h2 style="margin-bottom: 20px; font-weight: 500;">Il tuo Carrello</h2>
 
-        <div class="option-group">
-          <label>Colore</label>
-          <select id="color-chrome-bape" disabled>
-            <option value="Nero">Nero</option>
-            <option value="Bianco">Bianco</option>
-          </select>
-        </div>
+    <div class="cart-page-items" id="cart-page-items"></div>
 
-        <div class="option-group">
-          <label>Taglia</label>
-          <select id="size-chrome-bape">
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-          </select>
-        </div>
-
-        <button class="btn-buy" onclick="addToCart('Felpa Ch x Bp', 30.00, 'color-chrome-bape', 'size-chrome-bape')">Aggiungi</button>
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span>Totale Provvisorio:</span>
+        <strong style="color: var(--accent);"><span id="cart-page-total">0.00</span> €</strong>
       </div>
-
-      <!-- PRODOTTO 4: FELPA CON STAMPA AM -->
-      <div class="product-card" id="prod-stampa-am">
-        <div class="main-img-container">
-          <img id="img-stampa-am" class="main-img" src="IMG_5909.jpeg" alt="Felpa con stampa AM">
-        </div>
-        
-        <div class="thumbs-grid">
-          <img class="thumb active" src="IMG_5909.jpeg" onclick="changeVariant('stampa-am', 'IMG_5909.jpeg', 'Nero', this)">
-          <img class="thumb" src="IMG_5911.jpeg" onclick="changeVariant('stampa-am', 'IMG_5911.jpeg', 'Bianco', this)">
-        </div>
-
-        <div class="product-title">Felpa con stampa AM</div>
-        <div class="product-desc">Felpa con grafica AM esclusiva.</div>
-        <div class="price">30,00 €</div>
-
-        <div class="option-group">
-          <label>Colore</label>
-          <select id="color-stampa-am" disabled>
-            <option value="Nero">Nero</option>
-            <option value="Bianco">Bianco</option>
-          </select>
-        </div>
-
-        <div class="option-group">
-          <label>Taglia</label>
-          <select id="size-stampa-am">
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-          </select>
-        </div>
-
-        <button class="btn-buy" onclick="addToCart('Felpa con stampa AM', 30.00, 'color-stampa-am', 'size-stampa-am')">Aggiungi</button>
-      </div>
-
-      <!-- PRODOTTO 5: FELPA CLASSICA AM -->
-      <div class="product-card" id="prod-classica-am">
-        <div class="main-img-container">
-          <img id="img-classica-am" class="main-img" src="IMG_5914.jpeg" alt="Felpa classica AM">
-        </div>
-        
-        <div class="thumbs-grid">
-          <img class="thumb active" src="IMG_5914.jpeg" onclick="changeVariant('classica-am', 'IMG_5914.jpeg', 'Nero', this)">
-          <img class="thumb" src="IMG_5915.jpeg" onclick="changeVariant('classica-am', 'IMG_5915.jpeg', 'Bianco', this)">
-        </div>
-
-        <div class="product-title">Felpa classica AM</div>
-        <div class="product-desc">Modello essenziale e pulito con logo AM.</div>
-        <div class="price">30,00 €</div>
-
-        <div class="option-group">
-          <label>Colore</label>
-          <select id="color-classica-am" disabled>
-            <option value="Nero">Nero</option>
-            <option value="Bianco">Bianco</option>
-          </select>
-        </div>
-
-        <div class="option-group">
-          <label>Taglia</label>
-          <select id="size-classica-am">
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-          </select>
-        </div>
-
-        <button class="btn-buy" onclick="addToCart('Felpa classica AM', 30.00, 'color-classica-am', 'size-classica-am')">Aggiungi</button>
-      </div>
-
-      <!-- NUOVO PRODOTTO 6: GIACCA ANTIVENTO NK -->
-      <div class="product-card" id="prod-antivento-nk">
-        <div class="main-img-container">
-          <img id="img-antivento-nk" class="main-img" src="IMG_5937.jpeg" alt="Giacca Antivento NK">
-        </div>
-        
-        <div class="thumbs-grid">
-          <img class="thumb active" src="IMG_5937.jpeg" onclick="changeVariantNk('Nero', 'IMG_5937.jpeg', this)">
-          <img class="thumb" src="IMG_5939.jpeg" onclick="changeVariantNk('Beige', 'IMG_5939.jpeg', this)">
-          <img class="thumb" src="IMG_5941.jpeg" onclick="changeVariantNk('Kaki', 'IMG_5941.jpeg', this)">
-        </div>
-
-        <div class="product-title">Giacca Antivento NK</div>
-        <div class="product-desc">Giacca tecnica antivento leggera e versatile.</div>
-        <div class="price">30,00 €</div>
-
-        <div class="option-group">
-          <label>Colore</label>
-          <select id="color-antivento-nk" disabled>
-            <option value="Nero">Nero</option>
-            <option value="Beige">Beige</option>
-            <option value="Kaki">Kaki</option>
-          </select>
-        </div>
-
-        <div class="option-group">
-          <label>Taglia</label>
-          <select id="size-antivento-nk">
-            <option value="S">S</option>
-          </select>
-        </div>
-
-        <button class="btn-buy" onclick="addToCart('Giacca Antivento NK', 30.00, 'color-antivento-nk', 'size-antivento-nk')">Aggiungi</button>
-      </div>
-
-      <!-- NUOVO PRODOTTO 7: LONGSLEEVE CH -->
-      <div class="product-card" id="prod-longsleeve-ch">
-        <div class="main-img-container">
-          <img id="img-longsleeve-ch" class="main-img" src="IMG_5948.jpeg" alt="Longsleeve CH">
-        </div>
-        
-        <div class="thumbs-grid">
-          <img class="thumb active" src="IMG_5948.jpeg" onclick="changeVariant('longsleeve-ch', 'IMG_5948.jpeg', 'Bianco e Nero', this)">
-        </div>
-
-        <div class="product-title">Longsleeve CH</div>
-        <div class="product-desc">Maglia a maniche lunghe dal taglio streetwear.</div>
-        <div class="price">25,00 €</div>
-
-        <div class="option-group">
-          <label>Colore</label>
-          <select id="color-longsleeve-ch" disabled>
-            <option value="Bianco e Nero">Bianco e Nero</option>
-          </select>
-        </div>
-
-        <div class="option-group">
-          <label>Taglia</label>
-          <select id="size-longsleeve-ch">
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-            <option value="XXL">XXL</option>
-            <option value="3XL">3XL</option>
-          </select>
-        </div>
-
-        <button class="btn-buy" onclick="addToCart('Longsleeve CH', 25.00, 'color-longsleeve-ch', 'size-longsleeve-ch')">Aggiungi</button>
-      </div>
-
-      <!-- NUOVO PRODOTTO 8: FELPA CON ZIP RL -->
-      <div class="product-card" id="prod-zip-rl">
-        <div class="main-img-container">
-          <img id="img-zip-rl" class="main-img" src="IMG_5956.jpeg" alt="Felpa con Zip RL">
-        </div>
-        
-        <div class="thumbs-grid">
-          <img class="thumb active" src="IMG_5956.jpeg" onclick="changeVariant('zip-rl', 'IMG_5956.jpeg', 'Nero', this)">
-          <img class="thumb" src="IMG_5958.jpeg" onclick="changeVariant('zip-rl', 'IMG_5958.jpeg', 'Bianco', this)">
-          <img class="thumb" src="IMG_5952.jpeg" onclick="changeVariant('zip-rl', 'IMG_5952.jpeg', 'Grigio', this)">
-          <img class="thumb" src="IMG_5954.jpeg" onclick="changeVariant('zip-rl', 'IMG_5954.jpeg', 'Blu', this)">
-        </div>
-
-        <div class="product-title">Felpa con Zip RL</div>
-        <div class="product-desc">Felpa con zip integrale, morbida e rifinita.</div>
-        <div class="price">30,00 €</div>
-
-        <div class="option-group">
-          <label>Colore</label>
-          <select id="color-zip-rl" disabled>
-            <option value="Nero">Nero</option>
-            <option value="Bianco">Bianco</option>
-            <option value="Grigio">Grigio</option>
-            <option value="Blu">Blu</option>
-          </select>
-        </div>
-
-        <div class="option-group">
-          <label>Taglia</label>
-          <select id="size-zip-rl">
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-          </select>
-        </div>
-
-        <button class="btn-buy" onclick="addToCart('Felpa con Zip RL', 30.00, 'color-zip-rl', 'size-zip-rl')">Aggiungi</button>
-      </div>
-
+      <button class="checkout-btn" onclick="blockedCheckout()">Procedi al Checkout</button>
     </div>
   </div>
 
@@ -586,42 +405,128 @@
     <div class="about-container">
       <div class="about-subtitle">Maison Luxury Philosophy</div>
       <h2 class="about-title">LA NOSTRA VISIONE & FILOSOFIA</h2>
-      
       <p class="about-text">
         Maison Luxury si fonda sull'idea che l'abbigliamento non sia semplicemente un insieme di capi da indossare, ma un'estensione diretta della propria identità e del proprio valore.
       </p>
-
       <p class="about-text">
-        Operiamo all'intersezione tra sartorialità moderna e cultura street di nicchia. Il nostro team lavora costantemente alla ricerca di pezzi iconici prodotti in tirature strettamente limitate, garantendo ad ogni cliente il privilegio di indossare articoli rari, autentici e di elevatissima qualità.
+        Operiamo all'intersezione tra sartorialità moderna e cultura street di nicchia. Il nostro team lavora costantemente alla ricerca di pezzi iconici prodotti in tirature strettamente limitate.
       </p>
-
-      <p class="about-text">
-        Trasparenza, esclusività e cura sartoriale nei dettagli rappresentano i tre pilastri fondamentali su cui si basa l'intera esperienza Maison Luxury. Ringraziamo chi sceglie di far parte della nostra visione e della nostra community.
-      </p>
-    </div>
-  </div>
-
-  <!-- BARRA CARRELLO -->
-  <div class="cart-bar">
-    <div class="cart-info">Carrello: <span id="cart-count">0</span> art. (<span id="cart-total">0.00</span> €)</div>
-    <button class="cart-btn-open" onclick="toggleCart()">Vedi Carrello</button>
-  </div>
-
-  <!-- MODALE CARRELLO -->
-  <div class="cart-modal" id="cartModal">
-    <div class="cart-content">
-      <div class="cart-header">
-        <h2>Il tuo Carrello</h2>
-        <span style="cursor:pointer; font-size:1.5rem;" onclick="toggleCart()">&times;</span>
-      </div>
-      <div class="cart-items" id="cartItems">
-        <p style="text-align:center; color: var(--text-muted); font-size: 0.9rem;">Il carrello è vuoto.</p>
-      </div>
-      <button class="checkout-btn" onclick="blockedCheckout()">Procedi al Checkout</button>
     </div>
   </div>
 
   <script>
+    // DATABASE PRODOTTI
+    const products = [
+      {
+        id: 'gilet',
+        title: 'Gilet RL Classic',
+        price: 40.00,
+        desc: 'Gilet smanicato imbottito dal design iconico, rifinito nei minimi dettagli.',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5875.jpeg' },
+          { color: 'Blu', img: 'IMG_5877.jpeg' },
+          { color: 'Beige', img: 'IMG_5878.jpeg' }
+        ]
+      },
+      {
+        id: 'stussy',
+        title: 'Giubbotto Stu Streetwear',
+        price: 60.00,
+        desc: 'Giubbotto dal taglio streetwear contemporaneo con interno a contrasto.',
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        variants: [
+          { color: 'Nero / Int. Grigio', img: 'IMG_5880.jpeg' },
+          { color: 'Nero / Int. Rosa', img: 'IMG_5882.jpeg' }
+        ]
+      },
+      {
+        id: 'chrome-bape',
+        title: 'Felpa Ch x Bp',
+        price: 30.00,
+        desc: 'Felpa con cappuccio esclusiva in collaborazione, taglio rilassato con stampa iconica.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5903.jpeg' },
+          { color: 'Bianco', img: 'IMG_5904.jpeg' }
+        ]
+      },
+      {
+        id: 'stampa-am',
+        title: 'Felpa con stampa AM',
+        price: 30.00,
+        desc: 'Felpa con grafica AM esclusiva, vestibilità moderna e materiali di alta qualità.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5909.jpeg' },
+          { color: 'Bianco', img: 'IMG_5911.jpeg' }
+        ]
+      },
+      {
+        id: 'classica-am',
+        title: 'Felpa classica AM',
+        price: 30.00,
+        desc: 'Modello intramontabile e pulito con logo AM essenziale, ideale per ogni outfit.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5914.jpeg' },
+          { color: 'Bianco', img: 'IMG_5915.jpeg' }
+        ]
+      },
+      {
+        id: 'antivento-nk',
+        title: 'Giacca Antivento NK',
+        price: 30.00,
+        desc: 'Giacca tecnica antivento leggera e versatile.',
+        variants: [
+          { color: 'Nero', img: 'IMG_5937.jpeg', sizes: ['S'] },
+          { color: 'Beige', img: 'IMG_5939.jpeg', sizes: ['S', 'M', 'L'] },
+          { color: 'Kaki', img: 'IMG_5941.jpeg', sizes: ['S', 'M', 'L'] }
+        ]
+      },
+      {
+        id: 'longsleeve-ch',
+        title: 'Longsleeve CH',
+        price: 25.00,
+        desc: 'Maglia a maniche lunghe dal taglio streetwear.',
+        sizes: ['M', 'L', 'XL', 'XXL', '3XL'],
+        variants: [
+          { color: 'Bianco e Nero', img: 'IMG_5948.jpeg' }
+        ]
+      },
+      {
+        id: 'zip-rl',
+        title: 'Felpa con Zip RL',
+        price: 30.00,
+        desc: 'Felpa con zip integrale, morbida e rifinita.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5956.jpeg' },
+          { color: 'Bianco', img: 'IMG_5958.jpeg' },
+          { color: 'Grigio', img: 'IMG_5952.jpeg' },
+          { color: 'Blu', img: 'IMG_5954.jpeg' }
+        ]
+      }
+    ];
+
+    let currentProduct = null;
+    let selectedVariant = null;
+    let cart = [];
+
+    // INIZIALIZZAZIONE CATALOGO PULITO
+    function renderCatalog() {
+      const grid = document.getElementById('catalog-grid');
+      grid.innerHTML = products.map(p => `
+        <div class="product-card-simple" onclick="openProductDetail('${p.id}')">
+          <div class="card-img-wrap">
+            <img src="${p.variants[0].img}" alt="${p.title}">
+          </div>
+          <div class="card-title">${p.title}</div>
+          <div class="card-price">${p.price.toFixed(2)} €</div>
+        </div>
+      `).join('');
+    }
+
     function toggleMenu() {
       document.getElementById('navMenu').classList.toggle('active');
     }
@@ -633,79 +538,146 @@
       document.getElementById('page-' + pageId).classList.add('active');
       document.getElementById('navMenu').classList.remove('active');
 
+      if (pageId === 'carrello') {
+        renderCartPage();
+      }
+
       window.scrollTo(0, 0);
     }
 
-    function changeVariant(prodId, imgSrc, variantName, element) {
-      document.getElementById('img-' + prodId).src = imgSrc;
-      document.getElementById('color-' + prodId).value = variantName;
+    // APRI PAGINA SINGOLO PRODOTTO
+    function openProductDetail(productId) {
+      currentProduct = products.find(p => p.id === productId);
+      selectedVariant = currentProduct.variants[0];
 
-      let thumbs = element.parentElement.getElementsByClassName('thumb');
-      for (let t of thumbs) { t.classList.remove('active'); }
-      element.classList.add('active');
+      document.getElementById('detail-title').innerText = currentProduct.title;
+      document.getElementById('detail-price').innerText = currentProduct.price.toFixed(2) + ' €';
+      document.getElementById('detail-desc').innerText = currentProduct.desc;
+
+      // Genera opzioni colore
+      const colorSelect = document.getElementById('detail-color-select');
+      colorSelect.innerHTML = currentProduct.variants.map((v, i) => `<option value="${i}">${v.color}</option>`).join('');
+
+      updateDetailImages();
+      updateSizeOptions();
+
+      switchPage('dettaglio');
     }
 
-    /* Gestione speciale per la Giacca NK per limitare la variante Nero solo alla taglia S */
-    function changeVariantNk(color, imgSrc, element) {
-      changeVariant('antivento-nk', imgSrc, color, element);
-      let sizeSelect = document.getElementById('size-antivento-nk');
-      
-      if (color === 'Nero') {
-        sizeSelect.innerHTML = '<option value="S">S</option>';
+    function updateDetailImages() {
+      document.getElementById('detail-img').src = selectedVariant.img;
+
+      // Thumbnail
+      const thumbsContainer = document.getElementById('detail-thumbs');
+      if (currentProduct.variants.length > 1) {
+        thumbsContainer.innerHTML = currentProduct.variants.map((v, i) => `
+          <img class="thumb ${v.color === selectedVariant.color ? 'active' : ''}" 
+               src="${v.img}" 
+               onclick="selectVariantByIndex(${i})">
+        `).join('');
       } else {
-        sizeSelect.innerHTML = '<option value="S">S</option><option value="M">M</option><option value="L">L</option>';
+        thumbsContainer.innerHTML = '';
       }
     }
 
-    let cart = [];
+    function selectVariantByIndex(index) {
+      selectedVariant = currentProduct.variants[index];
+      document.getElementById('detail-color-select').value = index;
+      updateDetailImages();
+      updateSizeOptions();
+    }
 
-    function addToCart(title, price, colorId, sizeId) {
-      let color = document.getElementById(colorId).value;
-      let size = document.getElementById(sizeId).value;
+    function onColorSelectChange() {
+      const idx = document.getElementById('detail-color-select').value;
+      selectedVariant = currentProduct.variants[idx];
+      updateDetailImages();
+      updateSizeOptions();
+    }
 
-      cart.push({ title, price, color, size });
-      updateCartUI();
+    function updateSizeOptions() {
+      const sizeSelect = document.getElementById('detail-size-select');
+      const availableSizes = selectedVariant.sizes || currentProduct.sizes;
+      sizeSelect.innerHTML = availableSizes.map(s => `<option value="${s}">${s}</option>`).join('');
+    }
+
+    // CARRELLO E ACQUISTO
+    function addCurrentToCart() {
+      const size = document.getElementById('detail-size-select').value;
+      cart.push({
+        title: currentProduct.title,
+        price: currentProduct.price,
+        color: selectedVariant.color,
+        size: size,
+        img: selectedVariant.img
+      });
+      updateCartBadge();
       alert("Prodotto aggiunto al carrello!");
+    }
+
+    function buyNowCurrent() {
+      const size = document.getElementById('detail-size-select').value;
+      cart.push({
+        title: currentProduct.title,
+        price: currentProduct.price,
+        color: selectedVariant.color,
+        size: size,
+        img: selectedVariant.img
+      });
+      updateCartBadge();
+      switchPage('carrello');
     }
 
     function removeFromCart(index) {
       cart.splice(index, 1);
-      updateCartUI();
+      updateCartBadge();
+      renderCartPage();
     }
 
-    function updateCartUI() {
+    function updateCartBadge() {
       document.getElementById('cart-count').innerText = cart.length;
-      let total = cart.reduce((sum, item) => sum + item.price, 0);
-      document.getElementById('cart-total').innerText = total.toFixed(2);
+    }
 
-      let cartItemsContainer = document.getElementById('cartItems');
+    function renderCartPage() {
+      const container = document.getElementById('cart-page-items');
+      const totalSpan = document.getElementById('cart-page-total');
+
       if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p style="text-align:center; color: var(--text-muted); font-size: 0.9rem;">Il carrello è vuoto.</p>';
-      } else {
-        cartItemsContainer.innerHTML = cart.map((item, index) => `
+        container.innerHTML = '<p style="text-align:center; color: var(--text-muted); padding: 40px 0;">Il tuo carrello è vuoto.</p>';
+        totalSpan.innerText = '0.00';
+        return;
+      }
+
+      let total = 0;
+      container.innerHTML = cart.map((item, index) => {
+        total += item.price;
+        return `
           <div class="cart-item">
-            <div>
-              <div style="font-size:0.9rem; font-weight:600;">${item.title} - ${item.price.toFixed(2)}€</div>
-              <div style="font-size:0.75rem; color: var(--text-muted);">Var: ${item.color} | Tg: ${item.size}</div>
+            <div style="display:flex; align-items:center; gap: 12px;">
+              <img src="${item.img}" style="width: 50px; height: 50px; object-fit: contain; background:#000; border-radius:4px;">
+              <div>
+                <div style="font-weight:600; font-size:0.95rem;">${item.title}</div>
+                <div style="font-size:0.78rem; color: var(--text-muted);">Colore: ${item.color} | Taglia: ${item.size}</div>
+                <div style="color: var(--accent); font-weight:bold; font-size:0.9rem; margin-top:2px;">${item.price.toFixed(2)} €</div>
+              </div>
             </div>
             <button class="btn-remove" onclick="removeFromCart(${index})">Rimuovi</button>
           </div>
-        `).join('');
-      }
-    }
+        `;
+      }).join('');
 
-    function toggleCart() {
-      let modal = document.getElementById('cartModal');
-      modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+      totalSpan.innerText = total.toFixed(2);
     }
 
     function blockedCheckout() {
       if (cart.length === 0) {
-        alert("Il carrello è vuoto.");
+        alert("Il carrello è vuoto!");
       } else {
-        alert("Sito dimostrativo: la funzione di Checkout/Pagamento non è attiva al momento.");
+        alert("ERRORE CHECKOUT: Il servizio di pagamento online è momentaneamente in manutenzione. Riprova più tardi!");
       }
     }
+
+    // Inizializza
+    renderCatalog();
   </script>
 </body>
 </html>
