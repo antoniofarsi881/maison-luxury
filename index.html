@@ -7,7 +7,7 @@
   <style>
     :root {
       --bg: #040406;
-      --accent: #fffdd0; /* CAMBIATO IN BIANCO LATTE */
+      --accent: #ffffff; /* BIANCO PURO COME IL LOGO */
       --text: #ffffff;
       --text-muted: #c0c0c8;
       --border: #22222a;
@@ -54,7 +54,7 @@
       content: "";
       position: fixed;
       top: -50%; left: -50%; width: 200%; height: 200%;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='110' height='70'><text x='5' y='35' fill='%23fffdd0' opacity='0.13' font-size='10' font-weight='bold' font-family='sans-serif' transform='rotate(-30 55 35)'>MAISON LUXURY</text></svg>");
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='110' height='70'><text x='5' y='35' fill='%23ffffff' opacity='0.13' font-size='10' font-weight='bold' font-family='sans-serif' transform='rotate(-30 55 35)'>MAISON LUXURY</text></svg>");
       background-repeat: repeat;
       z-index: -1;
       pointer-events: none;
@@ -66,17 +66,18 @@
       top: 0;
       background: rgba(4, 4, 6, 0.94);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 253, 208, 0.25);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 18px;
+      padding: 10px 18px;
       z-index: 90;
     }
     
+    /* LOGO INGRANDITO E BELLO VISIBILE */
     .logo-img { 
-      height: 70px; 
-      max-width: 220px;
+      height: 100px; 
+      max-width: 280px;
       object-fit: contain; 
       display: block;
       cursor: pointer;
@@ -92,10 +93,10 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 253, 208, 0.12);
+      background: rgba(255, 255, 255, 0.1);
       border: 1px solid var(--accent);
       color: var(--accent);
-      padding: 8px 12px;
+      padding: 8px 14px;
       border-radius: 20px;
       cursor: pointer;
       font-size: 0.85rem;
@@ -203,9 +204,9 @@
     .hero-subtitle, .about-subtitle { color: var(--accent); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; margin-bottom: 18px; }
     .hero-title, .about-title { font-size: 2.1rem; font-weight: 400; letter-spacing: 1px; margin-bottom: 25px; line-height: 1.3; color: #ffffff; }
     .hero-text, .about-text { color: var(--text-muted); font-size: 1.05rem; line-height: 1.9; margin-bottom: 22px; font-weight: 300; text-align: justify; text-justify: inter-word; }
-    .btn-explore { display: inline-block; margin-top: 15px; padding: 16px 40px; background: var(--accent); color: #000; font-weight: 700; border-radius: 4px; border: none; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 0 25px rgba(255, 253, 208, 0.3); }
+    .btn-explore { display: inline-block; margin-top: 15px; padding: 16px 40px; background: var(--accent); color: #000; font-weight: 700; border-radius: 4px; border: none; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 0 25px rgba(255, 255, 255, 0.3); }
 
-    /* BARRA FILTRI SENZA CORNICI ED ELEGANTE (AFFIANCATI) */
+    /* BARRA FILTRI AFFIANCATI SENZA CORNICI */
     .filter-bar {
       display: flex;
       gap: 25px;
@@ -234,7 +235,7 @@
       color: #fff;
     }
 
-    /* VETRINA PRODOTTI A GRIGLIA PULITA */
+    /* VETRINA PRODOTTI */
     .catalog { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
     @media (max-width: 480px) { .catalog { gap: 10px; } }
 
@@ -311,7 +312,7 @@
       margin-top: 25px;
     }
     .btn-add-cart {
-      background: rgba(255, 253, 208, 0.12);
+      background: rgba(255, 255, 255, 0.1);
       border: 1px solid var(--accent);
       color: var(--accent);
       padding: 14px;
@@ -345,7 +346,8 @@
 <body>
 
   <header>
-    <img src="IMG_5917.jpeg" alt="Maison Luxury Logo" class="logo-img" onclick="switchPage('home')">
+    <!-- SOSTITUITO LOGO CON L'IMMAGINE FORNITA E AUMENTATA LA DIMENSIONE -->
+    <img src="image_7.png" alt="Maison Luxury Logo" class="logo-img" onclick="switchPage('home')">
     
     <div class="header-actions">
       <div class="cart-header-btn" onclick="switchPage('carrello')">
@@ -394,7 +396,6 @@
 
   <!-- PAGINA VETRINA PRODOTTI -->
   <div id="page-prodotti" class="page-section">
-    <!-- BARRA FILTRI SENZA CORNICI, AFFIANCATI -->
     <div class="filter-bar">
       <select id="brand-filter" class="filter-select" onchange="applyFilters()">
         <option value="ALL">Marca: Tutte</option>
@@ -480,7 +481,6 @@
   </div>
 
   <script>
-    // DATABASE PRODOTTI INTEGRATO CON I NUOVI ARRIVI
     const products = [
       {
         id: 'gilet',
@@ -693,7 +693,6 @@
     let selectedVariant = null;
     let cart = [];
 
-    // GESTIONE MENU APERTURA/CHIUSURA
     function toggleMenu() {
       const menu = document.getElementById('navMenu');
       const overlay = document.getElementById('menuOverlay');
@@ -710,7 +709,6 @@
       document.getElementById('menuOverlay').classList.remove('active');
     }
 
-    // OTTENERE LE TAGLIE ASSOCIATE AD UN PRODOTTO
     function getAllSizesForProduct(product) {
       let sizes = new Set();
       if (product.sizes) {
@@ -724,7 +722,6 @@
       return Array.from(sizes);
     }
 
-    // GENERAZIONE AUTOMATICA DEI FILTRI
     function populateFilterDropdowns() {
       const brandSelect = document.getElementById('brand-filter');
       const sizeSelect = document.getElementById('size-filter');
@@ -743,7 +740,6 @@
         getAllSizesForProduct(p).forEach(s => sizes.add(s));
       });
 
-      // Popola Marche
       Array.from(brands).sort().forEach(b => {
         const opt = document.createElement('option');
         opt.value = b;
@@ -751,7 +747,6 @@
         brandSelect.appendChild(opt);
       });
 
-      // Popola Taglie
       const sizeOrder = ['S', 'M', 'L', 'XL', 'XXL', '3XL'];
       Array.from(sizes).sort((a,b) => sizeOrder.indexOf(a) - sizeOrder.indexOf(b)).forEach(s => {
         const opt = document.createElement('option');
@@ -761,7 +756,6 @@
       });
     }
 
-    // APPLICAZIONE FILTRI DINAMICI
     function applyFilters() {
       const selectedBrand = document.getElementById('brand-filter').value;
       const selectedSize = document.getElementById('size-filter').value;
@@ -783,7 +777,6 @@
       renderCatalog(filtered);
     }
 
-    // MOSTRA CATALOGO
     function renderCatalog(itemsToRender = products) {
       const grid = document.getElementById('catalog-grid');
       
@@ -817,7 +810,6 @@
       window.scrollTo(0, 0);
     }
 
-    // DETTAGLIO PRODOTTO
     function openProductDetail(productId) {
       currentProduct = products.find(p => p.id === productId);
       selectedVariant = currentProduct.variants[0];
@@ -840,7 +832,6 @@
 
       const thumbsContainer = document.getElementById('detail-thumbs');
       
-      // Se ci sono più varianti oppure la variante ha foto fronte/retro (extraImg)
       let imagesList = [];
       if (selectedVariant.extraImg) {
         imagesList.push(selectedVariant.img, selectedVariant.extraImg);
@@ -883,7 +874,6 @@
       sizeSelect.innerHTML = availableSizes.map(s => `<option value="${s}">${s}</option>`).join('');
     }
 
-    // GESTIONE CARRELLO
     function addCurrentToCart() {
       const size = document.getElementById('detail-size-select').value;
       cart.push({
@@ -959,7 +949,6 @@
       }
     }
 
-    // INIZIALIZZAZIONE
     populateFilterDropdowns();
     renderCatalog();
   </script>
