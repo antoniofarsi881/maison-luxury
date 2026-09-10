@@ -7,7 +7,7 @@
   <style>
     :root {
       --bg: #040406;
-      --accent: #c5a059;
+      --accent: #fffdd0; /* CAMBIATO IN BIANCO LATTE */
       --text: #ffffff;
       --text-muted: #c0c0c8;
       --border: #22222a;
@@ -54,7 +54,7 @@
       content: "";
       position: fixed;
       top: -50%; left: -50%; width: 200%; height: 200%;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='110' height='70'><text x='5' y='35' fill='%23c5a059' opacity='0.13' font-size='10' font-weight='bold' font-family='sans-serif' transform='rotate(-30 55 35)'>MAISON LUXURY</text></svg>");
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='110' height='70'><text x='5' y='35' fill='%23fffdd0' opacity='0.13' font-size='10' font-weight='bold' font-family='sans-serif' transform='rotate(-30 55 35)'>MAISON LUXURY</text></svg>");
       background-repeat: repeat;
       z-index: -1;
       pointer-events: none;
@@ -66,7 +66,7 @@
       top: 0;
       background: rgba(4, 4, 6, 0.94);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+      border-bottom: 1px solid rgba(255, 253, 208, 0.25);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -92,7 +92,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(197, 160, 89, 0.15);
+      background: rgba(255, 253, 208, 0.12);
       border: 1px solid var(--accent);
       color: var(--accent);
       padding: 8px 12px;
@@ -126,7 +126,7 @@
     }
     .hamburger span { width: 26px; height: 3px; background-color: var(--accent); border-radius: 2px; transition: 0.3s; }
 
-    /* OVERLAY SFONDO SCURO QUANDO IL MENU E APERTO */
+    /* OVERLAY SFONDO SCURO QUANDO IL MENU È APERTO */
     .menu-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -203,30 +203,35 @@
     .hero-subtitle, .about-subtitle { color: var(--accent); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; margin-bottom: 18px; }
     .hero-title, .about-title { font-size: 2.1rem; font-weight: 400; letter-spacing: 1px; margin-bottom: 25px; line-height: 1.3; color: #ffffff; }
     .hero-text, .about-text { color: var(--text-muted); font-size: 1.05rem; line-height: 1.9; margin-bottom: 22px; font-weight: 300; text-align: justify; text-justify: inter-word; }
-    .btn-explore { display: inline-block; margin-top: 15px; padding: 16px 40px; background: var(--accent); color: #000; font-weight: 700; border-radius: 4px; border: none; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 0 25px rgba(197, 160, 89, 0.3); }
+    .btn-explore { display: inline-block; margin-top: 15px; padding: 16px 40px; background: var(--accent); color: #000; font-weight: 700; border-radius: 4px; border: none; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 0 25px rgba(255, 253, 208, 0.3); }
 
-    /* BARRA FILTRI MINIMAL */
+    /* BARRA FILTRI SENZA CORNICI ED ELEGANTE (AFFIANCATI) */
     .filter-bar {
       display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 25px;
+      margin-bottom: 25px;
       justify-content: flex-start;
-      flex-wrap: wrap;
+      align-items: center;
     }
     .filter-select {
-      background: rgba(18, 18, 22, 0.85);
-      color: #fff;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 8px 14px;
-      font-size: 0.85rem;
+      background: transparent;
+      color: var(--text);
+      border: none;
+      padding: 4px 0;
+      font-size: 0.9rem;
       outline: none;
       cursor: pointer;
-      backdrop-filter: blur(8px);
-      transition: border-color 0.2s;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
     }
     .filter-select:focus, .filter-select:hover {
-      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .filter-select option {
+      background: #0f0f14;
+      color: #fff;
     }
 
     /* VETRINA PRODOTTI A GRIGLIA PULITA */
@@ -306,7 +311,7 @@
       margin-top: 25px;
     }
     .btn-add-cart {
-      background: rgba(197, 160, 89, 0.15);
+      background: rgba(255, 253, 208, 0.12);
       border: 1px solid var(--accent);
       color: var(--accent);
       padding: 14px;
@@ -389,13 +394,13 @@
 
   <!-- PAGINA VETRINA PRODOTTI -->
   <div id="page-prodotti" class="page-section">
-    <!-- BARRA FILTRI -->
+    <!-- BARRA FILTRI SENZA CORNICI, AFFIANCATI -->
     <div class="filter-bar">
       <select id="brand-filter" class="filter-select" onchange="applyFilters()">
-        <option value="ALL">Tutte le Marche</option>
+        <option value="ALL">Marca: Tutte</option>
       </select>
       <select id="size-filter" class="filter-select" onchange="applyFilters()">
-        <option value="ALL">Tutte le Taglie</option>
+        <option value="ALL">Taglia: Tutte</option>
       </select>
     </div>
 
@@ -475,7 +480,7 @@
   </div>
 
   <script>
-    // DATABASE PRODOTTI AGGIORNATO (DISTINZIONE AM E AM PAR)
+    // DATABASE PRODOTTI INTEGRATO CON I NUOVI ARRIVI
     const products = [
       {
         id: 'gilet',
@@ -515,6 +520,18 @@
         ]
       },
       {
+        id: 'felpa-ch',
+        title: 'Felpa CH',
+        brand: 'CH',
+        price: 30.00,
+        desc: 'Felpa con cappuccio dal taglio confortevole e dettagli iconici.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_6046.jpeg' },
+          { color: 'Bianco', img: 'IMG_6048.jpeg' }
+        ]
+      },
+      {
         id: 'stampa-am',
         title: 'Felpa con stampa AM',
         brand: 'AM',
@@ -551,6 +568,17 @@
         ]
       },
       {
+        id: 'giubbotto-trpstr',
+        title: 'Giubbotto TRPSTR',
+        brand: 'TRPSTR',
+        price: 35.00,
+        desc: 'Giubbotto streetwear imbottito ad alte prestazioni con design bicolore.',
+        sizes: ['S'],
+        variants: [
+          { color: 'Grigio e Nero', img: 'IMG_6041.jpeg' }
+        ]
+      },
+      {
         id: 'longsleeve-ch',
         title: 'Longsleeve CH',
         brand: 'CH',
@@ -559,6 +587,17 @@
         variants: [
           { color: 'Bianco e Nero', img: 'IMG_5948.jpeg', sizes: ['M', 'L', 'XL', 'XXL', '3XL'] },
           { color: 'Nero con stampa colorata', img: 'IMG_5976.jpeg', sizes: ['S', 'M', 'L', 'XL'] }
+        ]
+      },
+      {
+        id: 'longsleeve-bp',
+        title: 'Longsleeve BP',
+        brand: 'BP',
+        price: 25.00,
+        desc: 'Maglia a manica lunga dal design urban, vista frontale e retro coordinata.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_6055.jpeg', extraImg: 'IMG_6051.jpeg' }
         ]
       },
       {
@@ -590,13 +629,24 @@
       {
         id: 'maglione-am-par',
         title: 'Maglione AM PAR',
-        brand: 'AM PAR', // MARCA DIVERSA DA 'AM'
+        brand: 'AM PAR',
         price: 30.00,
         desc: 'Maglione rifinito a maglia morbida con combinazioni cromatiche esclusive.',
         variants: [
           { color: 'Nero e Rosso', img: 'IMG_5982.jpeg', sizes: ['L'] },
           { color: 'Blu e Bianco', img: 'IMG_5984.jpeg', sizes: ['S', 'M', 'L'] },
           { color: 'Bianco e Rosso', img: 'IMG_5986.jpeg', sizes: ['S', 'M', 'L'] }
+        ]
+      },
+      {
+        id: 'maglione-csblnc',
+        title: 'Maglione CSBLNC',
+        brand: 'CSBLNC',
+        price: 30.00,
+        desc: 'Maglione di maglia raffinato dalle sfumature eleganti.',
+        sizes: ['S', 'M', 'L'],
+        variants: [
+          { color: 'Blu', img: 'IMG_6037.jpeg' }
         ]
       },
       {
@@ -634,7 +684,7 @@
         variants: [
           { color: 'Rosso', img: 'IMG_6005.jpeg' },
           { color: 'Grigio', img: 'IMG_6007.jpeg' },
-          { color: 'Panna', img: 'IMG_6009.jpeg' }
+          { color: 'Panna', img: 'IMG_6007.jpeg' }
         ]
       }
     ];
@@ -660,7 +710,7 @@
       document.getElementById('menuOverlay').classList.remove('active');
     }
 
-    // OTTONI TUTTE LE TAGLIE ASSOCIATE AD UN PRODOTTO
+    // OTTENERE LE TAGLIE ASSOCIATE AD UN PRODOTTO
     function getAllSizesForProduct(product) {
       let sizes = new Set();
       if (product.sizes) {
@@ -674,7 +724,7 @@
       return Array.from(sizes);
     }
 
-    // GENERAZIONE FILTRI
+    // GENERAZIONE AUTOMATICA DEI FILTRI
     function populateFilterDropdowns() {
       const brandSelect = document.getElementById('brand-filter');
       const sizeSelect = document.getElementById('size-filter');
@@ -684,7 +734,6 @@
 
       products.forEach(p => {
         if (p.brand) {
-          // Gestisce collaborazioni mantenendo intatte le marche composte
           if(p.brand.includes(' x ')) {
             p.brand.split(' x ').forEach(b => brands.add(b.trim()));
           } else {
@@ -698,7 +747,7 @@
       Array.from(brands).sort().forEach(b => {
         const opt = document.createElement('option');
         opt.value = b;
-        opt.textContent = b;
+        opt.textContent = 'Marca: ' + b;
         brandSelect.appendChild(opt);
       });
 
@@ -707,12 +756,12 @@
       Array.from(sizes).sort((a,b) => sizeOrder.indexOf(a) - sizeOrder.indexOf(b)).forEach(s => {
         const opt = document.createElement('option');
         opt.value = s;
-        opt.textContent = s;
+        opt.textContent = 'Taglia: ' + s;
         sizeSelect.appendChild(opt);
       });
     }
 
-    // APPLICAZIONE FILTRI
+    // APPLICAZIONE FILTRI DINAMICI
     function applyFilters() {
       const selectedBrand = document.getElementById('brand-filter').value;
       const selectedSize = document.getElementById('size-filter').value;
@@ -790,7 +839,20 @@
       document.getElementById('detail-img').src = selectedVariant.img;
 
       const thumbsContainer = document.getElementById('detail-thumbs');
-      if (currentProduct.variants.length > 1) {
+      
+      // Se ci sono più varianti oppure la variante ha foto fronte/retro (extraImg)
+      let imagesList = [];
+      if (selectedVariant.extraImg) {
+        imagesList.push(selectedVariant.img, selectedVariant.extraImg);
+      }
+
+      if (imagesList.length > 1) {
+        thumbsContainer.innerHTML = imagesList.map((imgSrc, i) => `
+          <img class="thumb ${i === 0 ? 'active' : ''}" 
+               src="${imgSrc}" 
+               onclick="document.getElementById('detail-img').src='${imgSrc}'">
+        `).join('');
+      } else if (currentProduct.variants.length > 1) {
         thumbsContainer.innerHTML = currentProduct.variants.map((v, i) => `
           <img class="thumb ${v.color === selectedVariant.color ? 'active' : ''}" 
                src="${v.img}" 
@@ -821,7 +883,7 @@
       sizeSelect.innerHTML = availableSizes.map(s => `<option value="${s}">${s}</option>`).join('');
     }
 
-    // CARRELLO
+    // GESTIONE CARRELLO
     function addCurrentToCart() {
       const size = document.getElementById('detail-size-select').value;
       cart.push({
