@@ -226,63 +226,95 @@
     .filter-select:focus, .filter-select:hover { color: var(--accent); }
     .filter-select option { background: #0f0f14; color: #fff; }
 
-    /* CATALOGO PRODOTTI CON SFONDO BIANCO OMOGENEO */
+    /* CATALOGO PRODOTTI */
     .catalog { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
     @media (max-width: 480px) { .catalog { gap: 10px; } }
 
+    /* CARD PRODOTTI NEL CATALOGO - SFONDO UNIFORME PER TUTTI */
     .product-card-simple {
-      background: rgba(15, 15, 20, 0.75);
+      background: #111116; /* Sfondo scuro elegante e identico per tutte le schede */
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 12px;
+      padding: 0; /* Rimuove il margine interno creando un effetto moderno senza cornice */
       backdrop-filter: blur(8px);
       cursor: pointer;
       transition: transform 0.2s, border-color 0.2s;
+      overflow: hidden;
     }
-    .product-card-simple:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .product-card-simple:hover { 
+      transform: translateY(-3px); 
+      border-color: var(--accent); 
+    }
     
-    /* BOX IMMAGINI BIANCO OMOGENEO */
+    /* RENDER DELL'IMMAGINE A TUTTO SCHERMO */
     .card-img-wrap {
       width: 100%;
-      height: 200px;
-      border-radius: 8px;
+      height: 220px;
       overflow: hidden;
-      background: #ffffff;
-      margin-bottom: 10px;
+      background: #000;
+      margin-bottom: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px;
     }
+    
     .card-img-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover; /* Riempie al 100% la scheda: spariscono i doppi bordi e i quadratini staccati */
+      object-position: center;
+      filter: contrast(1.05) brightness(0.98); /* Uniforma la resa visiva e i colori delle foto */
+      display: block;
     }
 
-    .card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; color: #fff; line-height: 1.3; }
-    .card-price { font-size: 1.1rem; color: var(--accent); font-weight: bold; }
+    .card-title { 
+      font-size: 0.95rem; 
+      font-weight: 600; 
+      margin: 12px 12px 5px 12px; 
+      color: #fff; 
+      line-height: 1.3; 
+    }
+    .card-price { 
+      font-size: 1.1rem; 
+      color: var(--accent); 
+      font-weight: bold; 
+      margin: 0 12px 12px 12px; 
+    }
 
-    /* DETTAGLIO PRODOTTO */
+    /* DETTAGLIO PRODOTTO UNIFORMATO */
     .detail-container { display: flex; flex-direction: column; gap: 20px; }
     @media (min-width: 650px) { .detail-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; } }
 
     .detail-main-img {
       width: 100%;
-      height: 350px;
-      background: #ffffff;
+      height: 380px;
+      background: #111116;
       border-radius: 10px;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px solid var(--border);
-      padding: 15px;
     }
-    .detail-main-img img { width: 100%; height: 100%; object-fit: contain; }
+    .detail-main-img img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      object-position: center;
+    }
 
     .thumbs-grid { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; }
-    .thumb { width: 50px; height: 50px; border-radius: 6px; object-fit: contain; background: #ffffff; border: 2px solid transparent; cursor: pointer; opacity: 0.6; flex-shrink: 0; padding: 2px; }
+    .thumb { 
+      width: 55px; 
+      height: 55px; 
+      border-radius: 6px; 
+      object-fit: cover; 
+      background: #111; 
+      border: 2px solid transparent; 
+      cursor: pointer; 
+      opacity: 0.7; 
+      flex-shrink: 0; 
+    }
     .thumb.active { border-color: var(--accent); opacity: 1; }
 
     .detail-info h1 { font-size: 1.6rem; margin-bottom: 8px; font-weight: 600; }
