@@ -619,218 +619,434 @@
   </div>
 
   <script>
-    let products = [
+    let products = [ 
+ {
+    "id": "gilet",
+    "title": "Gilet RL Classic",
+    "brand": "RL",
+    "price": 40,
+    "desc": "Gilet smanicato imbottito dal design iconico, rifinito nei minimi dettagli.",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "variants": [
       {
-        "id": "longsleeve-bp",
-        "title": "Longsleeve BP",
-        "brand": "BP",
-        "price": 25.00,
-        "desc": "Longsleeve di alta qualità con stampe fronte/retro.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Fronte", "img": "Photoroom_20260911_132142.jpeg" },
-          { "color": "Retro", "img": "Photoroom_20260911_132051.jpeg" }
+        "color": "Nero",
+        "img": "Photoroom_20260911_142340.jpeg"
+      },
+      {
+        "color": "Blu",
+        "img": "Photoroom_20260911_142408.jpeg"
+      },
+      {
+        "color": "Beige",
+        "img": "Photoroom_20260911_142456.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "stussy",
+    "title": "Giubbotto Stu Streetwear",
+    "brand": "Stu",
+    "price": 60,
+    "desc": "Giubbotto dal taglio streetwear contemporaneo con interno a contrasto.",
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "variants": [
+      {
+        "color": "Nero / Int. Grigio",
+        "img": "Photoroom_20260911_142628.jpeg"
+      },
+      {
+        "color": "Nero / Int. Rosa",
+        "img": "Photoroom_20260911_142657.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "chrome-bape",
+    "title": "Felpa Ch x Bp",
+    "brand": "CH x Bp",
+    "price": 30,
+    "desc": "Felpa con cappuccio esclusiva in collaborazione, taglio rilassato con stampa iconica.",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "variants": [
+      {
+        "color": "Nero",
+        "img": "IMG_5903.jpeg"
+      },
+      {
+        "color": "Bianco",
+        "img": "IMG_5904.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "felpa-ch",
+    "title": "Felpa CH",
+    "brand": "CH",
+    "price": 30,
+    "desc": "Felpa con cappuccio dal taglio confortevole e dettagli iconici.",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "variants": [
+      {
+        "color": "Nero",
+        "img": "IMG_6046.jpeg"
+      },
+      {
+        "color": "Bianco",
+        "img": "IMG_6048.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "stampa-am",
+    "title": "Felpa con stampa AM",
+    "brand": "AM",
+    "price": 30,
+    "desc": "Felpa con grafica AM esclusiva, vestibilità moderna e materiali di alta qualità.",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "variants": [
+      {
+        "color": "Nero",
+        "img": "IMG_5909.jpeg"
+      },
+      {
+        "color": "Bianco",
+        "img": "IMG_5911.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "classica-am",
+    "title": "Felpa classica AM",
+    "brand": "AM",
+    "price": 30,
+    "desc": "Modello intramontabile e pulito con logo AM essenziale, ideale per ogni outfit.",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "variants": [
+      {
+        "color": "Nero",
+        "img": "IMG_5914.jpeg"
+      },
+      {
+        "color": "Bianco",
+        "img": "IMG_5915.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "antivento-nk",
+    "title": "Giacca Antivento NK",
+    "brand": "NK",
+    "price": 30,
+    "desc": "Giacca tecnica antivento leggera e versatile.",
+    "variants": [
+      {
+        "color": "Nero",
+        "img": "Photoroom_20260911_142736.jpeg",
+        "sizes": [
+          "S"
         ]
       },
       {
-        "id": "gilet-rl",
-        "title": "Gilet RL",
-        "brand": "RL",
-        "price": 40.00,
-        "desc": "Gilet versatile ed elegante ideale per tutte le stagioni.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_142340.jpeg" },
-          { "color": "Blu", "img": "Photoroom_20260911_142408.jpeg" },
-          { "color": "Beige", "img": "Photoroom_20260911_142456.jpeg" }
+        "color": "Beige",
+        "img": "Photoroom_20260911_142802.jpeg",
+        "sizes": [
+          "S",
+          "M",
+          "L"
         ]
       },
       {
-        "id": "giubbotto-stu",
-        "title": "Giubbotto STU",
-        "brand": "STU",
-        "price": 60.00,
-        "desc": "Giubbotto dal design streetwear unico e ricercato.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_142628.jpeg" },
-          { "color": "Nero con interno rosa", "img": "Photoroom_20260911_142657.jpeg" }
-        ]
-      },
-      {
-        "id": "antivento-nk",
-        "title": "Giacca Antivento NK",
-        "brand": "NK",
-        "price": 35.00,
-        "desc": "Giacca antivento leggera, comoda e resistente.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_142736.jpeg" },
-          { "color": "Beige", "img": "Photoroom_20260911_142802.jpeg" },
-          { "color": "Kaki", "img": "Photoroom_20260911_142824.jpeg" }
-        ]
-      },
-      {
-        "id": "longsleeve-ch",
-        "title": "Longsleeve CH",
-        "brand": "CH",
-        "price": 25.00,
-        "desc": "Longsleeve con grafiche esclusive e fit moderno.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nera e bianca", "img": "Photoroom_20260911_142856.jpeg" },
-          { "color": "Nera con stampa colorata", "img": "Photoroom_20260911_143444.jpeg" }
-        ]
-      },
-      {
-        "id": "felpa-zip-rl",
-        "title": "Felpa con Zip RL",
-        "brand": "RL",
-        "price": 30.00,
-        "desc": "Felpa con chiusura a zip essenziale per il tuo guardaroba.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_143006.jpeg" },
-          { "color": "Bianco", "img": "Photoroom_20260911_143042.jpeg" },
-          { "color": "Blu", "img": "Photoroom_20260911_142944.jpeg" },
-          { "color": "Grigio", "img": "Photoroom_20260911_142921.jpeg" }
-        ]
-      },
-      {
-        "id": "antivento-crtz",
-        "title": "Giacca Antivento CRTZ",
-        "brand": "CRTZ",
-        "price": 35.00,
-        "desc": "Giacca antivento streetwear ad alto impatto.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_143503.jpeg" },
-          { "color": "Blu", "img": "Photoroom_20260911_143524.jpeg" }
-        ]
-      },
-      {
-        "id": "longsleeve-acn-stud",
-        "title": "Longsleeve ACN STUD",
-        "brand": "ACN STUD",
-        "price": 25.00,
-        "desc": "Longsleeve minimale in puro cotone premium.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_143603.jpeg" },
-          { "color": "Bianco", "img": "Photoroom_20260911_143624.jpeg" }
-        ]
-      },
-      {
-        "id": "longsleeve-esntls",
-        "title": "Longsleeve ESNTLS",
-        "brand": "ESNTLS",
-        "price": 25.00,
-        "desc": "Capo immancabile per un outfit streetwear contemporaneo.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_143648.jpeg" },
-          { "color": "Bianco", "img": "Photoroom_20260911_143727.jpeg" },
-          { "color": "Grigio", "img": "Photoroom_20260911_143706.jpeg" }
-        ]
-      },
-      {
-        "id": "maglione-jcmqs",
-        "title": "Maglione JCMQS",
-        "brand": "JCMQS",
-        "price": 30.00,
-        "desc": "Maglione elegante in filati selezionati per uno stile raffinato.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Rosso", "img": "Photoroom_20260911_143547.jpeg" },
-          { "color": "Nero", "img": "Photoroom_20260911_143603.jpeg" },
-          { "color": "Beige", "img": "Photoroom_20260911_142456.jpeg" }
-        ]
-      },
-      {
-        "id": "tshirt-stussy-basic",
-        "title": "T-Shirt Basic STU",
-        "brand": "STU",
-        "price": 20.00,
-        "desc": "T-Shirt classica in cotone con logo iconico sul petto.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_143648.jpeg" },
-          { "color": "Bianco", "img": "Photoroom_20260911_143727.jpeg" }
-        ]
-      },
-      {
-        "id": "felpa-cappuccio-crtz",
-        "title": "Felpa con Cappuccio CRTZ",
-        "brand": "CRTZ",
-        "price": 30.00,
-        "desc": "Felpa oversize in cotone felpato pesante.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_143503.jpeg" },
-          { "color": "Grigio", "img": "Photoroom_20260911_143706.jpeg" }
-        ]
-      },
-      {
-        "id": "pantalone-cargo-nk",
-        "title": "Pantalone Cargo NK",
-        "brand": "NK",
-        "price": 30.00,
-        "desc": "Pantalone stile cargo resistente con tasche laterali.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_142736.jpeg" },
-          { "color": "Kaki", "img": "Photoroom_20260911_142824.jpeg" }
-        ]
-      },
-      {
-        "id": "giacca-denim-acn",
-        "title": "Giacca in Denim ACN STUD",
-        "brand": "ACN STUD",
-        "price": 50.00,
-        "desc": "Giacca in jeans strutturata con lavaggio vintage.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Blu", "img": "Photoroom_20260911_143524.jpeg" },
-          { "color": "Nero", "img": "Photoroom_20260911_142628.jpeg" }
-        ]
-      },
-      {
-        "id": "polo-rl-classic",
-        "title": "Polo Classica RL",
-        "brand": "RL",
-        "price": 25.00,
-        "desc": "Polo a maniche corte in piqué di cotone pettinato.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_143006.jpeg" },
-          { "color": "Bianco", "img": "Photoroom_20260911_143042.jpeg" },
-          { "color": "Blu", "img": "Photoroom_20260911_142944.jpeg" }
-        ]
-      },
-      {
-        "id": "shorts-esntls",
-        "title": "Pantaloncini ESNTLS",
-        "brand": "ESNTLS",
-        "price": 25.00,
-        "desc": "Shorts sportivi e comodi con girovita elasticizzato.",
-        "sizes": ["S", "M", "L", "XL"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_143648.jpeg" },
-          { "color": "Grigio", "img": "Photoroom_20260911_143706.jpeg" }
-        ]
-      },
-      {
-        "id": "cappello-beanie-ch",
-        "title": "Beanie CH",
-        "brand": "CH",
-        "price": 15.00,
-        "desc": "Cappello in maglia con logo ricamato.",
-        "sizes": ["Taglia Unica"],
-        "variants": [
-          { "color": "Nero", "img": "Photoroom_20260911_142856.jpeg" }
+        "color": "Kaki",
+        "img": "Photoroom_20260911_142824.jpeg",
+        "sizes": [
+          "S",
+          "M",
+          "L"
         ]
       }
-    ];
+    ]
+  },
+  {
+    "id": "giubbotto-trpstr",
+    "title": "Giubbotto TRPSTR",
+    "brand": "TRPSTR",
+    "price": 35,
+    "desc": "Giubbotto streetwear imbottito ad alte prestazioni con design bicolore.",
+    "sizes": [
+      "S"
+    ],
+    "variants": [
+      {
+        "color": "Grigio e Nero",
+        "img": "IMG_6041.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "longsleeve-ch",
+    "title": "Longsleeve CH",
+    "brand": "CH",
+    "price": 25,
+    "desc": "Maglia a maniche lunghe dal taglio streetwear.",
+    "variants": [
+      {
+        "color": "Bianco e Nero",
+        "img": "Photoroom_20260911_142856.jpeg",
+        "sizes": [
+          "M",
+          "L",
+          "XL",
+          "XXL",
+          "3XL"
+        ]
+      },
+      {
+        "color": "Nero con stampa colorata",
+        "img": "Photoroom_20260911_143444.jpeg",
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "longsleeve-bp",
+    "title": "Longsleeve BP",
+    "brand": "BP",
+    "price": 25,
+    "desc": "Maglia a manica lunga dal design urban, vista frontale e retro coordinata.",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "variants": [
+      {
+        "color": "Nero",
+        "img": "Photoroom_20260911_132142.jpeg",
+        "extraImg": "Photoroom_20260911_132051.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "zip-rl",
+    "title": "Felpa con Zip RL",
+    "brand": "RL",
+    "price": 30,
+    "desc": "Felpa con zip integrale, morbida e rifinita.",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "variants": [
+      {
+        "color": "Nero",
+        "img": "Photoroom_20260911_143006.jpeg"
+      },
+      {
+        "color": "Bianco",
+        "img": "Photoroom_20260911_143042.jpeg"
+      },
+      {
+        "color": "Grigio",
+        "img": "Photoroom_20260911_142921.jpeg"
+      },
+      {
+        "color": "Blu",
+        "img": "Photoroom_20260911_142944.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "giacca-crtz",
+    "title": "Giacca Antivento CRTZ",
+    "brand": "CRTZ",
+    "price": 35,
+    "desc": "Giacca antivento streetwear di grande impatto visivo.",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "variants": [
+      {
+        "color": "Nero",
+        "img": "Photoroom_20260911_143503.jpeg"
+      },
+      {
+        "color": "Blu",
+        "img": "Photoroom_20260911_143524.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "maglione-am-par",
+    "title": "Maglione AM PAR",
+    "brand": "AM PAR",
+    "price": 30,
+    "desc": "Maglione rifinito a maglia morbida con combinazioni cromatiche esclusive.",
+    "variants": [
+      {
+        "color": "Nero e Rosso",
+        "img": "IMG_5982.jpeg",
+        "sizes": [
+          "L"
+        ]
+      },
+      {
+        "color": "Blu e Bianco",
+        "img": "IMG_5984.jpeg",
+        "sizes": [
+          "S",
+          "M",
+          "L"
+        ]
+      },
+      {
+        "color": "Bianco e Rosso",
+        "img": "IMG_5986.jpeg",
+        "sizes": [
+          "S",
+          "M",
+          "L"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "maglione-csblnc",
+    "title": "Maglione CSBLNC",
+    "brand": "CSBLNC",
+    "price": 30,
+    "desc": "Maglione di maglia raffinato dalle sfumature eleganti.",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "variants": [
+      {
+        "color": "Blu",
+        "img": "IMG_6037.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "longsleeve-acn-stud",
+    "title": "Longsleeve ACN STUD",
+    "brand": "ACN STUD",
+    "price": 25,
+    "desc": "Maglia a manica lunga essenziale con vestibilità sartoriale e contemporanea.",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "variants": [
+      {
+        "color": "Nero",
+        "img": "Photoroom_20260911_143603.jpeg"
+      },
+      {
+        "color": "Bianco",
+        "img": "Photoroom_20260911_143624.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "longsleeve-esntls",
+    "title": "Longsleeve ESNTLS",
+    "brand": "ESNTLS",
+    "price": 25,
+    "desc": "Capo essenziale per ogni guardaroba, realizzato in cotone morbido e traspirante.",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "variants": [
+      {
+        "color": "Nero",
+        "img": "Photoroom_20260911_143648.jpeg"
+      },
+      {
+        "color": "Grigio",
+        "img": "Photoroom_20260911_143706.jpeg"
+      },
+      {
+        "color": "Bianco",
+        "img": "Photoroom_20260911_143727.jpeg"
+      }
+    ]
+  },
+  {
+    "id": "maglione-jcqms",
+    "title": "Maglione JCQMS",
+    "brand": "JCQMS",
+    "price": 30,
+    "desc": "Maglione dal gusto luxury ed elegante, ideale per occasioni esclusive.",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "variants": [
+      {
+        "color": "Rosso",
+        "img": "IMG_6005.jpeg"
+      },
+      {
+        "color": "Grigio",
+        "img": "IMG_6007.jpeg"
+      },
+      {
+        "color": "Panna",
+        "img": "IMG_6007.jpeg"
+      }
+    ]
+  }
+];
 
     let currentProduct = null;
     let selectedVariant = null;
