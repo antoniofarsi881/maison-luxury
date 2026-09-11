@@ -230,7 +230,6 @@
     .catalog { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
     @media (max-width: 480px) { .catalog { gap: 10px; } }
 
-    /* CARD PRODOTTI NEL CATALOGO */
     .product-card-simple {
       background: #111116;
       border: 1px solid var(--border);
@@ -302,26 +301,60 @@
       object-position: center;
     }
 
-    .thumbs-grid { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; }
+    .thumbs-grid { display: flex; gap: 10px; margin-top: 12px; overflow-x: auto; justify-content: center; align-items: center; }
     .thumb { 
-      width: 55px; 
-      height: 55px; 
-      border-radius: 6px; 
+      width: 60px; 
+      height: 60px; 
+      border-radius: 8px; 
       object-fit: cover; 
       background: #111; 
       border: 2px solid transparent; 
       cursor: pointer; 
-      opacity: 0.7; 
-      flex-shrink: 0; 
+      opacity: 0.6; 
+      flex-shrink: 0;
+      transition: 0.2s;
     }
-    .thumb.active { border-color: var(--accent); opacity: 1; }
+    .thumb.active { border-color: var(--accent); opacity: 1; transform: scale(1.05); }
 
     .detail-info h1 { font-size: 1.6rem; margin-bottom: 8px; font-weight: 600; }
     .detail-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; line-height: 1.5; }
     .detail-price { font-size: 1.5rem; color: var(--accent); font-weight: bold; margin-bottom: 20px; }
 
-    .form-group { margin-bottom: 18px; }
-    .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 1px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 1px; font-weight: 600; }
+
+    /* SELEZIONE TAGLIE A QUADRATINI */
+    .size-boxes-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .size-box {
+      min-width: 45px;
+      height: 45px;
+      padding: 0 12px;
+      background: #121216;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: #fff;
+      transition: 0.2s;
+    }
+    .size-box:hover {
+      border-color: #666;
+    }
+    .size-box.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      font-weight: bold;
+    }
+
     select, input[type="text"], input[type="tel"], input[type="email"] { 
       width: 100%; 
       padding: 12px; 
@@ -486,7 +519,7 @@
 
         <div class="form-group">
           <label>Seleziona Taglia</label>
-          <select id="detail-size-select"></select>
+          <div class="size-boxes-grid" id="detail-size-boxes"></div>
         </div>
 
         <div class="btn-actions-grid">
@@ -812,9 +845,9 @@
 
     let currentProduct = null;
     let selectedVariant = null;
+    let selectedSize = '';
     let cart = [];
 
-    // RECUPERO IMMAGINE SICURO CON FILTRO ANTI-VUOTI
     function getProductImage(p) {
       if (p.variants && p.variants.length && p.variants[0].img) return p.variants[0].img;
       if (p.images) {
@@ -829,25 +862,30 @@
       return null;
     }
 
-    // CARICAMENTO DINAMICO CON RIMOZIONE AUTOMATICA DEI DUPLICATI
     async function initCatalogData() {
       try {
         const res = await fetch('prodotti.json?v=' + Date.now());
         if (res.ok) {
           const remoteProducts = await res.json();
           if (remoteProducts && remoteProducts.length) {
-            // Unione intelligente: ignora prodotti duplicati o senza immagini
-            let map = new Map();
-            products.forEach(p => map.set(p.id, p));
-            remoteProducts.forEach(p => map.set(p.id, p));
-            products = Array.from(map.values());
+            remoteProducts.forEach(remoteP => {
+              // Sostituisci o aggiungi solo se il remoto ha effettivamente un'immagine valida!
+              if (getProductImage(remoteP)) {
+                let idx = products.findIndex(p => p.id === remoteP.id);
+                if (idx !== -1) {
+                  products[idx] = remoteP;
+                } else {
+                  products.push(remoteP);
+                }
+              }
+            });
           }
         }
       } catch (e) {
         console.log("Uso catalogo locale");
       }
 
-      // Filtra via qualsiasi voce fallata che non ha immagine
+      // Elimina eventuali schede senza immagine
       products = products.filter(p => getProductImage(p) !== null);
 
       populateFilterDropdowns();
@@ -995,22 +1033,28 @@
       document.getElementById('detail-img').src = imgUrl;
       const thumbsContainer = document.getElementById('detail-thumbs');
       
-      let imagesList = [];
+      let imagesList = [imgUrl];
+
+      // Se la variante ha un'immagine fronte/retro o più immagini
       if (selectedVariant.extraImg) {
-        imagesList.push(imgUrl, selectedVariant.extraImg);
+        imagesList.push(selectedVariant.extraImg);
+      } else if (currentProduct.variants && currentProduct.variants.length > 1) {
+        imagesList = currentProduct.variants.map(v => v.img);
       }
 
       if (imagesList.length > 1) {
         thumbsContainer.innerHTML = imagesList.map((imgSrc, i) => `
-          <img class="thumb ${i === 0 ? 'active' : ''}" src="${imgSrc}" onclick="document.getElementById('detail-img').src='${imgSrc}'">
-        `).join('');
-      } else if (currentProduct.variants && currentProduct.variants.length > 1) {
-        thumbsContainer.innerHTML = currentProduct.variants.map((v, i) => `
-          <img class="thumb ${v.color === selectedVariant.color ? 'active' : ''}" src="${v.img}" onclick="selectVariantByIndex(${i})">
+          <img class="thumb ${imgSrc === imgUrl ? 'active' : ''}" src="${imgSrc}" onclick="setMainImage('${imgSrc}', this)">
         `).join('');
       } else {
         thumbsContainer.innerHTML = '';
       }
+    }
+
+    function setMainImage(imgSrc, element) {
+      document.getElementById('detail-img').src = imgSrc;
+      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+      element.classList.add('active');
     }
 
     function selectVariantByIndex(index) {
@@ -1030,32 +1074,41 @@
     }
 
     function updateSizeOptions() {
-      const sizeSelect = document.getElementById('detail-size-select');
+      const sizeContainer = document.getElementById('detail-size-boxes');
       const availableSizes = selectedVariant.sizes || currentProduct.sizes || ['Unica'];
-      sizeSelect.innerHTML = availableSizes.map(s => `<option value="${s}">${s}</option>`).join('');
+      
+      selectedSize = availableSizes[0]; // Seleziona di default la prima taglia
+
+      sizeContainer.innerHTML = availableSizes.map((s, i) => `
+        <div class="size-box ${i === 0 ? 'active' : ''}" onclick="selectSize('${s}', this)">${s}</div>
+      `).join('');
+    }
+
+    function selectSize(sizeVal, element) {
+      selectedSize = sizeVal;
+      document.querySelectorAll('.size-box').forEach(b => b.classList.remove('active'));
+      element.classList.add('active');
     }
 
     function addCurrentToCart() {
-      const size = document.getElementById('detail-size-select').value;
       cart.push({
         title: currentProduct.title,
         price: currentProduct.price,
         color: selectedVariant.color || 'Standard',
-        size: size,
-        img: selectedVariant.img || getProductImage(currentProduct)
+        size: selectedSize,
+        img: document.getElementById('detail-img').src || selectedVariant.img || getProductImage(currentProduct)
       });
       updateCartBadge();
       alert("Prodotto aggiunto al carrello!");
     }
 
     function buyNowCurrent() {
-      const size = document.getElementById('detail-size-select').value;
       cart.push({
         title: currentProduct.title,
         price: currentProduct.price,
         color: selectedVariant.color || 'Standard',
-        size: size,
-        img: selectedVariant.img || getProductImage(currentProduct)
+        size: selectedSize,
+        img: document.getElementById('detail-img').src || selectedVariant.img || getProductImage(currentProduct)
       });
       updateCartBadge();
       switchPage('carrello');
