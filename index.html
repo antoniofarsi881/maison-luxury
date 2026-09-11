@@ -814,7 +814,7 @@
     let selectedVariant = null;
     let cart = [];
 
-    // FUNZIONE DI RECUPERO IMMAGINE PERFETTA (FIX PER EVITARE IL PUNTINO ?)
+    // RECUPERO IMMAGINE SICURO CON FILTRO ANTI-VUOTI
     function getProductImage(p) {
       if (p.variants && p.variants.length && p.variants[0].img) return p.variants[0].img;
       if (p.images) {
@@ -826,22 +826,30 @@
         }
       }
       if (p.image) return p.image;
-      return 'https://via.placeholder.com/400';
+      return null;
     }
 
-    // CARICAMENTO DINAMICO DAL FILE PRODOTTI.JSON SE PRESENTE SU GITHUB
+    // CARICAMENTO DINAMICO CON RIMOZIONE AUTOMATICA DEI DUPLICATI
     async function initCatalogData() {
       try {
         const res = await fetch('prodotti.json?v=' + Date.now());
         if (res.ok) {
           const remoteProducts = await res.json();
           if (remoteProducts && remoteProducts.length) {
-            products = remoteProducts;
+            // Unione intelligente: ignora prodotti duplicati o senza immagini
+            let map = new Map();
+            products.forEach(p => map.set(p.id, p));
+            remoteProducts.forEach(p => map.set(p.id, p));
+            products = Array.from(map.values());
           }
         }
       } catch (e) {
-        console.log("Uso il catalogo locale integrato");
+        console.log("Uso catalogo locale");
       }
+
+      // Filtra via qualsiasi voce fallata che non ha immagine
+      products = products.filter(p => getProductImage(p) !== null);
+
       populateFilterDropdowns();
       renderCatalog();
     }
