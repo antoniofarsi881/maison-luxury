@@ -23,7 +23,6 @@
       overflow-x: hidden;
     }
 
-    /* SFONDO STELLE */
     body::before {
       content: "";
       position: fixed;
@@ -49,7 +48,6 @@
       100% { opacity: 1; }
     }
 
-    /* TRAMA DIAGONALE MAISON LUXURY */
     body::after {
       content: "";
       position: fixed;
@@ -60,7 +58,6 @@
       pointer-events: none;
     }
 
-    /* HEADER */
     header {
       position: sticky;
       top: 0;
@@ -128,7 +125,6 @@
     }
     .hamburger span { width: 26px; height: 3px; background-color: var(--accent); border-radius: 2px; transition: 0.3s; }
 
-    /* OVERLAY E MENU */
     .menu-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -190,7 +186,6 @@
     }
     .back-bar svg { width: 22px; height: 22px; fill: var(--accent); }
 
-    /* HOME E CHI SIAMO */
     .hero-container, .about-container {
       text-align: center;
       padding: 10px 0;
@@ -202,7 +197,6 @@
     .hero-text, .about-text { color: var(--text-muted); font-size: 1.05rem; line-height: 1.9; margin-bottom: 22px; font-weight: 300; text-align: justify; text-justify: inter-word; }
     .btn-explore { display: inline-block; margin-top: 15px; padding: 16px 40px; background: var(--accent); color: #000; font-weight: 700; border-radius: 4px; border: none; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 0 25px rgba(255, 255, 255, 0.3); }
 
-    /* FILTRI */
     .filter-bar {
       display: flex;
       gap: 25px;
@@ -226,7 +220,6 @@
     .filter-select:focus, .filter-select:hover { color: var(--accent); }
     .filter-select option { background: #0f0f14; color: #fff; }
 
-    /* CATALOGO PRODOTTI */
     .catalog { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
     @media (max-width: 480px) { .catalog { gap: 10px; } }
 
@@ -279,7 +272,6 @@
       margin: 0 12px 12px 12px; 
     }
 
-    /* DETTAGLIO PRODOTTO */
     .detail-container { display: flex; flex-direction: column; gap: 20px; }
     @media (min-width: 650px) { .detail-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; } }
 
@@ -308,7 +300,6 @@
     .form-group { margin-bottom: 20px; }
     .form-group label { display: block; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 1px; font-weight: 600; }
 
-    /* SELEZIONE COLORI CON PALLINI */
     .color-dots-grid {
       display: flex;
       align-items: center;
@@ -394,7 +385,6 @@
       cursor: pointer;
     }
 
-    /* CARRELLO & CHECKOUT */
     .cart-page-items { margin-bottom: 25px; }
     .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border); }
     .btn-remove { background: #d93838; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
@@ -402,7 +392,6 @@
     .summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1.1rem; }
     .checkout-btn { width: 100%; padding: 16px; background: var(--accent); color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 0.95rem; margin-top: 15px; }
 
-    /* CHECKOUT FORM */
     .checkout-form-container {
       background: rgba(15, 15, 20, 0.85);
       border: 1px solid var(--border);
@@ -462,7 +451,6 @@
     <div class="nav-link" onclick="switchPage('chi-siamo')">Chi Siamo</div>
   </div>
 
-  <!-- HOME -->
   <div id="page-home" class="page-section active">
     <div class="hero-container">
       <div class="hero-subtitle">Maison Luxury • Official Selection</div>
@@ -482,7 +470,6 @@
     </div>
   </div>
 
-  <!-- PRODOTTI -->
   <div id="page-prodotti" class="page-section">
     <div class="filter-bar">
       <select id="brand-filter" class="filter-select" onchange="applyFilters()">
@@ -496,7 +483,6 @@
     <div class="catalog" id="catalog-grid"></div>
   </div>
 
-  <!-- DETTAGLIO PRODOTTO -->
   <div id="page-dettaglio" class="page-section">
     <div class="back-bar" onclick="switchPage('prodotti')">
       <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
@@ -533,7 +519,6 @@
     </div>
   </div>
 
-  <!-- CARRELLO E CHECKOUT -->
   <div id="page-carrello" class="page-section">
     <div class="back-bar" onclick="switchPage('prodotti')">
       <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
@@ -620,7 +605,6 @@
     </div>
   </div>
 
-  <!-- CHI SIAMO -->
   <div id="page-chi-siamo" class="page-section">
     <div class="about-container">
       <div class="about-subtitle">Maison Luxury Philosophy</div>
@@ -635,13 +619,12 @@
   </div>
 
   <script>
-    // DATASET TOTALE DEI 17 PRODOTTI
     let products = [
       {
         "id": "longsleeve-bp",
         "title": "Longsleeve BP",
         "brand": "BP",
-        "price": 60.00,
+        "price": 25.00,
         "desc": "Longsleeve di alta qualità con stampe fronte/retro.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
@@ -653,7 +636,7 @@
         "id": "gilet-rl",
         "title": "Gilet RL",
         "brand": "RL",
-        "price": 90.00,
+        "price": 40.00,
         "desc": "Gilet versatile ed elegante ideale per tutte le stagioni.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
@@ -666,7 +649,7 @@
         "id": "giubbotto-stu",
         "title": "Giubbotto STU",
         "brand": "STU",
-        "price": 120.00,
+        "price": 60.00,
         "desc": "Giubbotto dal design streetwear unico e ricercato.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
@@ -678,7 +661,7 @@
         "id": "antivento-nk",
         "title": "Giacca Antivento NK",
         "brand": "NK",
-        "price": 85.00,
+        "price": 35.00,
         "desc": "Giacca antivento leggera, comoda e resistente.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
@@ -691,7 +674,7 @@
         "id": "longsleeve-ch",
         "title": "Longsleeve CH",
         "brand": "CH",
-        "price": 75.00,
+        "price": 25.00,
         "desc": "Longsleeve con grafiche esclusive e fit moderno.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
@@ -703,7 +686,7 @@
         "id": "felpa-zip-rl",
         "title": "Felpa con Zip RL",
         "brand": "RL",
-        "price": 95.00,
+        "price": 30.00,
         "desc": "Felpa con chiusura a zip essenziale per il tuo guardaroba.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
@@ -717,7 +700,7 @@
         "id": "antivento-crtz",
         "title": "Giacca Antivento CRTZ",
         "brand": "CRTZ",
-        "price": 110.00,
+        "price": 35.00,
         "desc": "Giacca antivento streetwear ad alto impatto.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
@@ -729,7 +712,7 @@
         "id": "longsleeve-acn-stud",
         "title": "Longsleeve ACN STUD",
         "brand": "ACN STUD",
-        "price": 80.00,
+        "price": 25.00,
         "desc": "Longsleeve minimale in puro cotone premium.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
@@ -741,7 +724,7 @@
         "id": "longsleeve-esntls",
         "title": "Longsleeve ESNTLS",
         "brand": "ESNTLS",
-        "price": 70.00,
+        "price": 25.00,
         "desc": "Capo immancabile per un outfit streetwear contemporaneo.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
@@ -754,97 +737,97 @@
         "id": "maglione-jcmqs",
         "title": "Maglione JCMQS",
         "brand": "JCMQS",
-        "price": 105.00,
+        "price": 30.00,
         "desc": "Maglione elegante in filati selezionati per uno stile raffinato.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
-          { "color": "Grigio", "img": "Photoroom_20260911_143547.jpeg" },
-          { "color": "Nero", "img": "maglione_jcmqs_nero.jpeg" },
-          { "color": "Beige", "img": "maglione_jcmqs_beige.jpeg" }
+          { "color": "Rosso", "img": "Photoroom_20260911_143547.jpeg" },
+          { "color": "Nero", "img": "Photoroom_20260911_143603.jpeg" },
+          { "color": "Beige", "img": "Photoroom_20260911_142456.jpeg" }
         ]
       },
       {
         "id": "tshirt-stussy-basic",
-        "title": "T-Shirt Basic Stussy",
+        "title": "T-Shirt Basic STU",
         "brand": "STU",
-        "price": 45.00,
+        "price": 20.00,
         "desc": "T-Shirt classica in cotone con logo iconico sul petto.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
-          { "color": "Nero", "img": "tshirt_stussy_nero.jpeg" },
-          { "color": "Bianco", "img": "tshirt_stussy_bianco.jpeg" }
+          { "color": "Nero", "img": "Photoroom_20260911_143648.jpeg" },
+          { "color": "Bianco", "img": "Photoroom_20260911_143727.jpeg" }
         ]
       },
       {
         "id": "felpa-cappuccio-crtz",
         "title": "Felpa con Cappuccio CRTZ",
         "brand": "CRTZ",
-        "price": 115.00,
+        "price": 30.00,
         "desc": "Felpa oversize in cotone felpato pesante.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
-          { "color": "Nero", "img": "felpa_crtz_nero.jpeg" },
-          { "color": "Grigio", "img": "felpa_crtz_grigio.jpeg" }
+          { "color": "Nero", "img": "Photoroom_20260911_143503.jpeg" },
+          { "color": "Grigio", "img": "Photoroom_20260911_143706.jpeg" }
         ]
       },
       {
         "id": "pantalone-cargo-nk",
         "title": "Pantalone Cargo NK",
         "brand": "NK",
-        "price": 85.00,
+        "price": 30.00,
         "desc": "Pantalone stile cargo resistente con tasche laterali.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
-          { "color": "Nero", "img": "cargo_nk_nero.jpeg" },
-          { "color": "Kaki", "img": "cargo_nk_kaki.jpeg" }
+          { "color": "Nero", "img": "Photoroom_20260911_142736.jpeg" },
+          { "color": "Kaki", "img": "Photoroom_20260911_142824.jpeg" }
         ]
       },
       {
         "id": "giacca-denim-acn",
         "title": "Giacca in Denim ACN STUD",
         "brand": "ACN STUD",
-        "price": 140.00,
+        "price": 50.00,
         "desc": "Giacca in jeans strutturata con lavaggio vintage.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
-          { "color": "Blu", "img": "denim_acn_blu.jpeg" },
-          { "color": "Nero", "img": "denim_acn_nero.jpeg" }
+          { "color": "Blu", "img": "Photoroom_20260911_143524.jpeg" },
+          { "color": "Nero", "img": "Photoroom_20260911_142628.jpeg" }
         ]
       },
       {
         "id": "polo-rl-classic",
         "title": "Polo Classica RL",
         "brand": "RL",
-        "price": 75.00,
+        "price": 25.00,
         "desc": "Polo a maniche corte in piqué di cotone pettinato.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
-          { "color": "Nero", "img": "polo_rl_nero.jpeg" },
-          { "color": "Bianco", "img": "polo_rl_bianco.jpeg" },
-          { "color": "Blu", "img": "polo_rl_blu.jpeg" }
+          { "color": "Nero", "img": "Photoroom_20260911_143006.jpeg" },
+          { "color": "Bianco", "img": "Photoroom_20260911_143042.jpeg" },
+          { "color": "Blu", "img": "Photoroom_20260911_142944.jpeg" }
         ]
       },
       {
         "id": "shorts-esntls",
         "title": "Pantaloncini ESNTLS",
         "brand": "ESNTLS",
-        "price": 55.00,
+        "price": 25.00,
         "desc": "Shorts sportivi e comodi con girovita elasticizzato.",
         "sizes": ["S", "M", "L", "XL"],
         "variants": [
-          { "color": "Nero", "img": "shorts_esntls_nero.jpeg" },
-          { "color": "Grigio", "img": "shorts_esntls_grigio.jpeg" }
+          { "color": "Nero", "img": "Photoroom_20260911_143648.jpeg" },
+          { "color": "Grigio", "img": "Photoroom_20260911_143706.jpeg" }
         ]
       },
       {
         "id": "cappello-beanie-ch",
         "title": "Beanie CH",
         "brand": "CH",
-        "price": 40.00,
-        "desc": "Cappello in maglia di lana sintetica ad alto isolamento termico.",
+        "price": 15.00,
+        "desc": "Cappello in maglia con logo ricamato.",
         "sizes": ["Taglia Unica"],
         "variants": [
-          { "color": "Nero", "img": "beanie_ch_nero.jpeg" }
+          { "color": "Nero", "img": "Photoroom_20260911_142856.jpeg" }
         ]
       }
     ];
@@ -862,6 +845,7 @@
 
     function getColorHex(colorName) {
       const name = colorName.toLowerCase();
+      if (name.includes('rosso')) return '#d92525';
       if (name.includes('nero con interno rosa')) return 'linear-gradient(135deg, #000000 50%, #ff80bf 50%)';
       if (name.includes('nera e bianca') || name.includes('fronte') || name.includes('retro')) return 'linear-gradient(135deg, #000000 50%, #ffffff 50%)';
       if (name.includes('nera con stampa colorata')) return 'linear-gradient(135deg, #000000 50%, #ff4500 50%)';
