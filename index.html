@@ -1,331 +1,1130 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maison Luxury | Official Store</title>
-    <style>
-        :root {
-            --bg: #0a0a0a;
-            --card-bg: #141414;
-            --text: #ffffff;
-            --subtext: #a0a0a0;
-            --accent: #ffffff;
-            --border: #262626;
-            --danger: #e74c3c;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maison Luxury | High Streetwear & Luxury Apparel</title>
+  <style>
+    :root {
+      --bg: #040406;
+      --accent: #ffffff;
+      --text: #ffffff;
+      --text-muted: #c0c0c8;
+      --border: #22222a;
+    }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: var(--bg); color: var(--text); padding-bottom: 60px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    
+    body { 
+      background-color: var(--bg); 
+      color: var(--text); 
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        /* HEADER E NAVIGAZIONE */
-        header { text-align: center; padding: 30px 20px 15px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px); z-index: 100; }
-        header h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; }
+    /* SFONDO STELLE */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        radial-gradient(1.5px 1.5px at 10px 15px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 25px 60px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 50px 25px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2.5px 2.5px at 80px 100px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 110px 40px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 140px 130px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 170px 70px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2.5px 2.5px at 200px 170px, #ffffff, rgba(0,0,0,0));
+      background-repeat: repeat;
+      background-size: 180px 180px;
+      opacity: 0.85;
+      z-index: -2;
+      animation: starsGlow 2s infinite alternate ease-in-out;
+    }
 
-        nav { display: flex; justify-content: center; gap: 20px; margin-top: 15px; }
-        nav button { background: none; border: none; color: var(--subtext); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; cursor: pointer; padding: 5px 10px; transition: 0.2s; }
-        nav button.active, nav button:hover { color: var(--accent); border-bottom: 2px solid var(--accent); }
+    @keyframes starsGlow {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
 
-        .cart-icon-btn { position: fixed; top: 20px; right: 20px; z-index: 101; background: #fff; color: #000; border: none; padding: 10px 16px; border-radius: 20px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(255,255,255,0.2); }
-        .cart-count { background: #000; color: #fff; border-radius: 50%; padding: 2px 7px; font-size: 0.75rem; }
+    /* TRAMA DIAGONALE MAISON LUXURY */
+    body::after {
+      content: "";
+      position: fixed;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='110' height='70'><text x='5' y='35' fill='%23ffffff' opacity='0.13' font-size='10' font-weight='bold' font-family='sans-serif' transform='rotate(-30 55 35)'>MAISON LUXURY</text></svg>");
+      background-repeat: repeat;
+      z-index: -1;
+      pointer-events: none;
+    }
 
-        /* SEZIONI PAGINA */
-        .page-section { display: none; max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .page-section.active { display: block; }
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(4, 4, 6, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      z-index: 90;
+      height: 70px;
+    }
+    
+    .logo-img { 
+      height: 50px; 
+      width: auto;
+      max-width: 200px;
+      object-fit: contain; 
+      display: block;
+      cursor: pointer;
+    }
 
-        /* HERO HOME */
-        .hero { text-align: center; padding: 60px 20px; background: linear-gradient(180deg, rgba(20,20,20,1) 0%, rgba(10,10,10,1) 100%); border-radius: 16px; border: 1px solid var(--border); margin-bottom: 40px; }
-        .hero h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; letter-spacing: 2px; }
-        .hero p { color: var(--subtext); max-width: 600px; margin: 0 auto 25px; line-height: 1.6; }
-        .btn-hero { background: #fff; color: #000; border: none; padding: 14px 28px; font-weight: 800; text-transform: uppercase; border-radius: 6px; cursor: pointer; letter-spacing: 1px; }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
 
-        /* CATALOGO PRODOTTI */
-        .catalog { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+    .cart-header-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .cart-header-btn svg { width: 18px; height: 18px; fill: var(--accent); }
+    .cart-badge {
+      background: var(--accent);
+      color: #000;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .product-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease; }
-        .product-card:hover { transform: translateY(-4px); }
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 96;
+      padding: 5px;
+    }
+    .hamburger span { width: 26px; height: 3px; background-color: var(--accent); border-radius: 2px; transition: 0.3s; }
 
-        .image-gallery { width: 100%; aspect-ratio: 1/1; background: #000; position: relative; overflow: hidden; }
-        .image-gallery img { width: 100%; height: 100%; object-fit: cover; display: none; }
-        .image-gallery img.active { display: block; }
+    /* OVERLAY E MENU */
+    .menu-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 94;
+    }
+    .menu-overlay.active { opacity: 1; pointer-events: auto; }
 
-        .details { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .brand { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--subtext); }
-        .title { font-size: 1.1rem; font-weight: 700; margin: 4px 0 10px; }
-        .price { font-size: 1.2rem; font-weight: 800; margin-bottom: 15px; }
+    .nav-menu {
+      position: fixed;
+      top: 0; right: -100%;
+      width: 75%; height: 100vh;
+      background: rgba(8, 8, 12, 0.98);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 90px 30px;
+      gap: 25px;
+      transition: 0.4s ease;
+      z-index: 95;
+      backdrop-filter: blur(15px);
+    }
+    .nav-menu.active { right: 0; }
+    
+    .close-menu-btn {
+      position: absolute;
+      top: 25px; right: 25px;
+      color: var(--accent);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
 
-        /* SELETTORE COLORI CON PALLINI */
-        .color-section, .size-section { margin-bottom: 15px; }
-        .section-label { font-size: 0.75rem; text-transform: uppercase; color: var(--subtext); margin-bottom: 8px; display: block; }
-        .color-options { display: flex; gap: 10px; align-items: center; }
-        .color-dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: all 0.2s; }
-        .color-dot.active { border-color: var(--accent); transform: scale(1.15); }
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .nav-link.active-link { color: var(--accent); }
 
-        .color-nero { background-color: #000; border: 1px solid #444; }
-        .color-bianco { background-color: #fff; }
-        .color-rosso { background-color: #e74c3c; }
-        .color-verde { background-color: #2ecc71; }
-        .color-blu { background-color: #3498db; }
-        .color-grigio { background-color: #7f8c8d; }
-        .color-rosa { background-color: #ff9ff3; }
+    .page-section { display: none; padding: 20px 15px 40px; max-width: 900px; margin: 0 auto; }
+    .page-section.active { display: block; }
 
-        /* SELETTORE TAGLIE A RETTANGOLI */
-        .size-options { display: flex; flex-wrap: wrap; gap: 8px; }
-        .size-btn { border: 1px solid var(--border); background: #000; color: #fff; padding: 6px 12px; font-size: 0.8rem; font-weight: 600; border-radius: 4px; cursor: pointer; transition: all 0.2s; }
-        .size-btn:hover, .size-btn.active { background: #fff; color: #000; border-color: #fff; }
+    .back-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .back-bar svg { width: 22px; height: 22px; fill: var(--accent); }
 
-        .btn-buy { width: 100%; padding: 12px; background: #fff; color: #000; border: none; font-weight: 800; text-transform: uppercase; border-radius: 6px; cursor: pointer; margin-top: auto; }
-        .btn-buy:hover { opacity: 0.9; }
+    /* HOME E CHI SIAMO */
+    .hero-container, .about-container {
+      text-align: center;
+      padding: 10px 0;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .hero-subtitle, .about-subtitle { color: var(--accent); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; margin-bottom: 18px; }
+    .hero-title, .about-title { font-size: 2.1rem; font-weight: 400; letter-spacing: 1px; margin-bottom: 25px; line-height: 1.3; color: #ffffff; }
+    .hero-text, .about-text { color: var(--text-muted); font-size: 1.05rem; line-height: 1.9; margin-bottom: 22px; font-weight: 300; text-align: justify; text-justify: inter-word; }
+    .btn-explore { display: inline-block; margin-top: 15px; padding: 16px 40px; background: var(--accent); color: #000; font-weight: 700; border-radius: 4px; border: none; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 0 25px rgba(255, 255, 255, 0.3); }
 
-        /* CHI SIAMO */
-        .about-card { background: var(--card-bg); border: 1px solid var(--border); padding: 40px; border-radius: 12px; max-width: 800px; margin: 0 auto; line-height: 1.8; color: var(--subtext); }
-        .about-card h3 { color: #fff; margin-bottom: 15px; font-size: 1.4rem; }
+    /* FILTRI */
+    .filter-bar {
+      display: flex;
+      gap: 25px;
+      margin-bottom: 25px;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .filter-select {
+      background: transparent;
+      color: var(--text);
+      border: none;
+      padding: 4px 0;
+      font-size: 0.9rem;
+      outline: none;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .filter-select:focus, .filter-select:hover { color: var(--accent); }
+    .filter-select option { background: #0f0f14; color: #fff; }
 
-        /* CARRELLO LATERALE */
-        .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; display: none; justify-content: flex-end; }
-        .cart-overlay.active { display: flex; }
-        .cart-drawer { width: 100%; max-width: 420px; background: #111; height: 100%; padding: 25px; display: flex; flex-direction: column; border-left: 1px solid var(--border); }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 20px; }
-        .cart-items { flex-grow: 1; overflow-y: auto; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding: 12px 0; }
-        .checkout-form { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px; }
-        .checkout-form input { width: 100%; padding: 10px; margin-bottom: 10px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 4px; }
-    </style>
+    /* CATALOGO PRODOTTI */
+    .catalog { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    @media (max-width: 480px) { .catalog { gap: 10px; } }
+
+    /* CARD PRODOTTI NEL CATALOGO */
+    .product-card-simple {
+      background: #111116;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0;
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+      overflow: hidden;
+    }
+    .product-card-simple:hover { 
+      transform: translateY(-3px); 
+      border-color: var(--accent); 
+    }
+    
+    .card-img-wrap {
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      background: #000;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: contrast(1.05) brightness(0.98);
+      display: block;
+    }
+
+    .card-title { 
+      font-size: 0.95rem; 
+      font-weight: 600; 
+      margin: 12px 12px 5px 12px; 
+      color: #fff; 
+      line-height: 1.3; 
+    }
+    .card-price { 
+      font-size: 1.1rem; 
+      color: var(--accent); 
+      font-weight: bold; 
+      margin: 0 12px 12px 12px; 
+    }
+
+    /* DETTAGLIO PRODOTTO */
+    .detail-container { display: flex; flex-direction: column; gap: 20px; }
+    @media (min-width: 650px) { .detail-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; } }
+
+    .detail-main-img {
+      width: 100%;
+      height: 380px;
+      background: #111116;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+    }
+    .detail-main-img img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      object-position: center;
+    }
+
+    .thumbs-grid { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; }
+    .thumb { 
+      width: 55px; 
+      height: 55px; 
+      border-radius: 6px; 
+      object-fit: cover; 
+      background: #111; 
+      border: 2px solid transparent; 
+      cursor: pointer; 
+      opacity: 0.7; 
+      flex-shrink: 0; 
+    }
+    .thumb.active { border-color: var(--accent); opacity: 1; }
+
+    .detail-info h1 { font-size: 1.6rem; margin-bottom: 8px; font-weight: 600; }
+    .detail-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; line-height: 1.5; }
+    .detail-price { font-size: 1.5rem; color: var(--accent); font-weight: bold; margin-bottom: 20px; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 1px; }
+    select, input[type="text"], input[type="tel"], input[type="email"] { 
+      width: 100%; 
+      padding: 12px; 
+      background: #121216; 
+      color: #fff; 
+      border: 1px solid var(--border); 
+      border-radius: 6px; 
+      font-size: 0.95rem; 
+      outline: none; 
+    }
+
+    .btn-actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 25px; }
+    .btn-add-cart {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 14px;
+      font-weight: bold;
+      border-radius: 6px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .btn-buy-now {
+      background: var(--accent);
+      border: none;
+      color: #000;
+      padding: 14px;
+      font-weight: bold;
+      border-radius: 6px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    /* CARRELLO & CHECKOUT */
+    .cart-page-items { margin-bottom: 25px; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border); }
+    .btn-remove { background: #d93838; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
+    .cart-summary { background: rgba(15, 15, 20, 0.75); padding: 20px; border-radius: 10px; border: 1px solid var(--border); }
+    .summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1.1rem; }
+    .checkout-btn { width: 100%; padding: 16px; background: var(--accent); color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 0.95rem; margin-top: 15px; }
+
+    /* CHECKOUT FORM */
+    .checkout-form-container {
+      background: rgba(15, 15, 20, 0.85);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    
+    .paypal-submit-btn {
+      width: 100%;
+      background: #ffc439;
+      color: #000;
+      border: none;
+      padding: 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      transition: background 0.2s;
+    }
+    .paypal-submit-btn:hover { background: #f2ba32; }
+    .paypal-submit-btn svg { height: 22px; }
+  </style>
 </head>
 <body>
 
-    <button class="cart-icon-btn" onclick="toggleCart()">
-        🛒 Carrello <span class="cart-count" id="cart-count">0</span>
-    </button>
+  <header>
+    <img src="IMG_6056.jpeg" alt="Maison Luxury Logo" class="logo-img" onclick="switchPage('home')">
+    
+    <div class="header-actions">
+      <div class="cart-header-btn" onclick="switchPage('carrello')">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        <span>Vedi Carrello</span>
+        <div class="cart-badge" id="cart-count">0</div>
+      </div>
 
-    <header>
-        <h1>Maison Luxury</h1>
-        <nav>
-            <button class="nav-link active" onclick="showSection('home', this)">Home</button>
-            <button class="nav-link" onclick="showSection('shop', this)">Prodotti</button>
-            <button class="nav-link" onclick="showSection('about', this)">Chi Siamo</button>
-        </nav>
-    </header>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
 
-    <!-- HOME -->
-    <section id="home" class="page-section active">
-        <div class="hero">
-            <h2>Luxury Streetwear Collection</h2>
-            <p>Selezione esclusiva di capi d'abbigliamento e accessori da collezione. Edizioni limitate disponibili ora.</p>
-            <button class="btn-hero" onclick="showSection('shop', document.querySelectorAll('.nav-link')[1])">Esplora il Catalogo</button>
-        </div>
-    </section>
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
-    <!-- PRODOTTI -->
-    <section id="shop" class="page-section">
-        <div class="catalog" id="catalog"></div>
-    </section>
+  <div class="nav-menu" id="navMenu">
+    <div class="close-menu-btn" onclick="closeMenu()">&times;</div>
+    <div class="nav-link active-link" onclick="switchPage('home')">Home</div>
+    <div class="nav-link" onclick="switchPage('prodotti')">Prodotti</div>
+    <div class="nav-link" onclick="switchPage('chi-siamo')">Chi Siamo</div>
+  </div>
 
-    <!-- CHI SIAMO -->
-    <section id="about" class="page-section">
-        <div class="about-card">
-            <h3>Maison Luxury Store</h3>
-            <p>Maison Luxury nasce dalla passione per la cultura streetwear ad alta sartorialità. Curiamo una selezione rigorosa di capi rari e iconici, garantendo sempre l'autenticità e la massima qualità dei materiali.</p>
-            <br>
-            <p>Spediamo in tutta Italia ed Europa con packaging curato nei minimi dettagli e tracciamento espresso.</p>
-        </div>
-    </section>
+  <!-- HOME -->
+  <div id="page-home" class="page-section active">
+    <div class="hero-container">
+      <div class="hero-subtitle">Maison Luxury • Official Selection</div>
+      <h1 class="hero-title">L'ECCELLENZA DEL HIGH-STREETWEAR DI LUSSO</h1>
+      
+      <p class="hero-text">
+        Benvenuti nell'universo ufficiale di <strong>Maison Luxury</strong>. La nostra realtà nasce per rispondere alle esigenze di una clientela selezionata ed esigente, alla continua ricerca di capi d'abbigliamento che trascendono le tendenze di massa per diventare veri e propri simboli di status ed eleganza urbana.
+      </p>
 
-    <!-- CARRELLO & CHECKOUT -->
-    <div class="cart-overlay" id="cart-overlay">
-        <div class="cart-drawer">
-            <div class="cart-header">
-                <h3>Il Tuo Carrello</h3>
-                <button onclick="toggleCart()" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;">✕</button>
-            </div>
-            <div class="cart-items" id="cart-items"></div>
-            
-            <div class="checkout-form">
-                <div style="font-size: 1.2rem; font-weight: 800; margin-bottom: 15px; display:flex; justify-content:space-between;">
-                    <span>Totale:</span>
-                    <span id="cart-total">€0.00</span>
-                </div>
-                
-                <!-- Formspree Integration -->
-                <form id="order-form" action="https://formspree.io/f/xqaeoppe" method="POST" onsubmit="submitOrder(event)">
-                    <input type="text" name="nome" placeholder="Nome e Cognome" required>
-                    <input type="text" name="indirizzo" placeholder="Indirizzo di Spedizione Completo" required>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <input type="tel" name="telefono" placeholder="Numero di Telefono" required>
-                    <input type="hidden" name="ordine_dettagli" id="form-order-details">
-                    
-                    <button type="submit" class="btn-buy" style="margin-top:10px;">Conferma Ordine via Email</button>
-                </form>
-            </div>
-        </div>
+      <p class="hero-text">
+        Attraverso una cura maniacale per il dettaglio, una rigorosa selezione dei materiali ed una costante attenzione verso le collaborazioni più esclusive del panorama internazionale, Maison Luxury propone una vetrina unica nel suo genere.
+      </p>
+
+      <div style="text-align: center;">
+        <button class="btn-explore" onclick="switchPage('prodotti')">Scopri la Collezione</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODOTTI -->
+  <div id="page-prodotti" class="page-section">
+    <div class="filter-bar">
+      <select id="brand-filter" class="filter-select" onchange="applyFilters()">
+        <option value="ALL">Marca: Tutte</option>
+      </select>
+      <select id="size-filter" class="filter-select" onchange="applyFilters()">
+        <option value="ALL">Taglia: Tutte</option>
+      </select>
     </div>
 
-    <script>
-        let cart = [];
+    <div class="catalog" id="catalog-grid"></div>
+  </div>
 
-        function showSection(sectionId, btn) {
-            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-            if(btn) btn.classList.add('active');
+  <!-- DETTAGLIO PRODOTTO -->
+  <div id="page-dettaglio" class="page-section">
+    <div class="back-bar" onclick="switchPage('prodotti')">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <span>Torna ai Prodotti</span>
+    </div>
+
+    <div class="detail-container">
+      <div>
+        <div class="detail-main-img">
+          <img id="detail-img" src="" alt="Prodotto">
+        </div>
+        <div class="thumbs-grid" id="detail-thumbs"></div>
+      </div>
+
+      <div class="detail-info">
+        <h1 id="detail-title"></h1>
+        <div class="detail-price" id="detail-price"></div>
+        <div class="detail-desc" id="detail-desc"></div>
+
+        <div class="form-group">
+          <label>Colore / Variante</label>
+          <select id="detail-color-select" onchange="onColorSelectChange()"></select>
+        </div>
+
+        <div class="form-group">
+          <label>Seleziona Taglia</label>
+          <select id="detail-size-select"></select>
+        </div>
+
+        <div class="btn-actions-grid">
+          <button class="btn-add-cart" onclick="addCurrentToCart()">Aggiungi al Carrello</button>
+          <button class="btn-buy-now" onclick="buyNowCurrent()">Acquista Ora</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARRELLO E CHECKOUT -->
+  <div id="page-carrello" class="page-section">
+    <div class="back-bar" onclick="switchPage('prodotti')">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <span>Continua lo Shopping</span>
+    </div>
+
+    <h2 style="margin-bottom: 20px; font-weight: 500;">Il tuo Carrello</h2>
+
+    <div class="cart-page-items" id="cart-page-items"></div>
+
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span>Totale Provvisorio:</span>
+        <strong style="color: var(--accent);"><span id="cart-page-total">0.00</span> €</strong>
+      </div>
+      <button class="checkout-btn" id="btn-show-checkout" onclick="toggleCheckoutView()">Procedi al Checkout</button>
+    </div>
+
+    <!-- SEZIONE CHECKOUT SPEDIZIONE CON FORMSPREE E PAYPAL -->
+    <div id="checkout-section" class="checkout-form-container" style="display: none;">
+      <h3 style="margin-bottom: 15px; font-weight: 600; text-transform: uppercase; font-size: 1.05rem; letter-spacing: 1px;">Dati di Spedizione</h3>
+      
+      <form id="orderForm" action="https://formspree.io/f/mbgjwdpw" method="POST" onsubmit="handleFormSubmit(event)">
+        
+        <input type="hidden" name="Carrello_Prodotti" id="form-cart-details">
+        <input type="hidden" name="Totale_Ordine" id="form-cart-total">
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label>Nome *</label>
+            <input type="text" name="Nome" required placeholder="Mario">
+          </div>
+          <div class="form-group">
+            <label>Cognome *</label>
+            <input type="text" name="Cognome" required placeholder="Rossi">
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label>Via / Indirizzo *</label>
+            <input type="text" name="Indirizzo" required placeholder="Via Roma">
+          </div>
+          <div class="form-group">
+            <label>Numero Civico *</label>
+            <input type="text" name="Civico" required placeholder="10/A">
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label>Città *</label>
+            <input type="text" name="Citta" required placeholder="Milano">
+          </div>
+          <div class="form-group">
+            <label>CAP *</label>
+            <input type="text" name="CAP" required placeholder="20121">
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label>Stato *</label>
+            <input type="text" name="Stato" value="Italia" required>
+          </div>
+          <div class="form-group">
+            <label>Numero di Telefono *</label>
+            <input type="tel" name="Telefono" required placeholder="+39 333 1234567">
+          </div>
+        </div>
+
+        <button type="submit" class="paypal-submit-btn">
+          <svg viewBox="0 0 124 33" fill="none"><path d="M46.211 6.749h-6.839a.95.95 0 00-.939.802l-2.766 17.537a.57.57 0 00.564.658h3.265a.95.95 0 00.939-.803l.798-5.06a.95.95 0 01.938-.803h2.165c4.505 0 7.105-2.18 7.784-6.5.304-1.922.01-3.44-.872-4.414-.984-1.087-2.695-1.417-5.037-1.417z" fill="#003087"/><path d="M68.868 6.749h-3.267a.95.95 0 00-.938.803l-.382 2.419h-.123c-.702-1.025-2.224-1.472-3.83-1.472-3.585 0-6.666 2.715-7.256 6.47-.308 1.93.13 3.754 1.201 5.001 1 1.161 2.493 1.621 4.208 1.621 3.226 0 5.01-2.07 5.01-2.07l-.384 2.408a.57.57 0 00.563.658h2.981a.95.95 0 00.939-.803l2.235-14.227a.57.57 0 00-.563-.658z" fill="#003087"/><path d="M11.13 2.115L3.633 25.869a.57.57 0 00.563.658h3.407a.95.95 0 00.939-.802l1.98-12.56a.95.95 0 01.938-.803h3.584c4.806 0 7.579-2.327 8.303-6.938.384-2.435-.06-4.301-1.289-5.385-1.309-1.157-3.486-1.503-6.198-1.503h-4.73a.95.95 0 00-.939.803z" fill="#003087"/></svg>
+          Paga con PayPal
+        </button>
+      </form>
+
+      <!-- FORM NASCOSTO PAYPAL -->
+      <form id="paypalPayForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display:none;">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="Noppedisano1@gmail.com">
+        <input type="hidden" name="item_name" value="Ordine Maison Luxury">
+        <input type="hidden" name="amount" id="paypal-total-amount" value="0.00">
+        <input type="hidden" name="currency_code" value="EUR">
+      </form>
+
+    </div>
+  </div>
+
+  <!-- CHI SIAMO -->
+  <div id="page-chi-siamo" class="page-section">
+    <div class="about-container">
+      <div class="about-subtitle">Maison Luxury Philosophy</div>
+      <h2 class="about-title">LA NOSTRA VISIONE & FILOSOFIA</h2>
+      <p class="about-text">
+        Maison Luxury si fonda sull'idea che l'abbigliamento non sia semplicemente un insieme di capi da indossare, ma un'estensione diretta della propria identità e del proprio valore.
+      </p>
+      <p class="about-text">
+        Operiamo all'intersezione tra sartorialità moderna e cultura street di nicchia. Il nostro team lavora costantemente alla ricerca di pezzi iconici prodotti in tirature strettamente limitate.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    let products = [
+      {
+        id: 'gilet',
+        title: 'Gilet RL Classic',
+        brand: 'RL',
+        price: 40.00,
+        desc: 'Gilet smanicato imbottito dal design iconico, rifinito nei minimi dettagli.',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5875.jpeg' },
+          { color: 'Blu', img: 'IMG_5877.jpeg' },
+          { color: 'Beige', img: 'IMG_5878.jpeg' }
+        ]
+      },
+      {
+        id: 'stussy',
+        title: 'Giubbotto Stu Streetwear',
+        brand: 'Stu',
+        price: 60.00,
+        desc: 'Giubbotto dal taglio streetwear contemporaneo con interno a contrasto.',
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        variants: [
+          { color: 'Nero / Int. Grigio', img: 'IMG_5880.jpeg' },
+          { color: 'Nero / Int. Rosa', img: 'IMG_5882.jpeg' }
+        ]
+      },
+      {
+        id: 'chrome-bape',
+        title: 'Felpa Ch x Bp',
+        brand: 'CH x Bp',
+        price: 30.00,
+        desc: 'Felpa con cappuccio esclusiva in collaborazione, taglio rilassato con stampa iconica.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5903.jpeg' },
+          { color: 'Bianco', img: 'IMG_5904.jpeg' }
+        ]
+      },
+      {
+        id: 'felpa-ch',
+        title: 'Felpa CH',
+        brand: 'CH',
+        price: 30.00,
+        desc: 'Felpa con cappuccio dal taglio confortevole e dettagli iconici.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_6046.jpeg' },
+          { color: 'Bianco', img: 'IMG_6048.jpeg' }
+        ]
+      },
+      {
+        id: 'stampa-am',
+        title: 'Felpa con stampa AM',
+        brand: 'AM',
+        price: 30.00,
+        desc: 'Felpa con grafica AM esclusiva, vestibilità moderna e materiali di alta qualità.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5909.jpeg' },
+          { color: 'Bianco', img: 'IMG_5911.jpeg' }
+        ]
+      },
+      {
+        id: 'classica-am',
+        title: 'Felpa classica AM',
+        brand: 'AM',
+        price: 30.00,
+        desc: 'Modello intramontabile e pulito con logo AM essenziale, ideale per ogni outfit.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5914.jpeg' },
+          { color: 'Bianco', img: 'IMG_5915.jpeg' }
+        ]
+      },
+      {
+        id: 'antivento-nk',
+        title: 'Giacca Antivento NK',
+        brand: 'NK',
+        price: 30.00,
+        desc: 'Giacca tecnica antivento leggera e versatile.',
+        variants: [
+          { color: 'Nero', img: 'IMG_5937.jpeg', sizes: ['S'] },
+          { color: 'Beige', img: 'IMG_5939.jpeg', sizes: ['S', 'M', 'L'] },
+          { color: 'Kaki', img: 'IMG_5941.jpeg', sizes: ['S', 'M', 'L'] }
+        ]
+      },
+      {
+        id: 'giubbotto-trpstr',
+        title: 'Giubbotto TRPSTR',
+        brand: 'TRPSTR',
+        price: 35.00,
+        desc: 'Giubbotto streetwear imbottito ad alte prestazioni con design bicolore.',
+        sizes: ['S'],
+        variants: [
+          { color: 'Grigio e Nero', img: 'IMG_6041.jpeg' }
+        ]
+      },
+      {
+        id: 'longsleeve-ch',
+        title: 'Longsleeve CH',
+        brand: 'CH',
+        price: 25.00,
+        desc: 'Maglia a maniche lunghe dal taglio streetwear.',
+        variants: [
+          { color: 'Bianco e Nero', img: 'IMG_5948.jpeg', sizes: ['M', 'L', 'XL', 'XXL', '3XL'] },
+          { color: 'Nero con stampa colorata', img: 'IMG_5976.jpeg', sizes: ['S', 'M', 'L', 'XL'] }
+        ]
+      },
+      {
+        id: 'longsleeve-bp',
+        title: 'Longsleeve BP',
+        brand: 'BP',
+        price: 25.00,
+        desc: 'Maglia a manica lunga dal design urban, vista frontale e retro coordinata.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_6055.jpeg', extraImg: 'IMG_6051.jpeg' }
+        ]
+      },
+      {
+        id: 'zip-rl',
+        title: 'Felpa con Zip RL',
+        brand: 'RL',
+        price: 30.00,
+        desc: 'Felpa con zip integrale, morbida e rifinita.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5956.jpeg' },
+          { color: 'Bianco', img: 'IMG_5958.jpeg' },
+          { color: 'Grigio', img: 'IMG_5952.jpeg' },
+          { color: 'Blu', img: 'IMG_5954.jpeg' }
+        ]
+      },
+      {
+        id: 'giacca-crtz',
+        title: 'Giacca Antivento CRTZ',
+        brand: 'CRTZ',
+        price: 35.00,
+        desc: 'Giacca antivento streetwear di grande impatto visivo.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5972.jpeg' },
+          { color: 'Blu', img: 'IMG_5974.jpeg' }
+        ]
+      },
+      {
+        id: 'maglione-am-par',
+        title: 'Maglione AM PAR',
+        brand: 'AM PAR',
+        price: 30.00,
+        desc: 'Maglione rifinito a maglia morbida con combinazioni cromatiche esclusive.',
+        variants: [
+          { color: 'Nero e Rosso', img: 'IMG_5982.jpeg', sizes: ['L'] },
+          { color: 'Blu e Bianco', img: 'IMG_5984.jpeg', sizes: ['S', 'M', 'L'] },
+          { color: 'Bianco e Rosso', img: 'IMG_5986.jpeg', sizes: ['S', 'M', 'L'] }
+        ]
+      },
+      {
+        id: 'maglione-csblnc',
+        title: 'Maglione CSBLNC',
+        brand: 'CSBLNC',
+        price: 30.00,
+        desc: 'Maglione di maglia raffinato dalle sfumature eleganti.',
+        sizes: ['S', 'M', 'L'],
+        variants: [
+          { color: 'Blu', img: 'IMG_6037.jpeg' }
+        ]
+      },
+      {
+        id: 'longsleeve-acn-stud',
+        title: 'Longsleeve ACN STUD',
+        brand: 'ACN STUD',
+        price: 25.00,
+        desc: 'Maglia a manica lunga essenziale con vestibilità sartoriale e contemporanea.',
+        sizes: ['S', 'M', 'L', 'XL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5992.jpeg' },
+          { color: 'Bianco', img: 'IMG_5990.jpeg' }
+        ]
+      },
+      {
+        id: 'longsleeve-esntls',
+        title: 'Longsleeve ESNTLS',
+        brand: 'ESNTLS',
+        price: 25.00,
+        desc: 'Capo essenziale per ogni guardaroba, realizzato in cotone morbido e traspirante.',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        variants: [
+          { color: 'Nero', img: 'IMG_5996.jpeg' },
+          { color: 'Grigio', img: 'IMG_5998.jpeg' },
+          { color: 'Bianco', img: 'IMG_6001.jpeg' }
+        ]
+      },
+      {
+        id: 'maglione-jcqms',
+        title: 'Maglione JCQMS',
+        brand: 'JCQMS',
+        price: 30.00,
+        desc: 'Maglione dal gusto luxury ed elegante, ideale per occasioni esclusive.',
+        sizes: ['S', 'M', 'L'],
+        variants: [
+          { color: 'Rosso', img: 'IMG_6005.jpeg' },
+          { color: 'Grigio', img: 'IMG_6007.jpeg' },
+          { color: 'Panna', img: 'IMG_6007.jpeg' }
+        ]
+      }
+    ];
+
+    let currentProduct = null;
+    let selectedVariant = null;
+    let cart = [];
+
+    // FUNZIONE DI RECUPERO IMMAGINE PERFETTA (FIX PER EVITARE IL PUNTINO ?)
+    function getProductImage(p) {
+      if (p.variants && p.variants.length && p.variants[0].img) return p.variants[0].img;
+      if (p.images) {
+        if (typeof p.images === 'object' && !Array.isArray(p.images)) {
+          const firstKey = Object.keys(p.images)[0];
+          if (firstKey && p.images[firstKey].length) return p.images[firstKey][0];
+        } else if (Array.isArray(p.images) && p.images.length) {
+          return p.images[0];
         }
+      }
+      if (p.image) return p.image;
+      return 'https://via.placeholder.com/400';
+    }
 
-        async function loadCatalog() {
-            try {
-                const response = await fetch('prodotti.json?v=' + Date.now());
-                const products = await response.json();
-                const container = document.getElementById('catalog');
-                container.innerHTML = '';
-
-                products.forEach(p => {
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-
-                    let imagesObj = {};
-                    if (typeof p.images === 'object' && !Array.isArray(p.images) && p.images !== null) {
-                        imagesObj = p.images;
-                    } else if (Array.isArray(p.images)) {
-                        imagesObj = { "Standard": p.images };
-                    } else if (p.image) {
-                        imagesObj = { "Standard": [p.image] };
-                    } else {
-                        imagesObj = { "Standard": [] };
-                    }
-
-                    const colors = Object.keys(imagesObj);
-                    let initialColor = colors[0] || "Standard";
-                    let initialSize = (p.sizes && p.sizes.length) ? p.sizes[0] : '';
-
-                    let sizesHTML = '';
-                    if (p.sizes && p.sizes.length) {
-                        sizesHTML = `
-                            <div class="size-section">
-                                <span class="section-label">Taglia</span>
-                                <div class="size-options">
-                                    ${p.sizes.map((s, idx) => `<button class="size-btn ${idx === 0 ? 'active' : ''}" onclick="selectSize(this)">${s}</button>`).join('')}
-                                </div>
-                            </div>`;
-                    }
-
-                    let colorsHTML = '';
-                    if (colors.length > 0 && colors[0] !== "Standard") {
-                        colorsHTML = `
-                            <div class="color-section">
-                                <span class="section-label">Colore: <strong class="color-name-text">${initialColor}</strong></span>
-                                <div class="color-options">
-                                    ${colors.map((c, idx) => {
-                                        const colorClass = 'color-' + c.toLowerCase().trim();
-                                        return `<div class="color-dot ${colorClass} ${idx === 0 ? 'active' : ''}" title="${c}" onclick="switchColor(this, '${c}')"></div>`;
-                                    }).join('')}
-                                </div>
-                            </div>`;
-                    }
-
-                    card.innerHTML = `
-                        <div class="image-gallery">
-                            ${renderGalleryImages(imagesObj[initialColor])}
-                        </div>
-                        <div class="details">
-                            <span class="brand">${p.brand || ''}</span>
-                            <h2 class="title">${p.title || ''}</h2>
-                            <div class="price">€${p.price ? p.price.toFixed(2) : '0.00'}</div>
-                            ${colorsHTML}
-                            ${sizesHTML}
-                            <button class="btn-buy" onclick="addToCart('${p.id}', '${p.title}', ${p.price}, this)">Aggiungi al Carrello</button>
-                        </div>
-                    `;
-
-                    card.dataset.images = JSON.stringify(imagesObj);
-                    card.dataset.selectedColor = initialColor;
-                    card.dataset.selectedSize = initialSize;
-
-                    container.appendChild(card);
-                });
-            } catch (err) {
-                console.error("Errore caricamento prodotti:", err);
-            }
+    // CARICAMENTO DINAMICO DAL FILE PRODOTTI.JSON SE PRESENTE SU GITHUB
+    async function initCatalogData() {
+      try {
+        const res = await fetch('prodotti.json?v=' + Date.now());
+        if (res.ok) {
+          const remoteProducts = await res.json();
+          if (remoteProducts && remoteProducts.length) {
+            products = remoteProducts;
+          }
         }
+      } catch (e) {
+        console.log("Uso il catalogo locale integrato");
+      }
+      populateFilterDropdowns();
+      renderCatalog();
+    }
 
-        function renderGalleryImages(arr) {
-            if (!arr || arr.length === 0) return `<img src="https://via.placeholder.com/400" class="active">`;
-            return arr.map((img, idx) => `<img src="${img}" class="${idx === 0 ? 'active' : ''}">`).join('');
+    function toggleMenu() {
+      const menu = document.getElementById('navMenu');
+      const overlay = document.getElementById('menuOverlay');
+      if (menu.classList.contains('active')) {
+        closeMenu();
+      } else {
+        menu.classList.add('active');
+        overlay.classList.add('active');
+      }
+    }
+
+    function closeMenu() {
+      document.getElementById('navMenu').classList.remove('active');
+      document.getElementById('menuOverlay').classList.remove('active');
+    }
+
+    function getAllSizesForProduct(product) {
+      let sizes = new Set();
+      if (product.sizes) product.sizes.forEach(s => sizes.add(s));
+      if (product.variants) {
+        product.variants.forEach(v => {
+          if (v.sizes) v.sizes.forEach(s => sizes.add(s));
+        });
+      }
+      return Array.from(sizes);
+    }
+
+    function populateFilterDropdowns() {
+      const brandSelect = document.getElementById('brand-filter');
+      const sizeSelect = document.getElementById('size-filter');
+
+      brandSelect.innerHTML = '<option value="ALL">Marca: Tutte</option>';
+      sizeSelect.innerHTML = '<option value="ALL">Taglia: Tutte</option>';
+
+      let brands = new Set();
+      let sizes = new Set();
+
+      products.forEach(p => {
+        if (p.brand) {
+          if(p.brand.includes(' x ')) {
+            p.brand.split(' x ').forEach(b => brands.add(b.trim()));
+          } else {
+            brands.add(p.brand.trim());
+          }
         }
+        getAllSizesForProduct(p).forEach(s => sizes.add(s));
+      });
 
-        function switchColor(dotElem, colorName) {
-            const card = dotElem.closest('.product-card');
-            const imagesData = JSON.parse(card.dataset.images);
-            card.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
-            dotElem.classList.add('active');
-            card.dataset.selectedColor = colorName;
-            const nameLabel = card.querySelector('.color-name-text');
-            if (nameLabel) nameLabel.innerText = colorName;
-            const gallery = card.querySelector('.image-gallery');
-            gallery.innerHTML = renderGalleryImages(imagesData[colorName]);
-        }
+      Array.from(brands).sort().forEach(b => {
+        const opt = document.createElement('option');
+        opt.value = b;
+        opt.textContent = 'Marca: ' + b;
+        brandSelect.appendChild(opt);
+      });
 
-        function selectSize(btn) {
-            const card = btn.closest('.product-card');
-            const container = btn.closest('.size-options');
-            container.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            card.dataset.selectedSize = btn.innerText;
-        }
+      const sizeOrder = ['S', 'M', 'L', 'XL', 'XXL', '3XL'];
+      Array.from(sizes).sort((a,b) => sizeOrder.indexOf(a) - sizeOrder.indexOf(b)).forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = 'Taglia: ' + s;
+        sizeSelect.appendChild(opt);
+      });
+    }
 
-        function toggleCart() {
-            document.getElementById('cart-overlay').classList.toggle('active');
-        }
+    function applyFilters() {
+      const selectedBrand = document.getElementById('brand-filter').value;
+      const selectedSize = document.getElementById('size-filter').value;
 
-        function addToCart(id, title, price, btn) {
-            const card = btn.closest('.product-card');
-            const color = card.dataset.selectedColor || '';
-            const size = card.dataset.selectedSize || '';
+      const filtered = products.filter(p => {
+        let matchBrand = (selectedBrand === 'ALL') || p.brand === selectedBrand || p.brand.includes(selectedBrand);
+        let matchSize = (selectedSize === 'ALL') || getAllSizesForProduct(p).includes(selectedSize);
+        return matchBrand && matchSize;
+      });
 
-            cart.push({ id, title, price, color, size });
-            updateCart();
-            toggleCart();
-        }
+      renderCatalog(filtered);
+    }
 
-        function updateCart() {
-            const cartItemsContainer = document.getElementById('cart-items');
-            const cartCount = document.getElementById('cart-count');
-            const cartTotal = document.getElementById('cart-total');
+    function renderCatalog(itemsToRender = products) {
+      const grid = document.getElementById('catalog-grid');
+      
+      if(itemsToRender.length === 0) {
+        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 30px 0;">Nessun prodotto trovato.</p>';
+        return;
+      }
 
-            cartCount.innerText = cart.length;
-            cartItemsContainer.innerHTML = '';
-            let total = 0;
+      grid.innerHTML = itemsToRender.map(p => `
+        <div class="product-card-simple" onclick="openProductDetail('${p.id}')">
+          <div class="card-img-wrap">
+            <img src="${getProductImage(p)}" alt="${p.title}">
+          </div>
+          <div class="card-title">${p.title}</div>
+          <div class="card-price">${p.price.toFixed(2)} €</div>
+        </div>
+      `).join('');
+    }
 
-            cart.forEach((item, index) => {
-                total += item.price;
-                const row = document.createElement('div');
-                row.className = 'cart-item';
-                row.innerHTML = `
-                    <div>
-                        <strong>${item.title}</strong><br>
-                        <small>${item.color ? 'Colore: ' + item.color : ''} ${item.size ? '| Taglia: ' + item.size : ''}</small><br>
-                        <span>€${item.price.toFixed(2)}</span>
-                    </div>
-                    <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--danger); cursor:pointer;">Elimina</button>
-                `;
-                cartItemsContainer.appendChild(row);
-            });
+    function switchPage(pageId) {
+      document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active-link'));
 
-            cartTotal.innerText = '€' + total.toFixed(2);
-            document.getElementById('form-order-details').value = JSON.stringify(cart);
-        }
+      document.getElementById('page-' + pageId).classList.add('active');
+      closeMenu();
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCart();
-        }
+      if (pageId === 'carrello') {
+        renderCartPage();
+      }
 
-        function submitOrder(e) {
-            if (cart.length === 0) {
-                e.preventDefault();
-                alert("Il carrello è vuoto!");
-            }
-        }
+      window.scrollTo(0, 0);
+    }
 
-        document.addEventListener("DOMContentLoaded", loadCatalog);
-    </script>
+    function openProductDetail(productId) {
+      currentProduct = products.find(p => p.id === productId);
+      
+      if(currentProduct.variants && currentProduct.variants.length) {
+        selectedVariant = currentProduct.variants[0];
+      } else {
+        selectedVariant = { color: 'Standard', img: getProductImage(currentProduct) };
+      }
+
+      document.getElementById('detail-title').innerText = currentProduct.title;
+      document.getElementById('detail-price').innerText = currentProduct.price.toFixed(2) + ' €';
+      document.getElementById('detail-desc').innerText = currentProduct.desc || '';
+
+      const colorSelect = document.getElementById('detail-color-select');
+      if (currentProduct.variants && currentProduct.variants.length) {
+        colorSelect.innerHTML = currentProduct.variants.map((v, i) => `<option value="${i}">${v.color}</option>`).join('');
+      } else {
+        colorSelect.innerHTML = '<option value="0">Unico</option>';
+      }
+
+      updateDetailImages();
+      updateSizeOptions();
+
+      switchPage('dettaglio');
+    }
+
+    function updateDetailImages() {
+      const imgUrl = selectedVariant.img || getProductImage(currentProduct);
+      document.getElementById('detail-img').src = imgUrl;
+      const thumbsContainer = document.getElementById('detail-thumbs');
+      
+      let imagesList = [];
+      if (selectedVariant.extraImg) {
+        imagesList.push(imgUrl, selectedVariant.extraImg);
+      }
+
+      if (imagesList.length > 1) {
+        thumbsContainer.innerHTML = imagesList.map((imgSrc, i) => `
+          <img class="thumb ${i === 0 ? 'active' : ''}" src="${imgSrc}" onclick="document.getElementById('detail-img').src='${imgSrc}'">
+        `).join('');
+      } else if (currentProduct.variants && currentProduct.variants.length > 1) {
+        thumbsContainer.innerHTML = currentProduct.variants.map((v, i) => `
+          <img class="thumb ${v.color === selectedVariant.color ? 'active' : ''}" src="${v.img}" onclick="selectVariantByIndex(${i})">
+        `).join('');
+      } else {
+        thumbsContainer.innerHTML = '';
+      }
+    }
+
+    function selectVariantByIndex(index) {
+      selectedVariant = currentProduct.variants[index];
+      document.getElementById('detail-color-select').value = index;
+      updateDetailImages();
+      updateSizeOptions();
+    }
+
+    function onColorSelectChange() {
+      const idx = document.getElementById('detail-color-select').value;
+      if (currentProduct.variants && currentProduct.variants[idx]) {
+        selectedVariant = currentProduct.variants[idx];
+      }
+      updateDetailImages();
+      updateSizeOptions();
+    }
+
+    function updateSizeOptions() {
+      const sizeSelect = document.getElementById('detail-size-select');
+      const availableSizes = selectedVariant.sizes || currentProduct.sizes || ['Unica'];
+      sizeSelect.innerHTML = availableSizes.map(s => `<option value="${s}">${s}</option>`).join('');
+    }
+
+    function addCurrentToCart() {
+      const size = document.getElementById('detail-size-select').value;
+      cart.push({
+        title: currentProduct.title,
+        price: currentProduct.price,
+        color: selectedVariant.color || 'Standard',
+        size: size,
+        img: selectedVariant.img || getProductImage(currentProduct)
+      });
+      updateCartBadge();
+      alert("Prodotto aggiunto al carrello!");
+    }
+
+    function buyNowCurrent() {
+      const size = document.getElementById('detail-size-select').value;
+      cart.push({
+        title: currentProduct.title,
+        price: currentProduct.price,
+        color: selectedVariant.color || 'Standard',
+        size: size,
+        img: selectedVariant.img || getProductImage(currentProduct)
+      });
+      updateCartBadge();
+      switchPage('carrello');
+      toggleCheckoutView(true);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartBadge();
+      renderCartPage();
+    }
+
+    function updateCartBadge() {
+      document.getElementById('cart-count').innerText = cart.length;
+    }
+
+    function renderCartPage() {
+      const container = document.getElementById('cart-page-items');
+      const totalSpan = document.getElementById('cart-page-total');
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color: var(--text-muted); padding: 40px 0;">Il tuo carrello è vuoto.</p>';
+        totalSpan.innerText = '0.00';
+        document.getElementById('checkout-section').style.display = 'none';
+        return;
+      }
+
+      let total = 0;
+      container.innerHTML = cart.map((item, index) => {
+        total += item.price;
+        return `
+          <div class="cart-item">
+            <div style="display:flex; align-items:center; gap: 12px;">
+              <img src="${item.img}" style="width: 50px; height: 50px; object-fit: contain; background:#fff; border-radius:4px; padding:2px;">
+              <div>
+                <div style="font-weight:600; font-size:0.95rem;">${item.title}</div>
+                <div style="font-size:0.78rem; color: var(--text-muted);">Colore: ${item.color} | Taglia: ${item.size}</div>
+                <div style="color: var(--accent); font-weight:bold; font-size:0.9rem; margin-top:2px;">${item.price.toFixed(2)} €</div>
+              </div>
+            </div>
+            <button class="btn-remove" onclick="removeFromCart(${index})">Rimuovi</button>
+          </div>
+        `;
+      }).join('');
+
+      totalSpan.innerText = total.toFixed(2);
+    }
+
+    function toggleCheckoutView(forceOpen = false) {
+      if (cart.length === 0) {
+        alert("Il tuo carrello è vuoto!");
+        return;
+      }
+
+      const checkoutSection = document.getElementById('checkout-section');
+      if (forceOpen || checkoutSection.style.display === 'none') {
+        checkoutSection.style.display = 'block';
+        checkoutSection.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        checkoutSection.style.display = 'none';
+      }
+    }
+
+    function handleFormSubmit(e) {
+      let summaryText = cart.map((item, i) => `${i+1}. ${item.title} (Colore: ${item.color}, Taglia: ${item.size}) - ${item.price.toFixed(2)}€`).join('\n');
+      let totalValue = document.getElementById('cart-page-total').innerText;
+
+      document.getElementById('form-cart-details').value = summaryText;
+      document.getElementById('form-cart-total').value = totalValue + ' €';
+      document.getElementById('paypal-total-amount').value = totalValue;
+
+      setTimeout(function() {
+        document.getElementById('paypalPayForm').submit();
+      }, 800);
+    }
+
+    document.addEventListener("DOMContentLoaded", initCatalogData);
+  </script>
 </body>
 </html>
