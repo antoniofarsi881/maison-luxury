@@ -323,6 +323,46 @@
     .form-group { margin-bottom: 20px; }
     .form-group label { display: block; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 1px; font-weight: 600; }
 
+    /* PALLINI PER SELEZIONE COLORI */
+    .color-dots-grid {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 5px;
+    }
+    .color-dot-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+    .color-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid #444;
+      transition: transform 0.2s, border-color 0.2s;
+      box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+    }
+    .color-dot-wrapper:hover .color-dot {
+      transform: scale(1.1);
+    }
+    .color-dot-wrapper.active .color-dot {
+      border-color: #ffffff;
+      transform: scale(1.15);
+      box-shadow: 0 0 8px rgba(255,255,255,0.6);
+    }
+    .color-dot-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: capitalize;
+    }
+    .color-dot-wrapper.active .color-dot-label {
+      color: #fff;
+      font-weight: bold;
+    }
+
     /* SELEZIONE TAGLIE A QUADRATINI */
     .size-boxes-grid {
       display: flex;
@@ -355,7 +395,7 @@
       font-weight: bold;
     }
 
-    select, input[type="text"], input[type="tel"], input[type="email"] { 
+    input[type="text"], input[type="tel"], input[type="email"] { 
       width: 100%; 
       padding: 12px; 
       background: #121216; 
@@ -514,7 +554,7 @@
 
         <div class="form-group">
           <label>Colore / Variante</label>
-          <select id="detail-color-select" onchange="onColorSelectChange()"></select>
+          <div class="color-dots-grid" id="detail-color-dots"></div>
         </div>
 
         <div class="form-group">
@@ -838,7 +878,7 @@
         variants: [
           { color: 'Rosso', img: 'IMG_6005.jpeg' },
           { color: 'Grigio', img: 'IMG_6007.jpeg' },
-          { color: 'Panna', img: 'IMG_6007.jpeg' }
+          { color: 'Panna', img: 'IMG_6009.jpeg' }
         ]
       }
     ];
@@ -850,44 +890,24 @@
 
     function getProductImage(p) {
       if (p.variants && p.variants.length && p.variants[0].img) return p.variants[0].img;
-      if (p.images) {
-        if (typeof p.images === 'object' && !Array.isArray(p.images)) {
-          const firstKey = Object.keys(p.images)[0];
-          if (firstKey && p.images[firstKey].length) return p.images[firstKey][0];
-        } else if (Array.isArray(p.images) && p.images.length) {
-          return p.images[0];
-        }
-      }
       if (p.image) return p.image;
       return null;
     }
 
-    async function initCatalogData() {
-      try {
-        const res = await fetch('prodotti.json?v=' + Date.now());
-        if (res.ok) {
-          const remoteProducts = await res.json();
-          if (remoteProducts && remoteProducts.length) {
-            remoteProducts.forEach(remoteP => {
-              // Sostituisci o aggiungi solo se il remoto ha effettivamente un'immagine valida!
-              if (getProductImage(remoteP)) {
-                let idx = products.findIndex(p => p.id === remoteP.id);
-                if (idx !== -1) {
-                  products[idx] = remoteP;
-                } else {
-                  products.push(remoteP);
-                }
-              }
-            });
-          }
-        }
-      } catch (e) {
-        console.log("Uso catalogo locale");
-      }
+    function getColorHex(colorName) {
+      const name = colorName.toLowerCase();
+      if (name.includes('nero')) return '#111111';
+      if (name.includes('bianco')) return '#ffffff';
+      if (name.includes('blu')) return '#1e3d59';
+      if (name.includes('grigio')) return '#888888';
+      if (name.includes('rosso')) return '#c0392b';
+      if (name.includes('beige') || name.includes('panna')) return '#e8d8c3';
+      if (name.includes('kaki')) return '#706e42';
+      if (name.includes('rosa')) return '#ffb6c1';
+      return '#666666';
+    }
 
-      // Elimina eventuali schede senza immagine
-      products = products.filter(p => getProductImage(p) !== null);
-
+    function initCatalogData() {
       populateFilterDropdowns();
       renderCatalog();
     }
@@ -1015,17 +1035,35 @@
       document.getElementById('detail-price').innerText = currentProduct.price.toFixed(2) + ' €';
       document.getElementById('detail-desc').innerText = currentProduct.desc || '';
 
-      const colorSelect = document.getElementById('detail-color-select');
-      if (currentProduct.variants && currentProduct.variants.length) {
-        colorSelect.innerHTML = currentProduct.variants.map((v, i) => `<option value="${i}">${v.color}</option>`).join('');
-      } else {
-        colorSelect.innerHTML = '<option value="0">Unico</option>';
-      }
-
+      renderColorDots();
       updateDetailImages();
       updateSizeOptions();
 
       switchPage('dettaglio');
+    }
+
+    function renderColorDots() {
+      const dotsContainer = document.getElementById('detail-color-dots');
+      if (currentProduct.variants && currentProduct.variants.length) {
+        dotsContainer.innerHTML = currentProduct.variants.map((v, i) => `
+          <div class="color-dot-wrapper ${i === 0 ? 'active' : ''}" onclick="selectVariantByIndex(${i}, this)">
+            <div class="color-dot" style="background-color: ${getColorHex(v.color)};"></div>
+            <span class="color-dot-label">${v.color}</span>
+          </div>
+        `).join('');
+      } else {
+        dotsContainer.innerHTML = '<span style="font-size:0.9rem; color:var(--text-muted);">Unico</span>';
+      }
+    }
+
+    function selectVariantByIndex(index, element) {
+      selectedVariant = currentProduct.variants[index];
+      
+      document.querySelectorAll('.color-dot-wrapper').forEach(w => w.classList.remove('active'));
+      if(element) element.classList.add('active');
+
+      updateDetailImages();
+      updateSizeOptions();
     }
 
     function updateDetailImages() {
@@ -1035,7 +1073,6 @@
       
       let imagesList = [imgUrl];
 
-      // Se la variante ha un'immagine fronte/retro o più immagini
       if (selectedVariant.extraImg) {
         imagesList.push(selectedVariant.extraImg);
       } else if (currentProduct.variants && currentProduct.variants.length > 1) {
@@ -1057,27 +1094,11 @@
       element.classList.add('active');
     }
 
-    function selectVariantByIndex(index) {
-      selectedVariant = currentProduct.variants[index];
-      document.getElementById('detail-color-select').value = index;
-      updateDetailImages();
-      updateSizeOptions();
-    }
-
-    function onColorSelectChange() {
-      const idx = document.getElementById('detail-color-select').value;
-      if (currentProduct.variants && currentProduct.variants[idx]) {
-        selectedVariant = currentProduct.variants[idx];
-      }
-      updateDetailImages();
-      updateSizeOptions();
-    }
-
     function updateSizeOptions() {
       const sizeContainer = document.getElementById('detail-size-boxes');
       const availableSizes = selectedVariant.sizes || currentProduct.sizes || ['Unica'];
       
-      selectedSize = availableSizes[0]; // Seleziona di default la prima taglia
+      selectedSize = availableSizes[0];
 
       sizeContainer.innerHTML = availableSizes.map((s, i) => `
         <div class="size-box ${i === 0 ? 'active' : ''}" onclick="selectSize('${s}', this)">${s}</div>
