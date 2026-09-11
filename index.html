@@ -635,7 +635,7 @@
   </div>
 
   <script>
-    // DATASET PRODOTTI AGGIORNATO SOLO ED ESCLUSIVAMENTE NELLE FOTO
+    // DATASET TOTALE DEI 17 PRODOTTI
     let products = [
       {
         "id": "longsleeve-bp",
@@ -749,6 +749,103 @@
           { "color": "Bianco", "img": "Photoroom_20260911_143727.jpeg" },
           { "color": "Grigio", "img": "Photoroom_20260911_143706.jpeg" }
         ]
+      },
+      {
+        "id": "maglione-jcmqs",
+        "title": "Maglione JCMQS",
+        "brand": "JCMQS",
+        "price": 105.00,
+        "desc": "Maglione elegante in filati selezionati per uno stile raffinato.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Grigio", "img": "Photoroom_20260911_143547.jpeg" },
+          { "color": "Nero", "img": "maglione_jcmqs_nero.jpeg" },
+          { "color": "Beige", "img": "maglione_jcmqs_beige.jpeg" }
+        ]
+      },
+      {
+        "id": "tshirt-stussy-basic",
+        "title": "T-Shirt Basic Stussy",
+        "brand": "STU",
+        "price": 45.00,
+        "desc": "T-Shirt classica in cotone con logo iconico sul petto.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nero", "img": "tshirt_stussy_nero.jpeg" },
+          { "color": "Bianco", "img": "tshirt_stussy_bianco.jpeg" }
+        ]
+      },
+      {
+        "id": "felpa-cappuccio-crtz",
+        "title": "Felpa con Cappuccio CRTZ",
+        "brand": "CRTZ",
+        "price": 115.00,
+        "desc": "Felpa oversize in cotone felpato pesante.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nero", "img": "felpa_crtz_nero.jpeg" },
+          { "color": "Grigio", "img": "felpa_crtz_grigio.jpeg" }
+        ]
+      },
+      {
+        "id": "pantalone-cargo-nk",
+        "title": "Pantalone Cargo NK",
+        "brand": "NK",
+        "price": 85.00,
+        "desc": "Pantalone stile cargo resistente con tasche laterali.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nero", "img": "cargo_nk_nero.jpeg" },
+          { "color": "Kaki", "img": "cargo_nk_kaki.jpeg" }
+        ]
+      },
+      {
+        "id": "giacca-denim-acn",
+        "title": "Giacca in Denim ACN STUD",
+        "brand": "ACN STUD",
+        "price": 140.00,
+        "desc": "Giacca in jeans strutturata con lavaggio vintage.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Blu", "img": "denim_acn_blu.jpeg" },
+          { "color": "Nero", "img": "denim_acn_nero.jpeg" }
+        ]
+      },
+      {
+        "id": "polo-rl-classic",
+        "title": "Polo Classica RL",
+        "brand": "RL",
+        "price": 75.00,
+        "desc": "Polo a maniche corte in piqué di cotone pettinato.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nero", "img": "polo_rl_nero.jpeg" },
+          { "color": "Bianco", "img": "polo_rl_bianco.jpeg" },
+          { "color": "Blu", "img": "polo_rl_blu.jpeg" }
+        ]
+      },
+      {
+        "id": "shorts-esntls",
+        "title": "Pantaloncini ESNTLS",
+        "brand": "ESNTLS",
+        "price": 55.00,
+        "desc": "Shorts sportivi e comodi con girovita elasticizzato.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nero", "img": "shorts_esntls_nero.jpeg" },
+          { "color": "Grigio", "img": "shorts_esntls_grigio.jpeg" }
+        ]
+      },
+      {
+        "id": "cappello-beanie-ch",
+        "title": "Beanie CH",
+        "brand": "CH",
+        "price": 40.00,
+        "desc": "Cappello in maglia di lana sintetica ad alto isolamento termico.",
+        "sizes": ["Taglia Unica"],
+        "variants": [
+          { "color": "Nero", "img": "beanie_ch_nero.jpeg" }
+        ]
       }
     ];
 
@@ -824,7 +921,7 @@
         brandSelect.appendChild(opt);
       });
 
-      const sizeOrder = ['S', 'M', 'L', 'XL', 'XXL', '3XL'];
+      const sizeOrder = ['S', 'M', 'L', 'XL', 'XXL', '3XL', 'Taglia Unica'];
       Array.from(sizes).sort((a,b) => sizeOrder.indexOf(a) - sizeOrder.indexOf(b)).forEach(s => {
         const opt = document.createElement('option');
         opt.value = s;
