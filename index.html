@@ -301,21 +301,6 @@
       object-position: center;
     }
 
-    .thumbs-grid { display: flex; gap: 10px; margin-top: 12px; overflow-x: auto; justify-content: center; align-items: center; }
-    .thumb { 
-      width: 60px; 
-      height: 60px; 
-      border-radius: 8px; 
-      object-fit: cover; 
-      background: #111; 
-      border: 2px solid transparent; 
-      cursor: pointer; 
-      opacity: 0.6; 
-      flex-shrink: 0;
-      transition: 0.2s;
-    }
-    .thumb.active { border-color: var(--accent); opacity: 1; transform: scale(1.05); }
-
     .detail-info h1 { font-size: 1.6rem; margin-bottom: 8px; font-weight: 600; }
     .detail-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; line-height: 1.5; }
     .detail-price { font-size: 1.5rem; color: var(--accent); font-weight: bold; margin-bottom: 20px; }
@@ -323,23 +308,23 @@
     .form-group { margin-bottom: 20px; }
     .form-group label { display: block; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 1px; font-weight: 600; }
 
-    /* PALLINI PER SELEZIONE COLORI */
+    /* SELEZIONE COLORI CON PALLINI */
     .color-dots-grid {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-top: 5px;
+      gap: 14px;
+      margin-top: 8px;
     }
     .color-dot-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       cursor: pointer;
     }
     .color-dot {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       border: 2px solid #444;
       transition: transform 0.2s, border-color 0.2s;
@@ -351,10 +336,10 @@
     .color-dot-wrapper.active .color-dot {
       border-color: #ffffff;
       transform: scale(1.15);
-      box-shadow: 0 0 8px rgba(255,255,255,0.6);
+      box-shadow: 0 0 8px rgba(255,255,255,0.7);
     }
     .color-dot-label {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       text-transform: capitalize;
     }
@@ -363,39 +348,18 @@
       font-weight: bold;
     }
 
-    /* SELEZIONE TAGLIE A QUADRATINI */
-    .size-boxes-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .size-box {
-      min-width: 45px;
-      height: 45px;
-      padding: 0 12px;
+    select.select-size-dropdown {
+      width: 100%;
+      padding: 12px;
       background: #121216;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
       color: #fff;
-      transition: 0.2s;
-    }
-    .size-box:hover {
-      border-color: #666;
-    }
-    .size-box.active {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-      font-weight: bold;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      outline: none;
     }
 
-    input[type="text"], input[type="tel"], input[type="email"] { 
+    input[type="text"], input[type="tel"], input[type="email"], textarea { 
       width: 100%; 
       padding: 12px; 
       background: #121216; 
@@ -544,7 +508,6 @@
         <div class="detail-main-img">
           <img id="detail-img" src="" alt="Prodotto">
         </div>
-        <div class="thumbs-grid" id="detail-thumbs"></div>
       </div>
 
       <div class="detail-info">
@@ -559,7 +522,7 @@
 
         <div class="form-group">
           <label>Seleziona Taglia</label>
-          <div class="size-boxes-grid" id="detail-size-boxes"></div>
+          <select id="detail-size-select" class="select-size-dropdown" onchange="selectSize(this.value)"></select>
         </div>
 
         <div class="btn-actions-grid">
@@ -589,12 +552,10 @@
       <button class="checkout-btn" id="btn-show-checkout" onclick="toggleCheckoutView()">Procedi al Checkout</button>
     </div>
 
-    <!-- SEZIONE CHECKOUT SPEDIZIONE CON FORMSPREE E PAYPAL -->
     <div id="checkout-section" class="checkout-form-container" style="display: none;">
       <h3 style="margin-bottom: 15px; font-weight: 600; text-transform: uppercase; font-size: 1.05rem; letter-spacing: 1px;">Dati di Spedizione</h3>
       
       <form id="orderForm" action="https://formspree.io/f/mbgjwdpw" method="POST" onsubmit="handleFormSubmit(event)">
-        
         <input type="hidden" name="Carrello_Prodotti" id="form-cart-details">
         <input type="hidden" name="Totale_Ordine" id="form-cart-total">
 
@@ -648,7 +609,6 @@
         </button>
       </form>
 
-      <!-- FORM NASCOSTO PAYPAL -->
       <form id="paypalPayForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display:none;">
         <input type="hidden" name="cmd" value="_xclick">
         <input type="hidden" name="business" value="Noppedisano1@gmail.com">
@@ -675,210 +635,119 @@
   </div>
 
   <script>
+    // DATASET PRODOTTI AGGIORNATO SOLO ED ESCLUSIVAMENTE NELLE FOTO
     let products = [
       {
-        id: 'gilet',
-        title: 'Gilet RL Classic',
-        brand: 'RL',
-        price: 40.00,
-        desc: 'Gilet smanicato imbottito dal design iconico, rifinito nei minimi dettagli.',
-        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-        variants: [
-          { color: 'Nero', img: 'IMG_5875.jpeg' },
-          { color: 'Blu', img: 'IMG_5877.jpeg' },
-          { color: 'Beige', img: 'IMG_5878.jpeg' }
+        "id": "longsleeve-bp",
+        "title": "Longsleeve BP",
+        "brand": "BP",
+        "price": 60.00,
+        "desc": "Longsleeve di alta qualità con stampe fronte/retro.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Fronte", "img": "Photoroom_20260911_132142.jpeg" },
+          { "color": "Retro", "img": "Photoroom_20260911_132051.jpeg" }
         ]
       },
       {
-        id: 'stussy',
-        title: 'Giubbotto Stu Streetwear',
-        brand: 'Stu',
-        price: 60.00,
-        desc: 'Giubbotto dal taglio streetwear contemporaneo con interno a contrasto.',
-        sizes: ['M', 'L', 'XL', 'XXL'],
-        variants: [
-          { color: 'Nero / Int. Grigio', img: 'IMG_5880.jpeg' },
-          { color: 'Nero / Int. Rosa', img: 'IMG_5882.jpeg' }
+        "id": "gilet-rl",
+        "title": "Gilet RL",
+        "brand": "RL",
+        "price": 90.00,
+        "desc": "Gilet versatile ed elegante ideale per tutte le stagioni.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nero", "img": "Photoroom_20260911_142340.jpeg" },
+          { "color": "Blu", "img": "Photoroom_20260911_142408.jpeg" },
+          { "color": "Beige", "img": "Photoroom_20260911_142456.jpeg" }
         ]
       },
       {
-        id: 'chrome-bape',
-        title: 'Felpa Ch x Bp',
-        brand: 'CH x Bp',
-        price: 30.00,
-        desc: 'Felpa con cappuccio esclusiva in collaborazione, taglio rilassato con stampa iconica.',
-        sizes: ['S', 'M', 'L', 'XL'],
-        variants: [
-          { color: 'Nero', img: 'IMG_5903.jpeg' },
-          { color: 'Bianco', img: 'IMG_5904.jpeg' }
+        "id": "giubbotto-stu",
+        "title": "Giubbotto STU",
+        "brand": "STU",
+        "price": 120.00,
+        "desc": "Giubbotto dal design streetwear unico e ricercato.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nero", "img": "Photoroom_20260911_142628.jpeg" },
+          { "color": "Nero con interno rosa", "img": "Photoroom_20260911_142657.jpeg" }
         ]
       },
       {
-        id: 'felpa-ch',
-        title: 'Felpa CH',
-        brand: 'CH',
-        price: 30.00,
-        desc: 'Felpa con cappuccio dal taglio confortevole e dettagli iconici.',
-        sizes: ['S', 'M', 'L', 'XL'],
-        variants: [
-          { color: 'Nero', img: 'IMG_6046.jpeg' },
-          { color: 'Bianco', img: 'IMG_6048.jpeg' }
+        "id": "antivento-nk",
+        "title": "Giacca Antivento NK",
+        "brand": "NK",
+        "price": 85.00,
+        "desc": "Giacca antivento leggera, comoda e resistente.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nero", "img": "Photoroom_20260911_142736.jpeg" },
+          { "color": "Beige", "img": "Photoroom_20260911_142802.jpeg" },
+          { "color": "Kaki", "img": "Photoroom_20260911_142824.jpeg" }
         ]
       },
       {
-        id: 'stampa-am',
-        title: 'Felpa con stampa AM',
-        brand: 'AM',
-        price: 30.00,
-        desc: 'Felpa con grafica AM esclusiva, vestibilità moderna e materiali di alta qualità.',
-        sizes: ['S', 'M', 'L', 'XL'],
-        variants: [
-          { color: 'Nero', img: 'IMG_5909.jpeg' },
-          { color: 'Bianco', img: 'IMG_5911.jpeg' }
+        "id": "longsleeve-ch",
+        "title": "Longsleeve CH",
+        "brand": "CH",
+        "price": 75.00,
+        "desc": "Longsleeve con grafiche esclusive e fit moderno.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nera e bianca", "img": "Photoroom_20260911_142856.jpeg" },
+          { "color": "Nera con stampa colorata", "img": "Photoroom_20260911_143444.jpeg" }
         ]
       },
       {
-        id: 'classica-am',
-        title: 'Felpa classica AM',
-        brand: 'AM',
-        price: 30.00,
-        desc: 'Modello intramontabile e pulito con logo AM essenziale, ideale per ogni outfit.',
-        sizes: ['S', 'M', 'L', 'XL'],
-        variants: [
-          { color: 'Nero', img: 'IMG_5914.jpeg' },
-          { color: 'Bianco', img: 'IMG_5915.jpeg' }
+        "id": "felpa-zip-rl",
+        "title": "Felpa con Zip RL",
+        "brand": "RL",
+        "price": 95.00,
+        "desc": "Felpa con chiusura a zip essenziale per il tuo guardaroba.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nero", "img": "Photoroom_20260911_143006.jpeg" },
+          { "color": "Bianco", "img": "Photoroom_20260911_143042.jpeg" },
+          { "color": "Blu", "img": "Photoroom_20260911_142944.jpeg" },
+          { "color": "Grigio", "img": "Photoroom_20260911_142921.jpeg" }
         ]
       },
       {
-        id: 'antivento-nk',
-        title: 'Giacca Antivento NK',
-        brand: 'NK',
-        price: 30.00,
-        desc: 'Giacca tecnica antivento leggera e versatile.',
-        variants: [
-          { color: 'Nero', img: 'IMG_5937.jpeg', sizes: ['S'] },
-          { color: 'Beige', img: 'IMG_5939.jpeg', sizes: ['S', 'M', 'L'] },
-          { color: 'Kaki', img: 'IMG_5941.jpeg', sizes: ['S', 'M', 'L'] }
+        "id": "antivento-crtz",
+        "title": "Giacca Antivento CRTZ",
+        "brand": "CRTZ",
+        "price": 110.00,
+        "desc": "Giacca antivento streetwear ad alto impatto.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nero", "img": "Photoroom_20260911_143503.jpeg" },
+          { "color": "Blu", "img": "Photoroom_20260911_143524.jpeg" }
         ]
       },
       {
-        id: 'giubbotto-trpstr',
-        title: 'Giubbotto TRPSTR',
-        brand: 'TRPSTR',
-        price: 35.00,
-        desc: 'Giubbotto streetwear imbottito ad alte prestazioni con design bicolore.',
-        sizes: ['S'],
-        variants: [
-          { color: 'Grigio e Nero', img: 'IMG_6041.jpeg' }
+        "id": "longsleeve-acn-stud",
+        "title": "Longsleeve ACN STUD",
+        "brand": "ACN STUD",
+        "price": 80.00,
+        "desc": "Longsleeve minimale in puro cotone premium.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nero", "img": "Photoroom_20260911_143603.jpeg" },
+          { "color": "Bianco", "img": "Photoroom_20260911_143624.jpeg" }
         ]
       },
       {
-        id: 'longsleeve-ch',
-        title: 'Longsleeve CH',
-        brand: 'CH',
-        price: 25.00,
-        desc: 'Maglia a maniche lunghe dal taglio streetwear.',
-        variants: [
-          { color: 'Bianco e Nero', img: 'IMG_5948.jpeg', sizes: ['M', 'L', 'XL', 'XXL', '3XL'] },
-          { color: 'Nero con stampa colorata', img: 'IMG_5976.jpeg', sizes: ['S', 'M', 'L', 'XL'] }
-        ]
-      },
-      {
-        id: 'longsleeve-bp',
-        title: 'Longsleeve BP',
-        brand: 'BP',
-        price: 25.00,
-        desc: 'Maglia a manica lunga dal design urban, vista frontale e retro coordinata.',
-        sizes: ['S', 'M', 'L', 'XL'],
-        variants: [
-          { color: 'Nero', img: 'IMG_6055.jpeg', extraImg: 'IMG_6051.jpeg' }
-        ]
-      },
-      {
-        id: 'zip-rl',
-        title: 'Felpa con Zip RL',
-        brand: 'RL',
-        price: 30.00,
-        desc: 'Felpa con zip integrale, morbida e rifinita.',
-        sizes: ['S', 'M', 'L', 'XL'],
-        variants: [
-          { color: 'Nero', img: 'IMG_5956.jpeg' },
-          { color: 'Bianco', img: 'IMG_5958.jpeg' },
-          { color: 'Grigio', img: 'IMG_5952.jpeg' },
-          { color: 'Blu', img: 'IMG_5954.jpeg' }
-        ]
-      },
-      {
-        id: 'giacca-crtz',
-        title: 'Giacca Antivento CRTZ',
-        brand: 'CRTZ',
-        price: 35.00,
-        desc: 'Giacca antivento streetwear di grande impatto visivo.',
-        sizes: ['S', 'M', 'L', 'XL'],
-        variants: [
-          { color: 'Nero', img: 'IMG_5972.jpeg' },
-          { color: 'Blu', img: 'IMG_5974.jpeg' }
-        ]
-      },
-      {
-        id: 'maglione-am-par',
-        title: 'Maglione AM PAR',
-        brand: 'AM PAR',
-        price: 30.00,
-        desc: 'Maglione rifinito a maglia morbida con combinazioni cromatiche esclusive.',
-        variants: [
-          { color: 'Nero e Rosso', img: 'IMG_5982.jpeg', sizes: ['L'] },
-          { color: 'Blu e Bianco', img: 'IMG_5984.jpeg', sizes: ['S', 'M', 'L'] },
-          { color: 'Bianco e Rosso', img: 'IMG_5986.jpeg', sizes: ['S', 'M', 'L'] }
-        ]
-      },
-      {
-        id: 'maglione-csblnc',
-        title: 'Maglione CSBLNC',
-        brand: 'CSBLNC',
-        price: 30.00,
-        desc: 'Maglione di maglia raffinato dalle sfumature eleganti.',
-        sizes: ['S', 'M', 'L'],
-        variants: [
-          { color: 'Blu', img: 'IMG_6037.jpeg' }
-        ]
-      },
-      {
-        id: 'longsleeve-acn-stud',
-        title: 'Longsleeve ACN STUD',
-        brand: 'ACN STUD',
-        price: 25.00,
-        desc: 'Maglia a manica lunga essenziale con vestibilità sartoriale e contemporanea.',
-        sizes: ['S', 'M', 'L', 'XL'],
-        variants: [
-          { color: 'Nero', img: 'IMG_5992.jpeg' },
-          { color: 'Bianco', img: 'IMG_5990.jpeg' }
-        ]
-      },
-      {
-        id: 'longsleeve-esntls',
-        title: 'Longsleeve ESNTLS',
-        brand: 'ESNTLS',
-        price: 25.00,
-        desc: 'Capo essenziale per ogni guardaroba, realizzato in cotone morbido e traspirante.',
-        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-        variants: [
-          { color: 'Nero', img: 'IMG_5996.jpeg' },
-          { color: 'Grigio', img: 'IMG_5998.jpeg' },
-          { color: 'Bianco', img: 'IMG_6001.jpeg' }
-        ]
-      },
-      {
-        id: 'maglione-jcqms',
-        title: 'Maglione JCQMS',
-        brand: 'JCQMS',
-        price: 30.00,
-        desc: 'Maglione dal gusto luxury ed elegante, ideale per occasioni esclusive.',
-        sizes: ['S', 'M', 'L'],
-        variants: [
-          { color: 'Rosso', img: 'IMG_6005.jpeg' },
-          { color: 'Grigio', img: 'IMG_6007.jpeg' },
-          { color: 'Panna', img: 'IMG_6009.jpeg' }
+        "id": "longsleeve-esntls",
+        "title": "Longsleeve ESNTLS",
+        "brand": "ESNTLS",
+        "price": 70.00,
+        "desc": "Capo immancabile per un outfit streetwear contemporaneo.",
+        "sizes": ["S", "M", "L", "XL"],
+        "variants": [
+          { "color": "Nero", "img": "Photoroom_20260911_143648.jpeg" },
+          { "color": "Bianco", "img": "Photoroom_20260911_143727.jpeg" },
+          { "color": "Grigio", "img": "Photoroom_20260911_143706.jpeg" }
         ]
       }
     ];
@@ -896,14 +765,15 @@
 
     function getColorHex(colorName) {
       const name = colorName.toLowerCase();
+      if (name.includes('nero con interno rosa')) return 'linear-gradient(135deg, #000000 50%, #ff80bf 50%)';
+      if (name.includes('nera e bianca') || name.includes('fronte') || name.includes('retro')) return 'linear-gradient(135deg, #000000 50%, #ffffff 50%)';
+      if (name.includes('nera con stampa colorata')) return 'linear-gradient(135deg, #000000 50%, #ff4500 50%)';
       if (name.includes('nero')) return '#111111';
       if (name.includes('bianco')) return '#ffffff';
       if (name.includes('blu')) return '#1e3d59';
       if (name.includes('grigio')) return '#888888';
-      if (name.includes('rosso')) return '#c0392b';
-      if (name.includes('beige') || name.includes('panna')) return '#e8d8c3';
+      if (name.includes('beige')) return '#e8d8c3';
       if (name.includes('kaki')) return '#706e42';
-      if (name.includes('rosa')) return '#ffb6c1';
       return '#666666';
     }
 
@@ -929,14 +799,7 @@
     }
 
     function getAllSizesForProduct(product) {
-      let sizes = new Set();
-      if (product.sizes) product.sizes.forEach(s => sizes.add(s));
-      if (product.variants) {
-        product.variants.forEach(v => {
-          if (v.sizes) v.sizes.forEach(s => sizes.add(s));
-        });
-      }
-      return Array.from(sizes);
+      return product.sizes || ['S', 'M', 'L', 'XL'];
     }
 
     function populateFilterDropdowns() {
@@ -950,13 +813,7 @@
       let sizes = new Set();
 
       products.forEach(p => {
-        if (p.brand) {
-          if(p.brand.includes(' x ')) {
-            p.brand.split(' x ').forEach(b => brands.add(b.trim()));
-          } else {
-            brands.add(p.brand.trim());
-          }
-        }
+        if (p.brand) brands.add(p.brand.trim());
         getAllSizesForProduct(p).forEach(s => sizes.add(s));
       });
 
@@ -978,11 +835,11 @@
 
     function applyFilters() {
       const selectedBrand = document.getElementById('brand-filter').value;
-      const selectedSize = document.getElementById('size-filter').value;
+      const selectedSizeFilter = document.getElementById('size-filter').value;
 
       const filtered = products.filter(p => {
-        let matchBrand = (selectedBrand === 'ALL') || p.brand === selectedBrand || p.brand.includes(selectedBrand);
-        let matchSize = (selectedSize === 'ALL') || getAllSizesForProduct(p).includes(selectedSize);
+        let matchBrand = (selectedBrand === 'ALL') || p.brand === selectedBrand;
+        let matchSize = (selectedSizeFilter === 'ALL') || getAllSizesForProduct(p).includes(selectedSizeFilter);
         return matchBrand && matchSize;
       });
 
@@ -1036,8 +893,8 @@
       document.getElementById('detail-desc').innerText = currentProduct.desc || '';
 
       renderColorDots();
-      updateDetailImages();
-      updateSizeOptions();
+      updateDetailImage();
+      updateSizeDropdown();
 
       switchPage('dettaglio');
     }
@@ -1045,12 +902,18 @@
     function renderColorDots() {
       const dotsContainer = document.getElementById('detail-color-dots');
       if (currentProduct.variants && currentProduct.variants.length) {
-        dotsContainer.innerHTML = currentProduct.variants.map((v, i) => `
-          <div class="color-dot-wrapper ${i === 0 ? 'active' : ''}" onclick="selectVariantByIndex(${i}, this)">
-            <div class="color-dot" style="background-color: ${getColorHex(v.color)};"></div>
-            <span class="color-dot-label">${v.color}</span>
-          </div>
-        `).join('');
+        dotsContainer.innerHTML = currentProduct.variants.map((v, i) => {
+          const bgStyle = getColorHex(v.color).includes('gradient') 
+            ? `background: ${getColorHex(v.color)};` 
+            : `background-color: ${getColorHex(v.color)};`;
+            
+          return `
+            <div class="color-dot-wrapper ${i === 0 ? 'active' : ''}" onclick="selectVariantByIndex(${i}, this)">
+              <div class="color-dot" style="${bgStyle}"></div>
+              <span class="color-dot-label">${v.color}</span>
+            </div>
+          `;
+        }).join('');
       } else {
         dotsContainer.innerHTML = '<span style="font-size:0.9rem; color:var(--text-muted);">Unico</span>';
       }
@@ -1062,53 +925,27 @@
       document.querySelectorAll('.color-dot-wrapper').forEach(w => w.classList.remove('active'));
       if(element) element.classList.add('active');
 
-      updateDetailImages();
-      updateSizeOptions();
+      updateDetailImage();
     }
 
-    function updateDetailImages() {
+    function updateDetailImage() {
       const imgUrl = selectedVariant.img || getProductImage(currentProduct);
       document.getElementById('detail-img').src = imgUrl;
-      const thumbsContainer = document.getElementById('detail-thumbs');
-      
-      let imagesList = [imgUrl];
-
-      if (selectedVariant.extraImg) {
-        imagesList.push(selectedVariant.extraImg);
-      } else if (currentProduct.variants && currentProduct.variants.length > 1) {
-        imagesList = currentProduct.variants.map(v => v.img);
-      }
-
-      if (imagesList.length > 1) {
-        thumbsContainer.innerHTML = imagesList.map((imgSrc, i) => `
-          <img class="thumb ${imgSrc === imgUrl ? 'active' : ''}" src="${imgSrc}" onclick="setMainImage('${imgSrc}', this)">
-        `).join('');
-      } else {
-        thumbsContainer.innerHTML = '';
-      }
     }
 
-    function setMainImage(imgSrc, element) {
-      document.getElementById('detail-img').src = imgSrc;
-      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-      element.classList.add('active');
-    }
-
-    function updateSizeOptions() {
-      const sizeContainer = document.getElementById('detail-size-boxes');
-      const availableSizes = selectedVariant.sizes || currentProduct.sizes || ['Unica'];
+    function updateSizeDropdown() {
+      const sizeSelect = document.getElementById('detail-size-select');
+      const availableSizes = currentProduct.sizes || ['S', 'M', 'L', 'XL'];
       
       selectedSize = availableSizes[0];
 
-      sizeContainer.innerHTML = availableSizes.map((s, i) => `
-        <div class="size-box ${i === 0 ? 'active' : ''}" onclick="selectSize('${s}', this)">${s}</div>
+      sizeSelect.innerHTML = availableSizes.map(s => `
+        <option value="${s}">${s}</option>
       `).join('');
     }
 
-    function selectSize(sizeVal, element) {
+    function selectSize(sizeVal) {
       selectedSize = sizeVal;
-      document.querySelectorAll('.size-box').forEach(b => b.classList.remove('active'));
-      element.classList.add('active');
     }
 
     function addCurrentToCart() {
@@ -1117,7 +954,7 @@
         price: currentProduct.price,
         color: selectedVariant.color || 'Standard',
         size: selectedSize,
-        img: document.getElementById('detail-img').src || selectedVariant.img || getProductImage(currentProduct)
+        img: selectedVariant.img || getProductImage(currentProduct)
       });
       updateCartBadge();
       alert("Prodotto aggiunto al carrello!");
@@ -1129,7 +966,7 @@
         price: currentProduct.price,
         color: selectedVariant.color || 'Standard',
         size: selectedSize,
-        img: document.getElementById('detail-img').src || selectedVariant.img || getProductImage(currentProduct)
+        img: selectedVariant.img || getProductImage(currentProduct)
       });
       updateCartBadge();
       switchPage('carrello');
@@ -1163,7 +1000,7 @@
         return `
           <div class="cart-item">
             <div style="display:flex; align-items:center; gap: 12px;">
-              <img src="${item.img}" style="width: 50px; height: 50px; object-fit: contain; background:#fff; border-radius:4px; padding:2px;">
+              <img src="${item.img}" style="width: 50px; height: 50px; object-fit: cover; background:#fff; border-radius:4px;">
               <div>
                 <div style="font-weight:600; font-size:0.95rem;">${item.title}</div>
                 <div style="font-size:0.78rem; color: var(--text-muted);">Colore: ${item.color} | Taglia: ${item.size}</div>
